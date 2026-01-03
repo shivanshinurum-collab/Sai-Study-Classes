@@ -1,0 +1,128 @@
+import SwiftUI
+
+struct HomeTabVew: View {
+    @Binding var path : NavigationPath
+    @State var showMenu : Bool = false
+    private let menuWidth: CGFloat = 300
+    
+    let imageTab : String = UserDefaults.standard.string(forKey: "thumbnail") ?? ""
+    let titleTab : String = UserDefaults.standard.string(forKey: "categoryName") ?? ""
+    
+    var body: some View {
+        
+        
+        ZStack(alignment:.leading){
+            TabView{
+                StudyTabView(path: $path)
+                    .tabItem{
+                        TabItemView(title: "Study", image: "shorts")
+                    }
+                TestTabView(path: $path)
+                    .tabItem{
+                        TabItemView(title: "Test", image: "test")
+                    }
+                BatchesTabView(path: $path)
+                    .tabItem{
+                        TabItemView(title: "Batches", image: "batches")
+                    }
+                StoreTabView()
+                    .tabItem{
+                        TabItemView(title: "Store", image: "store")
+                    }
+                ShortsTabView()
+                    .tabItem{
+                        TabItemView(title: "Shorts", image: "shorts")
+                    }
+            }
+            if showMenu {
+                Color.black.opacity(0.7)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation {
+                            showMenu = false
+                        }
+                }
+            }
+                
+            
+            DrawerView(path: $path)
+                .frame(width: menuWidth)
+                .offset(x: showMenu ? 0 : -menuWidth)
+                .animation(.easeInOut, value: showMenu)
+                .disabled(!showMenu)
+            
+            
+        }
+        .navigationBarBackButtonHidden(true)
+            .toolbar{
+                
+                
+                ToolbarItem(placement: .topBarLeading){
+                    Button{
+                        showMenu.toggle()
+                    } label: {   //Shubk#m261220
+                        Image(systemName: "line.3.horizontal")
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarLeading){
+                    Button{
+                        path.append(Route.SelectGoalView)
+                        //path.removeLast()
+                    } label: {
+                        HStack{
+                            AsyncImage(url: URL(string: imageTab)){ img in
+                                img
+                                    .image?.resizable()
+                                    .scaledToFit()
+                                    .frame(width: 22,height: 22)
+                            }
+                                
+                            Text(titleTab)
+                                .font(.subheadline)
+                            
+                            Image(systemName: "chevron.right")
+                                .font(.subheadline)
+                        }.background(.clear)
+                    }
+                }.sharedBackgroundVisibility(.hidden)
+                
+               ToolbarItem(placement: .topBarTrailing){
+                    Button{
+                        path.append(Route.NotificationView)
+                    } label: {
+                        Image(systemName: "bell.fill")
+                    }
+                    
+                }
+                ToolbarItem(placement: .topBarTrailing){
+                    Button{
+                        
+                    }label: {
+                        Image("whatsapp")
+                            .resizable()
+                            .frame(width: 40,height: 40)
+                            .cornerRadius(15)
+                    }
+                }
+                
+            }.navigationBarHidden(showMenu)
+    }
+}
+struct TabItemView: View {
+    var title: String
+    var image: String
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Image(image)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 26, height: 26)
+
+            Text(title)
+                .font(.system(size: 12, weight: .medium))
+        }
+    }
+}
+

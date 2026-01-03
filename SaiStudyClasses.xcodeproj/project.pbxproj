@@ -6,6 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AE1A616C2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = AE1A616B2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta */; };
+		AE1A616E2F14BF0B008BA887 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = AE1A616D2F14BF0B008BA887 /* FirebaseMessaging */; };
+		AEAE11762F1F7D91003288AE /* RazorpayCheckout in Frameworks */ = {isa = PBXBuildFile; productRef = AEAE11752F1F7D91003288AE /* RazorpayCheckout */; };
+		AEC645A52F1B6F3200067B6D /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = AEC645A42F1B6F3200067B6D /* YouTubeiOSPlayerHelper */; };
+		AEC645A82F1B885200067B6D /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = AEC645A72F1B885200067B6D /* YouTubePlayerKit */; };
+		AEC645AB2F1B8AA700067B6D /* YouTubeKit in Frameworks */ = {isa = PBXBuildFile; productRef = AEC645AA2F1B8AA700067B6D /* YouTubeKit */; };
+		AEE9468D2F12372C008E842B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = AEE9468C2F12372C008E842B /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		AE562E5B2F08E17C00D6C662 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,14 +34,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AE562E482F08E17B00D6C662 /* SaiStudyClasses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaiStudyClasses.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE562E5A2F08E17C00D6C662 /* SaiStudyClassesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaiStudyClassesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE562E642F08E17C00D6C662 /* SaiStudyClassesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaiStudyClassesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE1874C42F1F661400751280 /* SaiStudyClasses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaiStudyClasses.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE1874C52F1F661400751280 /* SaiStudyClassesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaiStudyClassesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE1874C62F1F661400751280 /* SaiStudyClassesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaiStudyClassesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AE1A61762F14C9EE008BA887 /* Exceptions for "SaiStudyClasses" folder in "SaiStudyClasses" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = AE562E472F08E17B00D6C662 /* SaiStudyClasses */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AE562E4A2F08E17B00D6C662 /* SaiStudyClasses */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AE1A61762F14C9EE008BA887 /* Exceptions for "SaiStudyClasses" folder in "SaiStudyClasses" target */,
+			);
 			path = SaiStudyClasses;
 			sourceTree = "<group>";
 		};
@@ -52,6 +75,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE1A616E2F14BF0B008BA887 /* FirebaseMessaging in Frameworks */,
+				AEE9468D2F12372C008E842B /* Lottie in Frameworks */,
+				AEAE11762F1F7D91003288AE /* RazorpayCheckout in Frameworks */,
+				AEC645A82F1B885200067B6D /* YouTubePlayerKit in Frameworks */,
+				AE1A616C2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta in Frameworks */,
+				AEC645A52F1B6F3200067B6D /* YouTubeiOSPlayerHelper in Frameworks */,
+				AEC645AB2F1B8AA700067B6D /* YouTubeKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,18 +108,10 @@
 				AE562E4A2F08E17B00D6C662 /* SaiStudyClasses */,
 				AE562E5D2F08E17C00D6C662 /* SaiStudyClassesTests */,
 				AE562E672F08E17C00D6C662 /* SaiStudyClassesUITests */,
-				AE562E492F08E17B00D6C662 /* Products */,
+				AE1874C42F1F661400751280 /* SaiStudyClasses.app */,
+				AE1874C52F1F661400751280 /* SaiStudyClassesTests.xctest */,
+				AE1874C62F1F661400751280 /* SaiStudyClassesUITests.xctest */,
 			);
-			sourceTree = "<group>";
-		};
-		AE562E492F08E17B00D6C662 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AE562E482F08E17B00D6C662 /* SaiStudyClasses.app */,
-				AE562E5A2F08E17C00D6C662 /* SaiStudyClassesTests.xctest */,
-				AE562E642F08E17C00D6C662 /* SaiStudyClassesUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,9 +134,16 @@
 			);
 			name = SaiStudyClasses;
 			packageProductDependencies = (
+				AEE9468C2F12372C008E842B /* Lottie */,
+				AE1A616B2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta */,
+				AE1A616D2F14BF0B008BA887 /* FirebaseMessaging */,
+				AEC645A42F1B6F3200067B6D /* YouTubeiOSPlayerHelper */,
+				AEC645A72F1B885200067B6D /* YouTubePlayerKit */,
+				AEC645AA2F1B8AA700067B6D /* YouTubeKit */,
+				AEAE11752F1F7D91003288AE /* RazorpayCheckout */,
 			);
 			productName = SaiStudyClasses;
-			productReference = AE562E482F08E17B00D6C662 /* SaiStudyClasses.app */;
+			productReference = AE1874C42F1F661400751280 /* SaiStudyClasses.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AE562E592F08E17C00D6C662 /* SaiStudyClassesTests */ = {
@@ -134,10 +163,8 @@
 				AE562E5D2F08E17C00D6C662 /* SaiStudyClassesTests */,
 			);
 			name = SaiStudyClassesTests;
-			packageProductDependencies = (
-			);
 			productName = SaiStudyClassesTests;
-			productReference = AE562E5A2F08E17C00D6C662 /* SaiStudyClassesTests.xctest */;
+			productReference = AE1874C52F1F661400751280 /* SaiStudyClassesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		AE562E632F08E17C00D6C662 /* SaiStudyClassesUITests */ = {
@@ -157,10 +184,8 @@
 				AE562E672F08E17C00D6C662 /* SaiStudyClassesUITests */,
 			);
 			name = SaiStudyClassesUITests;
-			packageProductDependencies = (
-			);
 			productName = SaiStudyClassesUITests;
-			productReference = AE562E642F08E17C00D6C662 /* SaiStudyClassesUITests.xctest */;
+			productReference = AE1874C62F1F661400751280 /* SaiStudyClassesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -195,8 +220,16 @@
 			);
 			mainGroup = AE562E3F2F08E17B00D6C662;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				AEE9468B2F12372C008E842B /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				AE1A616A2F14BF0B008BA887 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AEC645A32F1B6F3200067B6D /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
+				AEC645A62F1B885200067B6D /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
+				AEC645A92F1B8AA700067B6D /* XCRemoteSwiftPackageReference "YouTubeKit" */,
+				AEAE11742F1F7D91003288AE /* XCRemoteSwiftPackageReference "razorpay-pod" */,
+			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = AE562E492F08E17B00D6C662 /* Products */;
+			productRefGroup = AE562E3F2F08E17B00D6C662;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -393,10 +426,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SaiStudyClasses/SaiStudyClasses.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SaiStudyClasses/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -424,10 +459,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SaiStudyClasses/SaiStudyClasses.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SaiStudyClasses/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -570,6 +607,95 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AE1A616A2F14BF0B008BA887 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.7.0;
+			};
+		};
+		AEAE11742F1F7D91003288AE /* XCRemoteSwiftPackageReference "razorpay-pod" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/razorpay/razorpay-pod";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.2;
+			};
+		};
+		AEC645A32F1B6F3200067B6D /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/youtube/youtube-ios-player-helper.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
+		AEC645A62F1B885200067B6D /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SvenTiigi/YouTubePlayerKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.5;
+			};
+		};
+		AEC645A92F1B8AA700067B6D /* XCRemoteSwiftPackageReference "YouTubeKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/b5i/YouTubeKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		AEE9468B2F12372C008E842B /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AE1A616B2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE1A616A2F14BF0B008BA887 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseInAppMessaging-Beta";
+		};
+		AE1A616D2F14BF0B008BA887 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE1A616A2F14BF0B008BA887 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		AEAE11752F1F7D91003288AE /* RazorpayCheckout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEAE11742F1F7D91003288AE /* XCRemoteSwiftPackageReference "razorpay-pod" */;
+			productName = RazorpayCheckout;
+		};
+		AEC645A42F1B6F3200067B6D /* YouTubeiOSPlayerHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEC645A32F1B6F3200067B6D /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
+			productName = YouTubeiOSPlayerHelper;
+		};
+		AEC645A72F1B885200067B6D /* YouTubePlayerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEC645A62F1B885200067B6D /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */;
+			productName = YouTubePlayerKit;
+		};
+		AEC645AA2F1B8AA700067B6D /* YouTubeKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEC645A92F1B8AA700067B6D /* XCRemoteSwiftPackageReference "YouTubeKit" */;
+			productName = YouTubeKit;
+		};
+		AEE9468C2F12372C008E842B /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEE9468B2F12372C008E842B /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AE562E402F08E17B00D6C662 /* Project object */;
 }
