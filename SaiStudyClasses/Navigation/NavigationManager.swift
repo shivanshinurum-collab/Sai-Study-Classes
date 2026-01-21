@@ -85,6 +85,9 @@ struct NavigationManager: View {
                         ExamView(url: ExamUrl)
                     case .ExamInfo(let title, let  dis, let  url):
                         ExamInfo(path: $path, title: title, discription: dis, url: url)
+                        
+                    case .StoreAbout(let Id):
+                        StoreAboutView(path: $path,id: Id)
                     }
                 }
         }

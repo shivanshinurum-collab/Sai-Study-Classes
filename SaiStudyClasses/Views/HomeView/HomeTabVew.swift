@@ -25,7 +25,7 @@ struct HomeTabVew: View {
                     .tabItem{
                         TabItemView(title: "Batches", image: "batches")
                     }
-                StoreTabView()
+                StoreTabView(path : $path)
                     .tabItem{
                         TabItemView(title: "Store", image: "store")
                     }

@@ -50,4 +50,6 @@ enum Route : Hashable {
     case ExamView(ExamUrl : String)
     case ExamInfo(title : String , dis : String , url : String)
     
+    case StoreAbout(Id : String)
+    
 }
