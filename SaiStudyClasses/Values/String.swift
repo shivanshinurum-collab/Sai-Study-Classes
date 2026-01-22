@@ -1,6 +1,6 @@
 import SwiftUI
 struct uiString {
-    static let AppName = "SAI STUDY CLASSES"
+    static let AppName = "MARINE WISDOM"
     
     //Welcome Screen
     static let WelcomeTitle = "WELCOME"

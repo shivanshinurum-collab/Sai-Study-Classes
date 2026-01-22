@@ -153,7 +153,7 @@ struct CourseOverview: View {
     func fetchBatches() {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         var components = URLComponents(
-            string: "https://app2.lmh-ai.in/api/Home/getBatchDetail"
+            string: "https://marinewisdom.com/api/Home/getBatchDetail"
         )
 
         components?.queryItems = [
@@ -185,24 +185,6 @@ struct CourseOverview: View {
                     self.batch = decodedResponse.batch
                     self.batchResponse = decodedResponse
                     
-                    // ✅ Update state variables
-                   // self.convenienceFee = decodedResponse.convenienceFee
-                   // self.GST = decodedResponse.isGST
-                   // self.Material = decodedResponse.totalItemsAvailable
-                    
-                   // let notes = Int(decodedResponse.totalNotes) ?? 0
-                   // let pdf = Int(decodedResponse.totalPDF) ?? 0
-                    //self.Files = notes + pdf
-                    
-                    print("✅ Success! Decoded response")
-                    print("📋 Batch Name:", decodedResponse.batch.batchName)
-                    print("💰 Batch Price:", decodedResponse.batch.batchPrice)
-                    print("💵 Offer Price:", decodedResponse.batch.batchOfferPrice)
-                    print("🎫 Convenience Fee:", decodedResponse.convenienceFee)
-                    print("📊 GST:", decodedResponse.isGST)
-                    print("📚 Total Items:", decodedResponse.totalItemsAvailable)
-                    print("📝 Total Exams:", decodedResponse.totalExam)
-                    print("🎥 Total Videos:", decodedResponse.totalVideos)
                 }
             } catch {
                 print("❌ Decode Error:", error)

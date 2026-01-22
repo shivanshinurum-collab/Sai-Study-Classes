@@ -109,7 +109,7 @@ struct FoldersView: View {
     }
     
     func fetchBatchContent() {
-        let components = URLComponents(string: "https://app2.lmh-ai.in/api/HomeNew/manage_content/\(batch_id)/\(folder_id)")
+        let components = URLComponents(string: "https://marinewisdom.com/api/HomeNew/manage_content/\(batch_id)/\(folder_id)")
        
         guard let url = components?.url else {
             print("❌ Invalid URL")

@@ -65,27 +65,51 @@ struct HomeTabVew: View {
                     }
                 }
                 
-                ToolbarItem(placement: .topBarLeading){
-                    Button{
-                        path.append(Route.SelectGoalView)
-                        //path.removeLast()
-                    } label: {
-                        HStack{
-                            AsyncImage(url: URL(string: imageTab)){ img in
-                                img
-                                    .image?.resizable()
-                                    .scaledToFit()
-                                    .frame(width: 22,height: 22)
-                            }
+                if #available(iOS 26.0, *) {
+                    ToolbarItem(placement: .topBarLeading){
+                        Button{
+                            path.append(Route.SelectGoalView)
+                            //path.removeLast()
+                        } label: {
+                            HStack{
+                                AsyncImage(url: URL(string: imageTab)){ img in
+                                    img
+                                        .image?.resizable()
+                                        .scaledToFit()
+                                        .frame(width: 22,height: 22)
+                                }
                                 
-                            Text(titleTab)
-                                .font(.subheadline)
-                            
-                            Image(systemName: "chevron.right")
-                                .font(.subheadline)
-                        }.background(.clear)
+                                Text(titleTab)
+                                    .font(.subheadline)
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.subheadline)
+                            }.background(.clear)
+                        }
+                    }.sharedBackgroundVisibility(.hidden)
+                }else{
+                    ToolbarItem(placement: .topBarLeading){
+                        Button{
+                            path.append(Route.SelectGoalView)
+                            //path.removeLast()
+                        } label: {
+                            HStack{
+                                AsyncImage(url: URL(string: imageTab)){ img in
+                                    img
+                                        .image?.resizable()
+                                        .scaledToFit()
+                                        .frame(width: 22,height: 22)
+                                }
+                                
+                                Text(titleTab)
+                                    .font(.subheadline)
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.subheadline)
+                            }.background(.clear)
+                        }
                     }
-                }.sharedBackgroundVisibility(.hidden)
+                }
                 
                ToolbarItem(placement: .topBarTrailing){
                     Button{

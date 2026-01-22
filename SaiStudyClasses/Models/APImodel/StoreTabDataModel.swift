@@ -28,7 +28,7 @@ struct StoreCourse: Codable, Identifiable {
     let courseOfferPrice: String
     let courseImage: String
     let categoryId: String
-    let subcategory: String
+    let subcategory: String?
 
     enum CodingKeys: String, CodingKey {
         case id

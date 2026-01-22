@@ -4,6 +4,8 @@ import SwiftUI
 struct ActivateBatch : View{
     @Binding var path : NavigationPath
     @State var BatchCode : String = ""
+    @State var Response : String = ""
+    @State var Status : String = ""
     
     var body: some View {
         
@@ -44,9 +46,17 @@ struct ActivateBatch : View{
                                     .stroke(.black.opacity(0.6),lineWidth: 1)
                             )
                             .padding(.bottom , 30)
+                            .onChange(of: BatchCode){
+                                 Response = ""
+                            }
                         
                         Button{
-                            
+                            if(BatchCode != ""){
+                                fetchData()
+                            }else{
+                                Response = "Please Enter Batch Code"
+                                Status = "false"
+                            }
                         }label: {
                             Text(uiString.BatchApplyButton)
                                 .font(.title3.bold())
@@ -57,6 +67,19 @@ struct ActivateBatch : View{
                                     LinearGradient(colors: [.yellow , .orange], startPoint: .leading, endPoint: .trailing)
                                 )
                                 .cornerRadius(25)
+                        }
+                        
+                        if(Status == "false"){
+                            Text("\(Response)")
+                                .multilineTextAlignment(.center)
+                                .bold()
+                                .foregroundColor(uiColor.Error)
+                        }
+                        if(Status == "true"){
+                            Text("\(Response)")
+                                .multilineTextAlignment(.center)
+                                .bold()
+                                .foregroundColor(.green)
                         }
                         
                         Spacer()
@@ -71,6 +94,49 @@ struct ActivateBatch : View{
         .navigationBarBackButtonHidden(true)
             
     }
+    
+    func fetchData() {
+        let student_id = UserDefaults.standard.string(forKey: "studentId")
+        
+        var components = URLComponents(
+            string: "https://marinewisdom.com/api/home/add_activation_batch_code"
+        )
+        
+        components?.queryItems = [
+            URLQueryItem(name: "uid", value: student_id),
+            URLQueryItem(name: "activation_code", value: BatchCode)
+        ]
+        
+        guard let url = components?.url else {
+            print("❌ Invalid URL")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                print("❌ API Error:", error.localizedDescription)
+                return
+            }
+
+            guard let data else {
+                print("❌ No data received")
+                return
+            }
+
+            do {
+                let decodedResponse = try JSONDecoder().decode(ActivationCodeResponse.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.Response = decodedResponse.msg
+                    self.Status = decodedResponse.status
+                }
+            } catch {
+                print("❌ Decode Error:", error)
+            }
+        }.resume()
+    }
+    
+    
 }
 
 

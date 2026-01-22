@@ -49,7 +49,7 @@ struct MyBatchesView : View{
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         print(student_id)
         var components = URLComponents(
-            string: "https://app2.lmh-ai.in/api/home/myCourse"
+            string: "https://marinewisdom.com/api/home/myCourse"
         )
 
         components?.queryItems = [

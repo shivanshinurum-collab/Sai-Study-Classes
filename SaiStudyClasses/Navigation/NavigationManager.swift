@@ -88,6 +88,9 @@ struct NavigationManager: View {
                         
                     case .StoreAbout(let Id):
                         StoreAboutView(path: $path,id: Id)
+                        
+                    case .AddressFormView:
+                            AddressFormView(path: $path)
                     }
                 }
         }

@@ -129,7 +129,7 @@ struct CourseContent : View {
 
     
     func fetchBatchContent() {
-        let components = URLComponents(string: "https://app2.lmh-ai.in/api/HomeNew/manage_content/\(batch_id)")
+        let components = URLComponents(string: "https://marinewisdom.com//api/HomeNew/manage_content/\(batch_id)")
         
         /*components?.queryItems = [
             URLQueryItem(name: "batch_id", value: batch_id),

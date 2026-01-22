@@ -157,7 +157,7 @@ struct BatchesTabView : View {
     func fetchBatches(catId: Int) {
 
         var components = URLComponents(
-            string: "https://app2.lmh-ai.in/api/Home/getBatchByCatSubCat"
+            string: "https://marinewisdom.com/api/Home/getBatchByCatSubCat"
         )
 
         components?.queryItems = [
@@ -193,7 +193,7 @@ struct BatchesTabView : View {
     }
     
     func fetchHomeBanners() {
-        guard let url = URL(string: "https://app2.lmh-ai.in/api/home/getHomeBanner") else { return }
+        guard let url = URL(string: "https://marinewisdom.com/api/home/getHomeBanner") else { return }
 
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {

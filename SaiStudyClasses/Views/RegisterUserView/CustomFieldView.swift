@@ -149,7 +149,7 @@ struct RegisterLocationView: View {
     // MARK: - Submit API
     func submitCustomFields(_ customFieldArray: String) {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
-        guard let url = URL(string: "https://app2.lmh-ai.in/api/MobileApi/updateCustomDetail") else {
+        guard let url = URL(string: "https://marinewisdom.com/api/MobileApi/updateCustomDetail") else {
             return
         }
 
@@ -179,7 +179,7 @@ struct RegisterLocationView: View {
 
     // MARK: - Fetch Fields
     func fetchFields() {
-        guard let url = URL(string: "https://app2.lmh-ai.in/api/MobileApi/getCustomField") else { return }
+        guard let url = URL(string: "https://marinewisdom.com/api/MobileApi/getCustomField") else { return }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

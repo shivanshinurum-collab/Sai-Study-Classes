@@ -3,20 +3,7 @@ import SwiftUI
 struct NoticeBoardView: View {
     @Binding var path : NavigationPath
     
-    let notices: [NoticeModel] = [
-        NoticeModel(
-            title: "କାଲି ସକାଳ ସମୟ 9:30 am & 11 am ରେ",
-            subtitle: "Reasoning and Math class ହେବ",
-            description: "କାଲି ସକାଳ ସମୟ 9:30 am & 11 am ରେ Reasoning and Math class ହେବ",
-            date: "2025-10-10"
-        ),
-        NoticeModel(
-            title: "କାଲି ସକାଳ ସମୟ 9:30 am & 11 am ରେ",
-            subtitle: "Reasoning and Math class ହେବ",
-            description: "କାଲି ସକାଳ ସମୟ 9:30 am & 11 am ରେ Reasoning and Math class ହେବ",
-            date: "2025-10-10"
-        )
-    ]
+    @State var notices: [Notice] = []
 
     var body: some View {
         ZStack {
@@ -45,10 +32,10 @@ struct NoticeBoardView: View {
 
                         Color.clear.frame(width: 24)
                     }
-                    .padding(.horizontal)
-                    .padding(.top, 40)
+                    .padding()
+                    .padding(.top, 60)
                 }
-                .frame(height: 100)
+                .frame(height: 120)
                 .clipShape(
                     RoundedCorner(
                         radius: 20,
@@ -57,35 +44,67 @@ struct NoticeBoardView: View {
                 )
 
                
-                List {
+                ScrollView {
                     ForEach(notices) { notice in
                         NoticeCell(notice: notice)
-                            .listRowInsets(EdgeInsets())
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
+                            .shadow(color: uiColor.DarkGrayText, radius: 3)
                     }
                 }
-                .listStyle(.plain)
                 .padding(.horizontal)
             }
         }.navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .top)
+        .onAppear{
+            fetchData()
+        }
     }
+    
+    func fetchData() {
+        
+        let components = URLComponents(
+            string: "https://marinewisdom.com/api/home/get_notice"
+        )
+
+        guard let url = components?.url else {
+            print("❌ Invalid URL")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                print("❌ API Error:", error.localizedDescription)
+                return
+            }
+
+            guard let data else {
+                print("❌ No data received")
+                return
+            }
+
+            do {
+                let decodedResponse = try JSONDecoder().decode(NoticeResponse.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.notices = decodedResponse.noticeList
+                   
+                }
+            } catch {
+                print("❌ Decode Error:", error)
+            }
+        }.resume()
+    }
+    
 }
 
 struct NoticeCell: View {
     
-    let notice: NoticeModel
+    let notice: Notice
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             
             Text(notice.title)
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.primary)
-            
-            Text(notice.subtitle)
-                .font(.system(size: 15, weight: .medium))
                 .foregroundColor(.primary)
             
             Text(notice.description)

@@ -2,6 +2,9 @@ import SwiftUI
 
 struct WelcomeView: View {
     
+    @State private var bannerResponse: BannerResponse?
+
+    @State var image : String = ""
     @Binding var path : NavigationPath
     var body: some View {
         
@@ -20,18 +23,28 @@ struct WelcomeView: View {
             ).padding(.bottom,50)
             .ignoresSafeArea()
             
-            VStack(spacing: 0) {
+            //VStack(spacing: 0) {
                 
+                if let imageName = bannerResponse?.data.first?.first,
+                   let url = URL(string: bannerResponse!.filesUrl + imageName) {
+                    
+                    AsyncImage(url: url) { image in
+                        image.resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        ProgressView()
+                    }.padding(.bottom,300)
+                    //.frame(height: 420)
+                }
+                /*Image("welcome")
+                 .resizable()
+                 .scaledToFit()
+                 .frame(height: 420)*/
                 
-                Image("welcome") 
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 420)
-                
-                Spacer()
-            }
+                //Spacer()
+           // }
             
-            VStack {
+            /*VStack {
                 
                 Spacer()
                 VStack(spacing: 6) {
@@ -50,7 +63,7 @@ struct WelcomeView: View {
                 
                 
                 
-            }
+            }*/
 
            
             VStack(alignment:.leading,spacing: 16) {
@@ -94,9 +107,50 @@ struct WelcomeView: View {
             .background(uiColor.white)
             .cornerRadius(26)
             .navigationBarBackButtonHidden(true)
+            .onAppear{
+                fetchData()
+            }
 
         }
     }
    
+    func fetchData() {
+        
+        var components = URLComponents(
+            string: "https://marinewisdom.com/ajaxcall/api_login_banners"
+        )
+        
+        components?.queryItems = [
+            
+        ]
+        
+        guard let url = components?.url else {
+            print("❌ Invalid URL")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                print("❌ API Error:", error.localizedDescription)
+                return
+            }
+
+            guard let data else {
+                print("❌ No data received")
+                return
+            }
+
+            do {
+                let decodedResponse = try JSONDecoder().decode(BannerResponse.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.bannerResponse = decodedResponse
+                }
+            } catch {
+                print("❌ Decode Error:", error)
+            }
+        }.resume()
+    }
+    
 }
 

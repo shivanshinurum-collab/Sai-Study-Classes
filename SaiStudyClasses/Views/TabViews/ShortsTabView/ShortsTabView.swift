@@ -54,7 +54,7 @@ struct ShortsHome: View {
     func fetchShorts() {
         
         let components = URLComponents(
-            string: "https://app2.lmh-ai.in/api/HomeNew/getTestimonial"
+            string: "https://marinewisdom.com/api/HomeNew/getTestimonial"
         )
 
         guard let url = components?.url else {

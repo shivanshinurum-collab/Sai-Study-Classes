@@ -228,7 +228,7 @@ struct OTPView: View {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
 
         var components = URLComponents(
-            string: "https://app2.lmh-ai.in/api/MobileApi/checkOTP"
+            string: "https://marinewisdom.com/api/MobileApi/checkOTP"
         )
 
         components?.queryItems = [

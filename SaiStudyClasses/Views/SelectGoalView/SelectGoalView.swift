@@ -165,7 +165,7 @@ extension SelectGoalView {
     func fetchCategoryData() {
         isLoading = true
         
-        guard let url = URL(string: "https://app2.lmh-ai.in/api/HomeNew/getCategoryData") else { return }
+        guard let url = URL(string: "https://marinewisdom.com/api/HomeNew/getCategoryData") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

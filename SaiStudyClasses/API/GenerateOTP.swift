@@ -12,7 +12,7 @@ struct GenerateOTP {
         let app_version = "55"
         
         var components = URLComponents(
-            string: "https://app2.lmh-ai.in/api/MobileApi/generateOTP"
+            string: "https://marinewisdom.com/api/MobileApi/generateOTP"
         )
         
         components?.queryItems = [

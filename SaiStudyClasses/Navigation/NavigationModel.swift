@@ -52,4 +52,6 @@ enum Route : Hashable {
     
     case StoreAbout(Id : String)
     
+    case AddressFormView
+    
 }
