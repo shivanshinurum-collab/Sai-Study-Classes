@@ -1,9 +1,3 @@
-//
-//  SaiStudyClassesUITests.swift
-//  SaiStudyClassesUITests
-//
-//  Created by Shubham Jain on 03/01/26.
-//
 
 import XCTest
 

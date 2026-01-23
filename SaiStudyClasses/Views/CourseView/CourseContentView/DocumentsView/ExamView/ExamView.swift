@@ -65,31 +65,3 @@ struct WebView: UIViewRepresentable {
 }
 
 
-/*import SwiftUI
-import WebKit
-
-// MARK: - Exam View (Custom Web Screen)
-struct ExamView: View {
-    let url : String //= URL(string: "https://saistudyclasses.com/exam-panel/G5z6q-YxXiFeoUzQTveNzg/zeTsy3Gt9-HOyFPozRzZ3w")!
-    //@Environment(\.dismiss) var dismiss
-
-    var body: some View {
-        WebView(url: URL(string: url)!)
-    }
-}
-
-// MARK: - WebView Wrapper
-struct WebView: UIViewRepresentable {
-    let url: URL
-
-    func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
-        webView.load(URLRequest(url: url))
-        return webView
-    }
-
-    func updateUIView(_ uiView: WKWebView, context: Context) {}
-}
-
-*/
-

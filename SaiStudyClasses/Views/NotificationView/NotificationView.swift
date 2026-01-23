@@ -3,12 +3,7 @@ import SwiftUI
 struct NotificationView: View {
     @Binding var path : NavigationPath
     
-    let notifications : [NotificationModel] = [
-        NotificationModel(title: "Math Class Kali kaariba pile thanda jore au control re kariba", body: "Math Class Kali kaariba pile thanda jore au control re kariba", date: "01/Dec/2025 12:43 PM"),
-        NotificationModel(title: "Math Class Kali kaariba pile thanda jore au control re kariba", body: "Math Class Kali kaariba pile thanda jore au control re kariba", date: "01/Dec/2025 12:43 PM"),
-        NotificationModel(title: "Math Class Kali kaariba pile thanda jore au control re kariba", body: "Math Class Kali kaariba pile thanda jore au control re kariba", date: "01/Dec/2025 12:43 PM"),
-        NotificationModel(title: "Math Class Kali kaariba pile thanda jore au control re kariba", body: "Math Class Kali kaariba pile thanda jore au control re kariba", date: "01/Dec/2025 12:43 PM")
-    ]
+    @State var notifications : [AppNotification] = []
 
     var body: some View {
         ZStack {
@@ -36,9 +31,9 @@ struct NotificationView: View {
                         Color.clear.frame(width: 24)
                     }
                     .padding(.horizontal)
-                    .padding(.top, 40)
+                    .padding(.top, 50)
                 }
-                .frame(height: 100)
+                .frame(height: 110)
                 .clipShape(
                     RoundedCorner(
                         radius: 20,
@@ -48,16 +43,55 @@ struct NotificationView: View {
                 
                
                 List {
-                    ForEach(notifications , id: \.self) { notice in
+                    ForEach(notifications) { notice in
                         NotificationCard(notifi: notice)
+                            .shadow(color: uiColor.DarkGrayText, radius: 3)
                             .listRowSeparator(.hidden)
                     }
                 }
                 .listStyle(.plain)
                 .padding(.horizontal)
             }
-        }.navigationBarBackButtonHidden(true)
+        }.onAppear{
+            fetchData()
+        }
+        .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .top)
+    }
+    
+    func fetchData() {
+        
+        var components = URLComponents(
+            string: "\(uiString.baseURL)api/home/get_notification"
+        )
+        
+        
+        guard let url = components?.url else {
+            print("❌ Invalid URL")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                print("❌ API Error:", error.localizedDescription)
+                return
+            }
+
+            guard let data else {
+                print("❌ No data received")
+                return
+            }
+
+            do {
+                let decodedResponse = try JSONDecoder().decode(NotificationResponse.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.notifications = decodedResponse.notification
+                }
+            } catch {
+                print("❌ Decode Error:", error)
+            }
+        }.resume()
     }
 }
 

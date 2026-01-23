@@ -12,7 +12,7 @@ struct CourseContent : View {
         ScrollView{
             VStack(spacing: 15){
                 ForEach($Documents ){ $item in
-                    let imageURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/batch_image/\(item.image ?? "")"
+                    let imageURL = "\(url)batch_image/\(item.image ?? "")"
                     //EXam
                     if(item.contentType == "Exam"){
                         
@@ -22,7 +22,7 @@ struct CourseContent : View {
                         let encryptedStudent = encryptToUrlSafe(student_id!)
                         let encryptedExam = encryptToUrlSafe(exam_id)
                         
-                       let examURL = "https://saistudyclasses.com/exam-panel/\(encryptedStudent)/\(encryptedExam)"
+                       let examURL = "\(uiString.baseURL)exam-panel/\(encryptedStudent)/\(encryptedExam)"
                         Button{
                             path.append(Route.ExamInfo(title: item.insTitle ?? "", dis: item.insDesc ?? "", url: examURL))
                         }label: {
@@ -53,17 +53,7 @@ struct CourseContent : View {
                             FileView(image: "folder", name: item.name , imageURL: imageURL)
                         }
                     }
-                    //Document - PDF
-                    else if(item.contentType == "Document"){
-                        
-                        let url = "\(url)book/\(item.redirectionUrl ?? "")"
-                        Button{
-                            path.append(Route.PDFview(url: url, title: item.name))
-                            
-                        }label: {
-                            FileView(image: "pdf", name: item.name , imageURL: imageURL)
-                        }
-                    }
+                   
                     //Audio
                     else if(item.contentType == "Audio") {
                        
@@ -91,12 +81,12 @@ struct CourseContent : View {
                     }
                     //Video
                     else if(item.contentType == "Video"){
-                        let videoimg = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/video/\(item.image ?? "")"
+                        let videoimg = "\(url)video/\(item.image ?? "")"
                         Button{
                             if(item.type == "youtube"){
                                 path.append(Route.YouTubeView(videoId: item.redirectionUrl ?? "" , title: item.name))
                             }else{
-                                let videoURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/\(item.redirectionUrl ?? "")"
+                                let videoURL = "\(url)\(item.redirectionUrl ?? "")"
                                 //custom url
                                 path.append(Route.VideoView(url: videoURL, title: item.name))
                             }
@@ -110,10 +100,42 @@ struct CourseContent : View {
                         
                         let url = "\(url)notes/\(item.redirectionUrl ?? "")"
                         Button{
+                            print(url)
                             path.append(Route.PDFview(url: url, title: item.name))
                             
                         }label: {
                             FileView(image: "pdf", name: item.name , imageURL: imageURL)
+                        }
+                    }
+                    //Document - PDF
+                    else if(item.contentType == "Document"){
+                        
+                        let url = "\(url)book/\(item.redirectionUrl ?? "")"
+                        Button{
+                            print(url)
+                            path.append(Route.AllDocView(title: item.name, url: url))
+                            //path.append(Route.ExamView(ExamUrl: url))
+                            //path.append(Route.PDFview(url: url, title: item.name))
+                            
+                        }label: {
+                            if url.contains(".xls") {
+                                FileView(image: "xls", name: item.name , imageURL: imageURL)
+                            }
+                            else if url.contains(".doc") {
+                                FileView(image: "doc", name: item.name , imageURL: imageURL)
+                            }
+                            else if url.contains(".pdf") {
+                                FileView(image: "pdf", name: item.name , imageURL: imageURL)
+                            }
+                            else if url.contains(".txt") {
+                                FileView(image: "txt", name: item.name , imageURL: imageURL)
+                            }
+                            else if url.contains(".pptx") {
+                                FileView(image: "pptx", name: item.name , imageURL: imageURL)
+                            }
+                            else{
+                                FileView(image: "otherDoc", name: item.name , imageURL: imageURL)
+                            }
                         }
                     }
                 
@@ -125,12 +147,35 @@ struct CourseContent : View {
             fetchBatchContent()
         }
     }
-    
-
+  /*
+    if(data.getRedirectionUrl().contains(".xlsx")){
+        imgDocument.setImageDrawable(mContext.getDrawable(R.drawable.xls));
+    }else if(data.getRedirectionUrl().contains(".doc")){
+        imgDocument.setImageDrawable(mContext.getDrawable(R.drawable.doc));
+    }else if(data.getRedirectionUrl().contains(".pdf")){
+        imgDocument.setImageDrawable(mContext.getDrawable(R.drawable.ic_pdf));
+    }else if(data.getRedirectionUrl().contains(".txt")){
+        imgDocument.setImageDrawable(mContext.getDrawable(R.drawable.text));
+    }else{
+        imgDocument.setImageDrawable(mContext.getDrawable(R.drawable.other_doc));
+    }
+   
+   
+   
+   
+   if(myurl.contains(".pptx")){
+       myurl = "https://view.officeapps.live.com/op/view.aspx?src= https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" + Uri.encode(myurl);
+   }else if(myurl.contains(".docx")){
+       myurl = "https://view.officeapps.live.com/op/view.aspx?src=" + myurl;
+   }
+   
+   
+   
+    */
     
     func fetchBatchContent() {
-        let components = URLComponents(string: "https://marinewisdom.com//api/HomeNew/manage_content/\(batch_id)")
-        
+        let components = URLComponents(string: "\(uiString.baseURL)api/HomeNew/manage_content/\(batch_id)")
+        print("MAIN URL API \(String(describing: components))")
         /*components?.queryItems = [
             URLQueryItem(name: "batch_id", value: batch_id),
             //URLQueryItem(name: "student_id", value: studentId)
@@ -154,7 +199,8 @@ struct CourseContent : View {
             
             do {
                 let response = try JSONDecoder().decode(BatchContentResponse.self, from: data)
-                
+               print("Bach ID = ",batch_id)
+                print(response)
                 DispatchQueue.main.async {
                     self.Documents = response.allData
                     self.url = response.fullUrl

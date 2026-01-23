@@ -149,7 +149,7 @@ struct RegisterLocationView: View {
     // MARK: - Submit API
     func submitCustomFields(_ customFieldArray: String) {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
-        guard let url = URL(string: "https://marinewisdom.com/api/MobileApi/updateCustomDetail") else {
+        guard let url = URL(string: "\(uiString.baseURL)api/MobileApi/updateCustomDetail") else {
             return
         }
 
@@ -179,7 +179,7 @@ struct RegisterLocationView: View {
 
     // MARK: - Fetch Fields
     func fetchFields() {
-        guard let url = URL(string: "https://marinewisdom.com/api/MobileApi/getCustomField") else { return }
+        guard let url = URL(string: "\(uiString.baseURL)api/MobileApi/getCustomField") else { return }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -207,181 +207,3 @@ struct RegisterLocationView: View {
 
 
 
-/*import SwiftUI
-
-struct RegisterLocationView: View {
-    @Binding var path: NavigationPath
-
-    @State private var fields: [CustomField] = []
-    @State private var fieldValues: [String: String] = [:]
-    @State private var errorFields: Set<String> = []
-    @State private var errorMessage: String = ""
-
-    var body: some View {
-        VStack {
-
-            // MARK: - Header
-            ZStack {
-                uiColor.ButtonBlue
-                    .ignoresSafeArea(edges: .top)
-                
-                HStack {
-                    Button {
-                        path.removeLast()
-                    } label: {
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(.white)
-                    }
-                    
-                    Spacer()
-                    
-                    Text("Custom Field")
-                        .foregroundColor(.white)
-                    
-                    Spacer()
-                }
-                .font(.title2.bold())
-                .padding(.horizontal)
-                .padding(.top, 40)
-            }
-            .clipShape(
-                RoundedCorner(
-                    radius: 25,
-                    corners: [.bottomLeft, .bottomRight]
-                )
-            ).ignoresSafeArea()
-            .frame(height: 60)
-
-            // MARK: - Dynamic Fields
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-
-                    ForEach(fields) { field in
-                        VStack(alignment: .leading, spacing: 6) {
-
-                            Text("\(field.fieldName)\(field.isRequired ? "*" : "")")
-
-                            TextField(
-                                "Please enter \(field.fieldName.lowercased())",
-                                text: Binding(
-                                    get: { fieldValues[field.id, default: ""] },
-                                    set: { fieldValues[field.id] = $0 }
-                                )
-                            )
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 11)
-                                    .stroke(
-                                        errorFields.contains(field.id)
-                                        ? Color.red
-                                        : uiColor.ButtonBlue,
-                                        lineWidth: 2
-                                    )
-                            )
-                            .onChange(of: fieldValues[field.id]) { _, _ in
-                                errorFields.remove(field.id)
-                                errorMessage = ""
-                            }
-                        }
-                    }
-
-                    if !errorMessage.isEmpty {
-                        Text(errorMessage)
-                            .foregroundColor(.red)
-                            .font(.caption)
-                    }
-                }
-                .padding()
-            }
-
-            Spacer()
-
-            // MARK: - Continue Button
-            Button {
-                validateFields()
-            } label: {
-                Text("Continue")
-                    .foregroundColor(.white)
-                    .font(.title2.bold())
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(uiColor.ButtonBlue)
-                    .cornerRadius(25)
-            }
-            .padding()
-        }
-        .onAppear {
-            fetchFields()
-        }
-        .navigationBarBackButtonHidden(true)
-    }
-    
-    
-}
-extension RegisterLocationView {
-
-    func validateFields() {
-        errorFields.removeAll()
-
-        for field in fields where field.isRequired {
-            let value = fieldValues[field.id, default: ""]
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-
-            if value.isEmpty {
-                errorFields.insert(field.id)
-            }
-        }
-
-        if !errorFields.isEmpty {
-            errorMessage = "Please fill all required fields"
-            return
-        }
-
-        errorMessage = ""
-        print("✅ All fields valid:", fieldValues)
-
-        // 👉 Call next API or navigate
-        path.append(Route.SelectGoalView)
-    }
-}
-extension RegisterLocationView {
-
-    func fetchFields() {
-
-        guard let url = URL(string: "https://app2.lmh-ai.in/api/MobileApi/getCustomField") else {
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-
-        URLSession.shared.dataTask(with: request) { data, _, error in
-
-            if let error = error {
-                print("❌ Error:", error.localizedDescription)
-                return
-            }
-
-            guard let data = data else { return }
-
-            do {
-                let response = try JSONDecoder().decode(CustomFieldResponse.self, from: data)
-
-                DispatchQueue.main.async {
-                    self.fields = response.result
-
-                    // initialize empty values
-                    for field in response.result {
-                        fieldValues[field.id] = ""
-                    }
-                }
-
-            } catch {
-                print("❌ Decode Error:", error.localizedDescription)
-            }
-
-        }.resume()
-    }
-}
-
-*/

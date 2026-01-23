@@ -117,7 +117,7 @@ struct WelcomeView: View {
     func fetchData() {
         
         var components = URLComponents(
-            string: "https://marinewisdom.com/ajaxcall/api_login_banners"
+            string: "\(uiString.baseURL)ajaxcall/api_login_banners"
         )
         
         components?.queryItems = [

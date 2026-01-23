@@ -11,27 +11,28 @@ struct FileView : View {
                 img
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 70,height: 70)
+                    .frame(width: 50,height: 50)
             } placeholder: {
                 Image(image)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 70,height: 70)
+                    .frame(width: 50,height: 50)
             }
                 
             
             Text(name)
-                .font(.title2)
+                .font(.headline)
                 .foregroundColor(.black)
             
             
             
             Spacer()
             
-            Image(systemName: "triangle.fill")
-                .font(.subheadline)
-                .foregroundColor(uiColor.DarkGrayText)
-                .rotationEffect(Angle(degrees: 90))
+            Image("right.arrow")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20,height: 20)
+               // .foregroundColor(uiColor.DarkGrayText)
         }.padding()
     }
 }

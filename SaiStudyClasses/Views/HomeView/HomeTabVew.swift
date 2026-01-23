@@ -121,7 +121,7 @@ struct HomeTabVew: View {
                 }
                 ToolbarItem(placement: .topBarTrailing){
                     Button{
-                        
+                        openWhatsApp(number: "9907677712")
                     }label: {
                         Image("whatsapp")
                             .resizable()
@@ -132,6 +132,15 @@ struct HomeTabVew: View {
                 
             }.navigationBarHidden(showMenu)
     }
+    
+    func openWhatsApp(number: String) {
+            let urlString = "https://wa.me/\(number)"
+            if let url = URL(string: urlString),
+               UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
+    
 }
 struct TabItemView: View {
     var title: String

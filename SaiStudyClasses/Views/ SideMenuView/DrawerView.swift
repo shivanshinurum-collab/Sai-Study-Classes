@@ -31,7 +31,8 @@ struct DrawerView : View {
                     .foregroundColor(uiColor.black)
                 
                 Button{
-                    path.append(Route.BookmarkView)
+                    path.append(Route.ExamView(ExamUrl: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A"))
+                    //path.append(Route.BookmarkView)
                 }label:{
                     Image(systemName: "bookmark")
                         .frame(maxWidth: 40)

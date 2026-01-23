@@ -14,7 +14,9 @@ struct FoldersView: View {
             
             VStack(spacing: 15){
                 ForEach($Documents ){ $item in
-                    let imageURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/batch_image/\(item.image ?? "")"
+                    //\(uiString.baseURL)
+                    //let imageURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/batch_image/\(item.image ?? "")"
+                    let imageURL = "\(uiString.baseURL)uploads/batch_image/\(item.image ?? "")"
                     //EXam
                     if(item.contentType == "Exam"){
                         
@@ -24,7 +26,7 @@ struct FoldersView: View {
                         let encryptedStudent = encryptToUrlSafe(student_id!)
                         let encryptedExam = encryptToUrlSafe(exam_id)
                         
-                       let examURL = "https://saistudyclasses.com/exam-panel/\(encryptedStudent)/\(encryptedExam)"
+                        let examURL = "\(uiString.baseURL)exam-panel/\(encryptedStudent)/\(encryptedExam)"
                         Button{
                             path.append(Route.ExamView(ExamUrl: examURL))
                         }label: {
@@ -39,7 +41,7 @@ struct FoldersView: View {
                             FileView(image: "folder", name: item.name , imageURL: imageURL)
                         }
                     }
-                    //Document - PDF
+                    /*//Document - PDF
                     else if(item.contentType == "Document"){
                         let url = "\(url)book/\(item.redirectionUrl ?? "")"
                         Button{
@@ -48,7 +50,7 @@ struct FoldersView: View {
                         }label: {
                             FileView(image: "pdf", name: item.name , imageURL: imageURL)
                         }
-                    }
+                    }*/
                     //Audio
                     else if(item.contentType == "Audio") {
                         Button{
@@ -75,12 +77,14 @@ struct FoldersView: View {
                     }
                     //Video
                     else if(item.contentType == "Video"){
-                        let videoimg = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/video/\(item.image ?? "")"
+                        //let videoimg = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/video/\(item.image ?? "")"
+                        let videoimg = "\(uiString.baseURL)uploads/video/\(item.image ?? "")"
                         Button{
                             if(item.type == "youtube"){
                                 path.append(Route.YouTubeView(videoId: item.redirectionUrl ?? "" , title: item.name))
                             }else{
-                                let videoURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/\(item.redirectionUrl ?? "")"
+                                //let videoURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/\(item.redirectionUrl ?? "")"
+                                let videoURL = "\(uiString.baseURL)uploads/\(item.redirectionUrl ?? "")"
                                 //custom url
                                 path.append(Route.VideoView(url: videoURL, title: item.name))
                             }
@@ -89,6 +93,38 @@ struct FoldersView: View {
                         }
                         
                     }
+                    //Document - PDF
+                    else if(item.contentType == "Document"){
+                        
+                        let url = "\(url)book/\(item.redirectionUrl ?? "")"
+                        Button{
+                            print(url)
+                            path.append(Route.AllDocView(title: item.name, url: url))
+                            //path.append(Route.ExamView(ExamUrl: url))
+                            //path.append(Route.PDFview(url: url, title: item.name))
+                            
+                        }label: {
+                            if url.contains(".xls") {
+                                FileView(image: "xls", name: item.name , imageURL: imageURL)
+                            }
+                            else if url.contains(".doc") {
+                                FileView(image: "doc", name: item.name , imageURL: imageURL)
+                            }
+                            else if url.contains(".pdf") {
+                                FileView(image: "pdf", name: item.name , imageURL: imageURL)
+                            }
+                            else if url.contains(".txt") {
+                                FileView(image: "txt", name: item.name , imageURL: imageURL)
+                            }
+                            else if url.contains(".pptx") {
+                                FileView(image: "pptx", name: item.name , imageURL: imageURL)
+                            }
+                            else{
+                                FileView(image: "otherDoc", name: item.name , imageURL: imageURL)
+                            }
+                        }
+                    }
+                    
                     //Notes
                     else if(item.contentType == "notes"){
                         let url = "\(url)notes/\(item.redirectionUrl ?? "")"
@@ -109,7 +145,7 @@ struct FoldersView: View {
     }
     
     func fetchBatchContent() {
-        let components = URLComponents(string: "https://marinewisdom.com/api/HomeNew/manage_content/\(batch_id)/\(folder_id)")
+        let components = URLComponents(string: "\(uiString.baseURL)api/HomeNew/manage_content/\(batch_id)/\(folder_id)")
        
         guard let url = components?.url else {
             print("❌ Invalid URL")
@@ -129,6 +165,7 @@ struct FoldersView: View {
             
             do {
                 let response = try JSONDecoder().decode(FolderContentResponse.self, from: data)
+               
                 
                 DispatchQueue.main.async {
                     self.Documents = response.allData

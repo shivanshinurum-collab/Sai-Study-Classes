@@ -1,9 +1,4 @@
-//
-//  SaiStudyClassesTests.swift
-//  SaiStudyClassesTests
-//
-//  Created by Shubham Jain on 03/01/26.
-//
+
 
 import Testing
 @testable import SaiStudyClasses

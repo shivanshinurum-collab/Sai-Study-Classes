@@ -12,30 +12,31 @@ class RazorpayManager: NSObject, RazorpayPaymentCompletionProtocol {
         print("Sucses")
     }
     
-
+    
     private var razorpay: RazorpayCheckout!
     static let shared = RazorpayManager()
-
+    
     override init() {
         super.init()
         razorpay = RazorpayCheckout.initWithKey("rzp_live_aat2QLiGudGSDO", andDelegate: self)
     }
-
+    
     func startPayment(amount: Int, description: String) {
+        let student_id = UserDefaults.standard.string(forKey: "studentId")
         let options: [String: Any] = [
             "key": "rzp_live_xxx",
             "amount": amount,
             "currency": "INR",
-            "name": "Sai Study Classes",
+            "name": "\(uiString.AppName)",
             "description": "Course Fee",
-            "image": "https://yourdomain.com/logo.png",
+            "image": "logo.png",
             //"order_id": orderId,
             /*"prefill": [
-                "contact": "9826871515",
-                "email": "shivasdf@gmail.com"
-            ],*/
+             "contact": "9826871515",
+             "email": "shivasdf@gmail.com"
+             ],*/
             "notes": [
-                "student_id": "195"
+                "student_id": student_id
             ],
             "theme": [
                 "color": "#077aed"
@@ -44,22 +45,22 @@ class RazorpayManager: NSObject, RazorpayPaymentCompletionProtocol {
                 "confirm_close": true
             ]
         ]
-
-
+        
+        
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let rootVC = windowScene.windows.first?.rootViewController {
-
+            
             razorpay.open(options, displayController: rootVC)
         }
     }
-
+    
     // ✅ REQUIRED BY NEW SDK
     @objc func onPaymentSuccess(_ payment_id: String, andData response: [AnyHashable : Any]) {
         print("✅ Payment Success")
         print("Payment ID:", payment_id)
         print("Response:", response)
     }
-
+    
     @objc func onPaymentError(_ code: Int32,
                               description str: String,
                               andData response: [AnyHashable : Any]) {

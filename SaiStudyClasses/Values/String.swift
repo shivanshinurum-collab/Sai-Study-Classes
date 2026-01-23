@@ -2,6 +2,9 @@ import SwiftUI
 struct uiString {
     static let AppName = "MARINE WISDOM"
     
+    static let baseURL = "https://marinewisdom.com/"
+    
+    
     //Welcome Screen
     static let WelcomeTitle = "WELCOME"
     static let WelcomeSubTitle = "TO OUR FAMILY"

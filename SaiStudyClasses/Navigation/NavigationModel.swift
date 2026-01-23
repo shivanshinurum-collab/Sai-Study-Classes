@@ -54,4 +54,6 @@ enum Route : Hashable {
     
     case AddressFormView
     
+    case AllDocView(title : String , url : String)
+    
 }

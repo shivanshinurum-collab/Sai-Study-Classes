@@ -12,7 +12,7 @@ struct GenerateOTP {
         let app_version = "55"
         
         var components = URLComponents(
-            string: "https://marinewisdom.com/api/MobileApi/generateOTP"
+            string: "\(uiString.baseURL)api/MobileApi/generateOTP"
         )
         
         components?.queryItems = [

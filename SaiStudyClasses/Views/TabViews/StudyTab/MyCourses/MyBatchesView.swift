@@ -47,9 +47,9 @@ struct MyBatchesView : View{
     
     func fetchBatches() {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
-        print(student_id)
+        //print(student_id)
         var components = URLComponents(
-            string: "https://marinewisdom.com/api/home/myCourse"
+            string: "\(uiString.baseURL)api/home/myCourse"
         )
 
         components?.queryItems = [

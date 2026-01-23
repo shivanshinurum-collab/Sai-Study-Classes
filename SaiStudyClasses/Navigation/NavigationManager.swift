@@ -91,6 +91,9 @@ struct NavigationManager: View {
                         
                     case .AddressFormView:
                             AddressFormView(path: $path)
+                        
+                    case .AllDocView(let title, let url):
+                        AllDocView(path: $path, url: url, title: title)
                     }
                 }
         }

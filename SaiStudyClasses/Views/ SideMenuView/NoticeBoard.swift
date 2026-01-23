@@ -62,7 +62,7 @@ struct NoticeBoardView: View {
     func fetchData() {
         
         let components = URLComponents(
-            string: "https://marinewisdom.com/api/home/get_notice"
+            string: "\(uiString.baseURL)api/home/get_notice"
         )
 
         guard let url = components?.url else {

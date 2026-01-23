@@ -8,9 +8,6 @@ struct ShortsTabView : View {
     }
 }
 
-
-
-
 // MARK: - Main View
 struct ShortsView: View {
     var body: some View {
@@ -31,10 +28,7 @@ struct ShortsHome: View {
     
     @StateObject private var manager = ReelPlayerManager()
     @State private var reels: [Shorts] = []
-        //tempShorts(id: 1, videoPath: "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/admin/e73c3d26aa72e83acd5148261599cd85.mp4"),
-        //tempShorts(id: 2, videoPath: "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/admin/e73c3d26aa72e83acd5148261599cd85.mp4"),
-        //tempShorts(id: 3, videoPath: "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/admin/e73c3d26aa72e83acd5148261599cd85.mp4"),
-    //]
+        
     @State var currentIndex: Int? = 0
     
     
@@ -46,6 +40,9 @@ struct ShortsHome: View {
             .onAppear{
                 fetchShorts()
             }
+            .onDisappear{
+                manager.stopAll()
+            }
             .onChange(of: currentIndex, perform: handleIndexChange)
         
             
@@ -54,7 +51,7 @@ struct ShortsHome: View {
     func fetchShorts() {
         
         let components = URLComponents(
-            string: "https://marinewisdom.com/api/HomeNew/getTestimonial"
+            string: "\(uiString.baseURL)api/HomeNew/getTestimonial"
         )
 
         guard let url = components?.url else {
@@ -169,6 +166,14 @@ class ReelPlayerManager: ObservableObject {
         }
     }
 
+    // ⛔ STOP ALL VIDEOS & AUDIO
+        func stopAll() {
+            player.pause()
+            player.replaceCurrentItem(with: nil)
+            currentTime = 0
+            duration = 0
+        }
+    
     func play(url: URL) {
         let item = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: item)

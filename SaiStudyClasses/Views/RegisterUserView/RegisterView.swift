@@ -146,7 +146,7 @@ struct RegisterView: View {
         
         
         var components = URLComponents(
-            string: "https://marinewisdom.com/api/MobileApi/updateStudentDetail"
+            string: "\(uiString.baseURL)api/MobileApi/updateStudentDetail"
         )
         
         components?.queryItems = [

@@ -122,7 +122,7 @@ struct StoreTabView : View {
     func fetchData() {
         
         let components = URLComponents(
-            string: "https://marinewisdom.com/api/HomeNew/getStoreContent/"
+            string: "\(uiString.baseURL)api/HomeNew/getStoreContent/"
         )
 
         guard let url = components?.url else {

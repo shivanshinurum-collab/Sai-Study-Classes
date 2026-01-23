@@ -99,7 +99,7 @@ struct ActivateBatch : View{
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         
         var components = URLComponents(
-            string: "https://marinewisdom.com/api/home/add_activation_batch_code"
+            string: "\(uiString.baseURL)api/home/add_activation_batch_code"
         )
         
         components?.queryItems = [

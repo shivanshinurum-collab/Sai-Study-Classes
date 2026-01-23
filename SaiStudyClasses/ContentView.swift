@@ -1,9 +1,4 @@
-//
-//  ContentView.swift
-//  SaiStudyClasses
-//
-//  Created by Shubham Jain on 03/01/26.
-//
+
 
 import SwiftUI
 import CoreData

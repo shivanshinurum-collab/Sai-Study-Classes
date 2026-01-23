@@ -49,7 +49,7 @@ struct PaymentHistory : View{
     func fetchData() {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         var components = URLComponents(
-            string: "https://marinewisdom.com/api/home/get_payment_history"
+            string: "\(uiString.baseURL)api/home/get_payment_history"
         )
         
         components?.queryItems = [

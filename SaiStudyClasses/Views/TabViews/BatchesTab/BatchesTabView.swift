@@ -5,8 +5,11 @@ struct BatchesTabView : View {
     
     @Binding var path : NavigationPath
     let catId = UserDefaults.standard.string(forKey: "categoryId") ?? "0"
+    @State var subCatId :String = ""
+    
     @State var allCourses : [batchData] = []
-  
+
+    @State var subCat : [Subcategory] = []
     
     @State var showBottomSheet: Bool = false
     @State var search = ""
@@ -16,18 +19,10 @@ struct BatchesTabView : View {
     @State var index = 0
     @State private var banners: [HomeBannerData] = []
     @State private var fileBaseURL = ""
-
-    
-    @State private var selectedTab : CourseCategory = .All
     
     let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
     
-    /*var filteredCourses : [batchData] {
-        if(selectedTab == .All){
-            return allCourses
-        }
-        return allCourses.filter { $0.category == selectedTab}
-    }*/
+    
     
     
     var body: some View {
@@ -76,23 +71,6 @@ struct BatchesTabView : View {
                         index = banners.isEmpty ? 0 : (index + 1) % banners.count
                     }
                 }
-
-                
-                /*TabView(selection: $index) {
-                    ForEach(0..<images.count , id: \.self){ i in
-                        Image(images[i])
-                            .resizable()
-                            .scaledToFit()
-                            .tag(i)
-                    }
-                }.tabViewStyle(.page)
-                    .frame(height: 200)
-                    .onReceive(timer) { _ in
-                        withAnimation{
-                            index = (index + 1 ) % images.count
-                        }
-                        
-                    }*/
                 
                 ScrollView(.horizontal , showsIndicators: false) {
                     HStack(spacing: 24){
@@ -108,22 +86,41 @@ struct BatchesTabView : View {
                                     .font(.system(size: 18))
                             }
                         }
-                        ForEach(CourseCategory.allCases , id: \.self) { tab in
-                            VStack(spacing:6){
-                                Text(tab.rawValue)
-                                    .font(.system(size: 15 , weight: .medium))
-                                    .foregroundColor(
-                                        selectedTab == tab ? uiColor.violetButton : .gray
-                                    )
-                                    .onTapGesture {
-                                        withAnimation(.easeInOut){
-                                            selectedTab = tab
-                                        }
-                                    }
-                                Capsule()
-                                    .frame(height: 2)
-                                    .foregroundColor(uiColor.violetButton)
-                                    .opacity(selectedTab == tab ? 1 : 0)
+                        
+                        Button{
+                            subCatId = ""
+                            fetchBatches()
+                        }label: {
+                            if subCatId == "" {
+                                    Text("ALL")
+                                        .foregroundColor(uiColor.violet)
+                                        .font(.system(size: 19))
+                                        .bold()
+                                        
+                            }else{
+                                Text("ALL")
+                                    .foregroundColor(uiColor.DarkGrayText)
+                                    .font(.system(size: 18))
+                            }
+                        }
+                        
+                        
+                        ForEach(subCat){ cat in
+                            Button{
+                                subCatId = cat.id
+                                fetchBatches()
+                            }label: {
+                                if subCatId == cat.id {
+                                    Text(cat.name)
+                                            .foregroundColor(uiColor.violet)
+                                            .font(.system(size: 19))
+                                            .bold()
+                                            
+                                }else{
+                                    Text(cat.name)
+                                        .foregroundColor(uiColor.DarkGrayText)
+                                        .font(.system(size: 18))
+                                }
                             }
                         }
                        
@@ -148,29 +145,63 @@ struct BatchesTabView : View {
                     .presentationDragIndicator(.visible)
             }.onAppear{
                 fetchHomeBanners()
-                fetchBatches(catId: Int(catId) ?? 0)
+                fetchBatches()
+                fetchCat()
             }
             .padding(15)
         }
     }
+    func fetchCat() {
+
+        let components = URLComponents(
+            string: "\(uiString.baseURL)api/HomeNew/getSubcategoryList/\(catId)"
+        )
+
+
+        guard let url = components?.url else {
+            print("❌ Invalid URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+
+            if let error {
+                print("❌ API Error:", error.localizedDescription)
+                return
+            }
+
+            guard let data else { return }
+
+            do {
+                let response = try JSONDecoder().decode(SubcategoryResponse.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.subCat = response.subcategoryList
+                }
+            } catch {
+                print("❌ Decode Error:", error)
+            }
+
+        }.resume()
+    }
     
-    func fetchBatches(catId: Int) {
+    
+    func fetchBatches() {
 
         var components = URLComponents(
-            string: "https://marinewisdom.com/api/Home/getBatchByCatSubCat"
+            string: "\(uiString.baseURL)api/Home/getBatchByCatSubCat"
         )
 
         components?.queryItems = [
-            URLQueryItem(name: "catId", value: "\(catId)")
-            // add more parameters here if needed
-            // URLQueryItem(name: "subCatId", value: "12")
+            URLQueryItem(name: "catId", value: catId),
+            URLQueryItem(name: "subcatId", value: subCatId)
         ]
 
         guard let url = components?.url else {
             print("❌ Invalid URL")
             return
         }
-
+        
         URLSession.shared.dataTask(with: url) { data, _, error in
 
             if let error {
@@ -182,6 +213,9 @@ struct BatchesTabView : View {
 
             do {
                 let response = try JSONDecoder().decode(BatchCourse.self, from: data)
+                print("Cat id = \(catId)")
+                print(response)
+                
                 DispatchQueue.main.async {
                     self.allCourses = response.batchData
                 }
@@ -193,7 +227,7 @@ struct BatchesTabView : View {
     }
     
     func fetchHomeBanners() {
-        guard let url = URL(string: "https://marinewisdom.com/api/home/getHomeBanner") else { return }
+        guard let url = URL(string: "\(uiString.baseURL)api/home/getHomeBanner") else { return }
 
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
