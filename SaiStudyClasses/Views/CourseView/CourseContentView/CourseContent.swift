@@ -7,11 +7,15 @@ struct CourseContent : View {
     
     @State var Documents : [ContentItem] = []
     @State var url : String = ""
+    @State var purchaseCondition : Bool = false
+    @State var showAlert = false
     
     var body: some View {
+        
         ScrollView{
             VStack(spacing: 15){
                 ForEach($Documents ){ $item in
+                    let purchaseCodition = purchaseCondition
                     let imageURL = "\(url)batch_image/\(item.image ?? "")"
                     //EXam
                     if(item.contentType == "Exam"){
@@ -24,9 +28,13 @@ struct CourseContent : View {
                         
                        let examURL = "\(uiString.baseURL)exam-panel/\(encryptedStudent)/\(encryptedExam)"
                         Button{
-                            path.append(Route.ExamInfo(title: item.insTitle ?? "", dis: item.insDesc ?? "", url: examURL))
+                            if purchaseCodition {
+                                path.append(Route.ExamInfo(title: item.insTitle ?? "", dis: item.insDesc ?? "", url: examURL))
+                            } else {
+                                showAlert = true
+                            }
                         }label: {
-                            FileView(image: "exam", name: item.name , imageURL: imageURL)
+                            FileView(image: "exam", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                         }
                         
                         if(item.isResultAvailable == 1 ){
@@ -48,9 +56,15 @@ struct CourseContent : View {
                     else if(item.contentType == "Folder"){
                         
                         Button{
-                            path.append(Route.FoldersView(BatchId: batch_id, FolderId: item.id))
+                            
+                            if purchaseCodition {
+                                path.append(Route.FoldersView(BatchId: batch_id, FolderId: item.id))
+                            } else {
+                                showAlert = true
+                            }
+                            
                         }label: {
-                            FileView(image: "folder", name: item.name , imageURL: imageURL)
+                            FileView(image: "folder", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                         }
                     }
                    
@@ -58,24 +72,33 @@ struct CourseContent : View {
                     else if(item.contentType == "Audio") {
                        
                         Button{
-                            if(item.type == "audio"){
-                                let url = "\(url)video/\(item.redirectionUrl ?? "")"
-                                path.append(Route.AudioPlayerView(url: url, title: item.name))
-                            }else{
-                                
+                            if purchaseCodition {
+                                if(item.type == "audio"){
+                                    let url = "\(url)video/\(item.redirectionUrl ?? "")"
+                                    path.append(Route.AudioPlayerView(url: url, title: item.name))
+                                }else{
+                                    
+                                }
+                            } else {
+                                showAlert = true
                             }
                             
                         }label: {
-                            FileView(image: "audio", name: item.name , imageURL: imageURL)
+                            FileView(image: "audio", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                         }
                     }
                     //Link
                     else if(item.contentType == "Link") {
                        
                         Button{
-                            path.append(Route.ExamView(ExamUrl: item.redirectionUrl ?? ""))
+                            if purchaseCondition {
+                                path.append(Route.ExamView(ExamUrl: item.redirectionUrl ?? ""))
+                            } else {
+                                showAlert = true
+                            }
+                           
                         }label: {
-                            FileView(image: "browser", name: item.name , imageURL: imageURL)
+                            FileView(image: "browser", name: item.name , imageURL: imageURL, isPurchased: self.purchaseCondition)
                         }
                         
                     }
@@ -83,15 +106,19 @@ struct CourseContent : View {
                     else if(item.contentType == "Video"){
                         let videoimg = "\(url)video/\(item.image ?? "")"
                         Button{
-                            if(item.type == "youtube"){
-                                path.append(Route.YouTubeView(videoId: item.redirectionUrl ?? "" , title: item.name))
-                            }else{
-                                let videoURL = "\(url)\(item.redirectionUrl ?? "")"
-                                //custom url
-                                path.append(Route.VideoView(url: videoURL, title: item.name))
+                            if purchaseCodition {
+                                if(item.type == "youtube"){
+                                    path.append(Route.YouTubeView(videoId: item.redirectionUrl ?? "" , title: item.name))
+                                }else{
+                                    let videoURL = "\(url)\(item.redirectionUrl ?? "")"
+                                    //custom url
+                                    path.append(Route.VideoView(url: videoURL, title: item.name))
+                                }
+                            } else {
+                                showAlert = true
                             }
                         }label: {
-                            FileView(image: "video", name: item.name , imageURL: videoimg)
+                            FileView(image: "video", name: item.name , imageURL: videoimg, isPurchased: purchaseCodition)
                         }
                         
                     }
@@ -101,10 +128,13 @@ struct CourseContent : View {
                         let url = "\(url)notes/\(item.redirectionUrl ?? "")"
                         Button{
                             print(url)
-                            path.append(Route.PDFview(url: url, title: item.name))
-                            
+                            if purchaseCodition {
+                                path.append(Route.PDFview(url: url, title: item.name))
+                            } else {
+                                showAlert = true
+                            }
                         }label: {
-                            FileView(image: "pdf", name: item.name , imageURL: imageURL)
+                            FileView(image: "pdf", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                         }
                     }
                     //Document - PDF
@@ -113,28 +143,31 @@ struct CourseContent : View {
                         let url = "\(url)book/\(item.redirectionUrl ?? "")"
                         Button{
                             print(url)
-                            path.append(Route.AllDocView(title: item.name, url: url))
-                            //path.append(Route.ExamView(ExamUrl: url))
-                            //path.append(Route.PDFview(url: url, title: item.name))
-                            
+                            if purchaseCodition {
+                                path.append(Route.AllDocView(title: item.name, url: url))
+                                //path.append(Route.ExamView(ExamUrl: url))
+                                //path.append(Route.PDFview(url: url, title: item.name))
+                            } else {
+                                showAlert = true
+                            }
                         }label: {
                             if url.contains(".xls") {
-                                FileView(image: "xls", name: item.name , imageURL: imageURL)
+                                FileView(image: "xls", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                             }
                             else if url.contains(".doc") {
-                                FileView(image: "doc", name: item.name , imageURL: imageURL)
+                                FileView(image: "doc", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                             }
                             else if url.contains(".pdf") {
-                                FileView(image: "pdf", name: item.name , imageURL: imageURL)
+                                FileView(image: "pdf", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                             }
                             else if url.contains(".txt") {
-                                FileView(image: "txt", name: item.name , imageURL: imageURL)
+                                FileView(image: "txt", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                             }
                             else if url.contains(".pptx") {
-                                FileView(image: "pptx", name: item.name , imageURL: imageURL)
+                                FileView(image: "pptx", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                             }
                             else{
-                                FileView(image: "otherDoc", name: item.name , imageURL: imageURL)
+                                FileView(image: "otherDoc", name: item.name , imageURL: imageURL, isPurchased: purchaseCodition)
                             }
                         }
                     }
@@ -142,11 +175,17 @@ struct CourseContent : View {
                 }
             }
         }
-        
+        .alert("Alert", isPresented: $showAlert, actions: {
+            Button("OK") { showAlert = false }
+        }, message: {
+            Text("The content yo're trying to open is locked Buy the course for compleate access")
+        })
         .onAppear{
             fetchBatchContent()
         }
     }
+    
+    
   /*
     if(data.getRedirectionUrl().contains(".xlsx")){
         imgDocument.setImageDrawable(mContext.getDrawable(R.drawable.xls));
@@ -174,12 +213,14 @@ struct CourseContent : View {
     */
     
     func fetchBatchContent() {
-        let components = URLComponents(string: "\(uiString.baseURL)api/HomeNew/manage_content/\(batch_id)")
+        
+        var components = URLComponents(string: "\(uiString.baseURL)api/HomeNew/manage_content/\(batch_id)")
         print("MAIN URL API \(String(describing: components))")
-        /*components?.queryItems = [
+        let student_id = UserDefaults.standard.string(forKey: "studentId")
+        components?.queryItems = [
             URLQueryItem(name: "batch_id", value: batch_id),
-            //URLQueryItem(name: "student_id", value: studentId)
-        ]*/
+            URLQueryItem(name: "student_id", value: student_id)
+        ]
         
         guard let url = components?.url else {
             print("❌ Invalid URL")
@@ -202,6 +243,7 @@ struct CourseContent : View {
                print("Bach ID = ",batch_id)
                 print(response)
                 DispatchQueue.main.async {
+                    self.purchaseCondition = response.purchaseCondition
                     self.Documents = response.allData
                     self.url = response.fullUrl
                 }

@@ -4,6 +4,7 @@ struct FileView : View {
     let image : String
     let name : String
     let imageURL : String
+    let isPurchased: Bool
     
     var body: some View {
         HStack(spacing: 20){
@@ -28,10 +29,18 @@ struct FileView : View {
             
             Spacer()
             
-            Image("right.arrow")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 20,height: 20)
+            if !isPurchased {
+                Image(systemName: "lock.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20,height: 20)
+                    .foregroundStyle(.gray)
+            } else {
+                Image("right.arrow")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20,height: 20)
+            }
                // .foregroundColor(uiColor.DarkGrayText)
         }.padding()
     }

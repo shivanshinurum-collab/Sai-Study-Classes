@@ -86,7 +86,8 @@ struct HomeTabVew: View {
                                     .font(.subheadline)
                             }.background(.clear)
                         }
-                    }.sharedBackgroundVisibility(.hidden)
+                    }
+                    //.sharedBackgroundVisibility(.hidden)
                 }else{
                     ToolbarItem(placement: .topBarLeading){
                         Button{
