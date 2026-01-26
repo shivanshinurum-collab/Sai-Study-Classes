@@ -99,7 +99,16 @@ struct CourseOverview: View {
                         HStack {
                             Text("Convenience Fee")
                             Spacer()
-                            Text("₹\(batchResponse?.convenienceFee ?? "0")")
+                            if //let batchPrice = batch?.batchPrice,
+                                let offerPrice = batch?.batchOfferPrice,
+                                // let price = Int(batchPrice),
+                                let offer = Double(offerPrice),
+                                let convFeePercent = Double(batchResponse?.convenienceFee ?? "0") {
+                                let fee = offer * (convFeePercent / 100.0)
+                                Text("₹\(String(format: "%.2f", fee))")
+                            } else {
+                                Text("₹0.00")
+                            }
                         }
                         .font(.title3)
                         .foregroundColor(uiColor.white)
@@ -108,8 +117,12 @@ struct CourseOverview: View {
                         HStack {
                             Text("GST on Convenience (18%)")
                             Spacer()
-                            if let convFee = batchResponse?.convenienceFee,
-                               let fee = Double(convFee) {
+                            if //let batchPrice = batch?.batchPrice,
+                                let offerPrice = batch?.batchOfferPrice,
+                                // let price = Int(batchPrice),
+                                let offer = Double(offerPrice),
+                                let convFeePercent = Double(batchResponse?.convenienceFee ?? "0") {
+                                let fee = offer * (convFeePercent / 100.0)
                                 let gst = fee * 0.18
                                 Text("₹\(String(format: "%.2f", gst))")
                             } else {
@@ -121,12 +134,18 @@ struct CourseOverview: View {
                         
                         // Buy Button
                         Button {
-                            if(batch?.batchOfferPrice != "0"){
-                                let offerPrice = Int(batch?.batchOfferPrice ?? "0")
-                            RazorpayManager.shared.startPayment(
-                                amount: offerPrice ?? 0,
-                                description: "Test Payment"
-                            )
+                            if //let batchPrice = batch?.batchPrice,
+                                let offerPrice = batch?.batchOfferPrice,
+                                // let price = Int(batchPrice),
+                                let offer = Double(offerPrice),
+                                let convFeePercent = Double(batchResponse?.convenienceFee ?? "0") {
+                                let fee = offer * (convFeePercent / 100.0)
+                                let gst = fee * 0.18
+                                let total = Double(offer) + fee + gst
+                                RazorpayManager.shared.startPayment(
+                                    amount: Int(total),
+                                    description: "Test Payment"
+                                )
                             }
                         } label: {
                             if(batch?.batchOfferPrice == "0") {
@@ -135,9 +154,9 @@ struct CourseOverview: View {
                                 if //let batchPrice = batch?.batchPrice,
                                     let offerPrice = batch?.batchOfferPrice,
                                     // let price = Int(batchPrice),
-                                    let offer = Int(offerPrice),
-                                    let convFee = batchResponse?.convenienceFee,
-                                    let fee = Double(convFee) {
+                                    let offer = Double(offerPrice),
+                                    let convFeePercent = Double(batchResponse?.convenienceFee ?? "0") {
+                                    let fee = offer * (convFeePercent / 100.0)
                                     let gst = fee * 0.18
                                     let total = Double(offer) + fee + gst
                                     Text("₹\(String(format: "%.2f", total))")

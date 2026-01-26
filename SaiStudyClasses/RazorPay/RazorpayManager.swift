@@ -25,7 +25,7 @@ class RazorpayManager: NSObject, RazorpayPaymentCompletionProtocol {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         let options: [String: Any] = [
             "key": "rzp_live_xxx",
-            "amount": amount,
+            "amount": amount*100,
             "currency": "INR",
             "name": "\(uiString.AppName)",
             "description": "Course Fee",

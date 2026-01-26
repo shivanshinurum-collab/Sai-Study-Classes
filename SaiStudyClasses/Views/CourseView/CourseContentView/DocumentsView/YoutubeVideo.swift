@@ -14,10 +14,11 @@ struct YouTubeVideoView : View {
                 .background(uiColor.ButtonBlue)
                 
         VStack{
-            YouTubePlayerView(videoID: videoId)
-                        .frame(height: 220)
-                        .cornerRadius(12)
-                        .padding()
+            YoutubePlayerView(videoId: videoId)
+          //  YouTubePlayerView(videoID: videoId)
+//                        .frame(height: 220)
+//                        .cornerRadius(12)
+//                        .padding()
             Spacer()
         }
     }
