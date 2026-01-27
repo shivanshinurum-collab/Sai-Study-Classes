@@ -1,5 +1,5 @@
 {
-  "originHash" : "e896eca6893bea71ca819acaf0d55749127e88daf99f038d7d1032cb3006e08d",
+  "originHash" : "58f49a37447781bdd157e5c50e05fb22ffed30d53a93e95d7cd312d197f00cd9",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -134,6 +134,15 @@
       "state" : {
         "revision" : "7b6d23f487eb5d3116bdb04e26f3dcb949b412c7",
         "version" : "1.5.2"
+      }
+    },
+    {
+      "identity" : "screenprotectorkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/prongbang/ScreenProtectorKit.git",
+      "state" : {
+        "revision" : "1d00d802ed3b919988e273072052388e32a92920",
+        "version" : "1.5.1"
       }
     },
     {

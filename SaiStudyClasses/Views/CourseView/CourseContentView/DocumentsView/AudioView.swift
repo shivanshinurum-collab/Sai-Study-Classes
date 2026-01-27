@@ -5,17 +5,28 @@ import Combine
 
 
 struct AudioPlayerView: View {
+    @Binding var path : NavigationPath
     @StateObject private var audioVM = AudioPlayerViewModel()
     let audioURL: String
     let title : String
     
     var body: some View {
-        Text(title)
-        .font(.title2.bold())
-            .foregroundColor(uiColor.white)
-            .frame(maxWidth: .infinity)
-            .padding(.bottom)
-            .background(uiColor.ButtonBlue)
+        HStack{
+            Button{
+                path.removeLast()
+            }label:{
+                Image(systemName: "arrow.left")
+                    .foregroundColor(.black)
+                    .font(.title3.bold())
+            }
+            Spacer()
+            Text(title)
+            .font(.title2.bold())
+            .foregroundColor(.black)
+            Spacer()
+        }.padding(.horizontal)
+        
+        
         Spacer()
         Image("audio")
             .resizable()

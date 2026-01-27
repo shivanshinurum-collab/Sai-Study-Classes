@@ -33,7 +33,7 @@ struct AttendanceView : View {
                 
                 HStack {
                     Button {
-                        //path.removeLast()
+                        path.removeLast()
                     } label: {
                         Image(systemName: "arrow.left")
                             .foregroundColor(uiColor.white)
@@ -101,7 +101,7 @@ struct AttendanceView : View {
             
             Spacer()
            
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 

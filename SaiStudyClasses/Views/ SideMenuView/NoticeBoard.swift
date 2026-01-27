@@ -4,6 +4,8 @@ struct NoticeBoardView: View {
     @Binding var path : NavigationPath
     
     @State var notices: [Notice] = []
+    @State var staus: String = ""
+    @State var message: String = ""
 
     var body: some View {
         ZStack {
@@ -26,7 +28,7 @@ struct NoticeBoardView: View {
 
                         Text(uiString.NoticeTitle)
                             .foregroundColor(uiColor.white)
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(.title2.bold())
 
                         Spacer()
 
@@ -35,7 +37,7 @@ struct NoticeBoardView: View {
                     .padding()
                     .padding(.top, 60)
                 }
-                .frame(height: 120)
+                .frame(height: 130)
                 .clipShape(
                     RoundedCorner(
                         radius: 20,
@@ -43,14 +45,17 @@ struct NoticeBoardView: View {
                     )
                 )
 
-               
-                ScrollView {
-                    ForEach(notices) { notice in
-                        NoticeCell(notice: notice)
-                            .shadow(color: uiColor.DarkGrayText, radius: 3)
+                if(staus != "false"){
+                    ScrollView {
+                        ForEach(notices) { notice in
+                            NoticeCell(notice: notice)
+                                .shadow(color: uiColor.DarkGrayText, radius: 3)
+                        }
                     }
+                    .padding(.horizontal)
+                }else{
+                    NotFoundView(title: message, about: "")
                 }
-                .padding(.horizontal)
             }
         }.navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .top)
@@ -85,7 +90,9 @@ struct NoticeBoardView: View {
                 let decodedResponse = try JSONDecoder().decode(NoticeResponse.self, from: data)
                 
                 DispatchQueue.main.async {
-                    self.notices = decodedResponse.noticeList
+                    self.staus = decodedResponse.status
+                    self.message = decodedResponse.msg
+                    self.notices = decodedResponse.noticeList ?? []
                    
                 }
             } catch {

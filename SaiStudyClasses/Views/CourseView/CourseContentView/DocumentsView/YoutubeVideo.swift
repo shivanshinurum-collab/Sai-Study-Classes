@@ -5,13 +5,26 @@ import YouTubeiOSPlayerHelper
 struct YouTubeVideoView : View {
     let videoId : String
     let title : String
+    
+    @Binding var path : NavigationPath
+    
     var body: some View {
+        HStack{
+            Button{
+                path.removeLast()
+            }label:{
+                Image(systemName: "arrow.left")
+                    .foregroundColor(.black)
+                    .font(.title3.bold())
+            }
+            Spacer()
             Text(title)
             .font(.title2.bold())
-                .foregroundColor(uiColor.white)
-                .frame(maxWidth: .infinity)
-                .padding(.bottom)
-                .background(uiColor.ButtonBlue)
+            .foregroundColor(.black)
+            Spacer()
+        }.padding(.horizontal)
+        
+            
                 
         VStack{
             YoutubePlayerView(videoId: videoId)
@@ -23,7 +36,7 @@ struct YouTubeVideoView : View {
         }
     }
 }
-
+/*
 
 struct YouTubePlayerView: UIViewRepresentable {
 
@@ -63,5 +76,5 @@ struct YouTubePlayerView: UIViewRepresentable {
         }
     }
 }
-
+*/
 

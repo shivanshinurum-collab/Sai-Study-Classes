@@ -12,9 +12,28 @@ struct FoldersView: View {
     @State var showAlert : Bool = false
     
     var body: some View {
+            HStack{
+                Button{
+                    path.removeLast()
+                }label:{
+                    Image(systemName: "arrow.left")
+                        .foregroundColor(.black)
+                        .font(.title3.bold())
+                }
+                Spacer()
+                Text("Folder")
+                    .foregroundColor(.black)
+                    .lineLimit(0)
+                    .font(.title2.bold())
+                Spacer()
+            }.padding(.horizontal)
+    
+        
+        
         ScrollView{
             
             VStack(spacing: 15){
+                
                 ForEach($Documents ){ $item in
                     let purchaseCodition = purchaseCondition
                     //\(uiString.baseURL)

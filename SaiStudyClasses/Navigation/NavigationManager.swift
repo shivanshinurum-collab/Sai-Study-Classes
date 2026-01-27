@@ -70,13 +70,13 @@ struct NavigationManager: View {
                         PDFView(pdfURL: url, title: title)
                         
                     case .VideoView(let url, let title):
-                        VideoView(videoURL: url, title: title)
+                        VideoView(videoURL: url, title: title,path: $path)
                         
                     case .YouTubeView(let videoId, let title):
-                        YouTubeVideoView(videoId: videoId, title: title)
+                        YouTubeVideoView(videoId: videoId, title: title,path: $path)
                         
                     case .AudioPlayerView(let url,let title):
-                        AudioPlayerView(audioURL: url, title: title)
+                        AudioPlayerView(path: $path,audioURL: url, title: title)
                         
                     case .FoldersView(let BatchId, let FolderId):
                         FoldersView(path: $path, batch_id: BatchId, folder_id: FolderId)
@@ -94,6 +94,10 @@ struct NavigationManager: View {
                         
                     case .AllDocView(let title, let url):
                         AllDocView(path: $path, url: url, title: title)
+                        
+                    //case .IAPView:
+                     //   IAPView(path: $path)
+                        
                     }
                 }
         }

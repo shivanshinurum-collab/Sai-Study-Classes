@@ -29,7 +29,7 @@ func decryptFromUrlSafe(_ cipherText: String) -> String {
     let iv = Data(hash.prefix(16))
 
     var decryptedData = Data(count: encryptedData.count)
-    let decryptedDataLength = decryptedData.count   // ✅ FIX
+    let decryptedDataLength = decryptedData.count   //  FIX
     var bytesDecrypted: size_t = 0
 
     let status = decryptedData.withUnsafeMutableBytes { decryptedBytes in

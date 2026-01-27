@@ -2,7 +2,8 @@ import SwiftUI
 
 struct PaymentHistory : View{
     @Binding var path : NavigationPath
-    
+    @State var status : String = ""
+    @State var message : String = ""
     @State var payment : [PaymentHistoryItem] = []
     
     var body: some View {
@@ -29,13 +30,16 @@ struct PaymentHistory : View{
                     .padding(.top , 70)
                 VStack(spacing: 10){
                    
-                    ScrollView{
-                        ForEach(payment){pay in
-                            PaymentCell(payment: pay)
-                                .shadow(color: uiColor.DarkGrayText, radius: 3)
+                    if(status != "false"){
+                        ScrollView{
+                            ForEach(payment){pay in
+                                PaymentCell(payment: pay)
+                                    .shadow(color: uiColor.DarkGrayText, radius: 3)
+                            }
                         }
+                    }else{
+                        NotFoundView(title: message , about: "")
                     }
-                    
                 }.padding(.top , 100)
             }
         }
@@ -48,6 +52,7 @@ struct PaymentHistory : View{
     }
     func fetchData() {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
+        //print("studentID",student_id)
         var components = URLComponents(
             string: "\(uiString.baseURL)api/home/get_payment_history"
         )
@@ -76,8 +81,9 @@ struct PaymentHistory : View{
                 let decodedResponse = try JSONDecoder().decode(PaymentHistoryResponse.self, from: data)
                 
                 DispatchQueue.main.async {
-                    self.payment = decodedResponse.paymentData
-                   
+                    self.payment = decodedResponse.paymentData ?? []
+                    self.status = decodedResponse.status
+                    self.message = decodedResponse.msg
                 }
             } catch {
                 print("❌ Decode Error:", error)

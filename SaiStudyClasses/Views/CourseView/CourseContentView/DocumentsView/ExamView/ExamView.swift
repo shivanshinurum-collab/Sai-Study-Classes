@@ -16,7 +16,7 @@ struct ExamView: View {
                     .background(.ultraThinMaterial)
                     .cornerRadius(12)
             }
-        }
+        }.navigationBarBackButtonHidden(false)
     }
 }
 

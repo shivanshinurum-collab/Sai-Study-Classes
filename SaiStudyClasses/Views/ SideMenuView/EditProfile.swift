@@ -9,6 +9,7 @@ struct EditProfile : View{
     var image = URL(string: UserDefaults.standard.string(forKey: "image") ?? "")
     
     var Name : String = UserDefaults.standard.string(forKey: "fullName") ?? "User"
+    var studentId :String = UserDefaults.standard.string(forKey: "studentId") ?? ""
     var body: some View {
         
         ZStack(alignment: .top){
@@ -70,6 +71,7 @@ struct EditProfile : View{
                         VStack(alignment: .leading){
                             Text("\(uiString.ProfileEnroll) \(EnrollmentId)")
                             Text("\(uiString.ProfileEmail) \(Email)")
+                            Text("StudentId: \(studentId)")
                         }.padding(.leading)
                             .foregroundColor(uiColor.ButtonBlue)
                         

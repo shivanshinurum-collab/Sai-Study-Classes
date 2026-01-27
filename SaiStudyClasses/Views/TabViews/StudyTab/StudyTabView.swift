@@ -15,7 +15,8 @@ struct StudyTabView: View {
                 
                 HStack {
                     Button{
-                        path.append(Route.ExamView(ExamUrl: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A"))
+                        //path.append(Route.ExamView(ExamUrl: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A"))
+                        path.append(Route.AllDocView(title: "Bookmark", url: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A"))
                     }label: {
                         QuickAccessCard(
                             title: uiString.StudyBookmarkButton,

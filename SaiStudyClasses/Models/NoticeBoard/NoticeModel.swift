@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - API Response
 struct NoticeResponse: Codable {
-    let noticeList: [Notice]
+    let noticeList: [Notice]?
     let status: String
     let msg: String
 }

@@ -5,6 +5,8 @@ struct MyBatchesView : View{
     @Binding var path : NavigationPath
     
     @State var courses : [MyBatch] = []
+    @State var status : String = ""
+    @State var message : String = ""
     
     var body: some View {
         ZStack{
@@ -28,16 +30,20 @@ struct MyBatchesView : View{
         .frame(maxWidth: .infinity , maxHeight: 50)
         
         VStack(){
-            ScrollView{
-                ForEach( courses){ course in
-                    Button{
-                        path.append(Route.BuyCourseView(course_id: course.id, course_name: course.batchName))
-                    }label: {
-                        BatchesCardView(image: course.batchImage, titile: course.batchName , active: true)
-                    }.buttonStyle(.plain)
-                        .listRowSeparator(.hidden)
-                }.scrollIndicators(.hidden)
-            }.background(Color(.systemGray6))
+            if(status != "false"){
+                ScrollView{
+                    ForEach( courses){ course in
+                        Button{
+                            path.append(Route.BuyCourseView(course_id: course.id, course_name: course.batchName))
+                        }label: {
+                            BatchesCardView(image: course.batchImage, titile: course.batchName , active: true)
+                        }.buttonStyle(.plain)
+                            .listRowSeparator(.hidden)
+                    }.scrollIndicators(.hidden)
+                }.background(Color(.systemGray6))
+            }else{
+                NotFoundView(title: message, about: "")
+            }
         }
         .navigationBarBackButtonHidden(true)
         .onAppear{
@@ -47,7 +53,6 @@ struct MyBatchesView : View{
     
     func fetchBatches() {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
-        //print(student_id)
         var components = URLComponents(
             string: "\(uiString.baseURL)api/home/myCourse"
         )
@@ -76,7 +81,9 @@ struct MyBatchesView : View{
                 let decodedResponse = try JSONDecoder().decode(MyBatchesModel.self, from: data)
                 
                 DispatchQueue.main.async {
-                    self.courses = decodedResponse.yourBatch
+                    self.courses = decodedResponse.yourBatch ?? []
+                    self.status = decodedResponse.status
+                    self.message = decodedResponse.msg
                 }
             } catch {
                 print("❌ Decode Error:", error)

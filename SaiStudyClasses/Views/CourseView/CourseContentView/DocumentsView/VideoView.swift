@@ -5,6 +5,8 @@ struct VideoView: View {
     let videoURL: String
     let title: String
     
+    @Binding var path : NavigationPath
+    
     @State private var player: AVPlayer?
     @State private var isPlaying = false
     @State private var isLoading = true
@@ -16,7 +18,24 @@ struct VideoView: View {
     @State private var speaker = true
     
     var body: some View {
+        HStack{
+            Button{
+                path.removeLast()
+            }label:{
+                Image(systemName: "arrow.left")
+                    .foregroundColor(.black)
+                    .font(.title3.bold())
+            }
+            Spacer()
+            Text(title)
+            .font(.title2.bold())
+            .foregroundColor(.black)
+            Spacer()
+        }.padding(.horizontal)
+        
         ZStack {
+            
+            
             /*Color.black
                 .ignoresSafeArea()*/
             
@@ -203,7 +222,6 @@ struct VideoView: View {
                 }
             }
         }
-        .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             loadVideo()

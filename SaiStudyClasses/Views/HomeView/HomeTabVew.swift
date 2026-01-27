@@ -60,8 +60,9 @@ struct HomeTabVew: View {
                 ToolbarItem(placement: .topBarLeading){
                     Button{
                         showMenu.toggle()
-                    } label: {   //Shubk#m261220
+                    } label: {
                         Image(systemName: "line.3.horizontal")
+                            .foregroundColor(.black)
                     }
                 }
                 
@@ -81,9 +82,12 @@ struct HomeTabVew: View {
                                 
                                 Text(titleTab)
                                     .font(.subheadline)
+                                    .foregroundColor(.black)
                                 
                                 Image(systemName: "chevron.right")
                                     .font(.subheadline)
+                                    .foregroundColor(.black)
+                                
                             }.background(.clear)
                         }
                     }
@@ -104,9 +108,11 @@ struct HomeTabVew: View {
                                 
                                 Text(titleTab)
                                     .font(.subheadline)
+                                    .foregroundColor(.black)
                                 
                                 Image(systemName: "chevron.right")
                                     .font(.subheadline)
+                                    .foregroundColor(.black)
                             }.background(.clear)
                         }
                     }
@@ -117,6 +123,7 @@ struct HomeTabVew: View {
                         path.append(Route.NotificationView)
                     } label: {
                         Image(systemName: "bell.fill")
+                            .foregroundColor(.black)
                     }
                     
                 }
@@ -156,6 +163,7 @@ struct TabItemView: View {
 
             Text(title)
                 .font(.system(size: 12, weight: .medium))
+                .foregroundColor(.black)
         }
     }
 }

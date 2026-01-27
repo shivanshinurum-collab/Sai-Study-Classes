@@ -4,7 +4,7 @@ import Foundation
 struct PaymentHistoryResponse: Codable {
     let status: String
     let msg: String
-    let paymentData: [PaymentHistoryItem]
+    let paymentData: [PaymentHistoryItem]?
 
     enum CodingKeys: String, CodingKey {
         case status

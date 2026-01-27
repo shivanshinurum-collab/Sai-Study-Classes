@@ -3,7 +3,7 @@ import Foundation
 struct MyBatchesModel : Codable {
     let status : String
     let msg  : String
-    let yourBatch : [MyBatch]
+    let yourBatch : [MyBatch]?
 }
 struct MyBatch: Codable, Identifiable {
 
