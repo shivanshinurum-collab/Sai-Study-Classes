@@ -16,6 +16,8 @@ struct StudyTabView: View {
                 HStack {
                     Button{
                         //path.append(Route.ExamView(ExamUrl: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A"))
+                        
+                        
                         path.append(Route.AllDocView(title: "Bookmark", url: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A"))
                     }label: {
                         QuickAccessCard(
@@ -53,6 +55,8 @@ struct StudyTabView: View {
                     spacing: 16
                 ) {
                     Button{
+                        //UserDefaults.standard.set("1", forKey: "studentId")
+                        
                         path.append(Route.MyBatchesView)
                     } label: {
                         LearningCard(
@@ -83,7 +87,7 @@ struct StudyTabView: View {
                     }
                     
                     Button{
-                        path.append(Route.LiveChatView)
+                        path.append(Route.AllDocView(title: "Support", url: "\(uiString.baseURL)"))
                     } label: {
                         LearningCard(
                             title: uiString.StudySupportButton,

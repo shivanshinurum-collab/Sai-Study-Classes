@@ -10,6 +10,9 @@ struct BuyCourseView : View {
     
     
     @State var selectedTab : CourseAboutTabModel = .overview
+    
+    @State var tab : Int = 0
+    
     @State var coupon : String = ""
     
     var body: some View {
@@ -31,37 +34,75 @@ struct BuyCourseView : View {
         Divider()
         HStack{
             ForEach(CourseAboutTabModel.allCases , id: \.self) { tab in
-                Button{
-                    selectedTab = tab
-                }label: {
-                    Text(tab.rawValue)
-                        .padding(.vertical , 7)
-                        .padding(.horizontal)
-                        .foregroundColor(
-                            selectedTab == tab ? .white : .black
-                        )
-                        .background(
-                            RoundedRectangle(cornerRadius: 30)
-                                .fill(
-                                    selectedTab == tab
-                                    ? uiColor.ButtonBlue
-                                    : Color.clear
+                
+                if(tab.rawValue == "Live Class"){
+                    if(CourseOverview.isLiveClass == 1){
+                        Button{
+                            selectedTab = tab
+                        }label: {
+                            Text(tab.rawValue)
+                                .padding(.vertical , 7)
+                                .padding(.horizontal)
+                                .foregroundColor(
+                                    selectedTab == tab ? .white : .black
                                 )
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 18)
-                                .stroke(
-                                    selectedTab == tab
-                                    ? Color.clear
-                                    : uiColor.DarkGrayText ,
-                                    lineWidth: 1
+                                .background(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .fill(
+                                            selectedTab == tab
+                                            ? uiColor.ButtonBlue
+                                            : Color.clear
+                                        )
                                 )
-                        )
-                }.frame(maxWidth: .infinity)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 18)
+                                        .stroke(
+                                            selectedTab == tab
+                                            ? Color.clear
+                                            : uiColor.DarkGrayText ,
+                                            lineWidth: 1
+                                        )
+                                )
+                        }.frame(maxWidth: .infinity)
+                    }
+                }else{
+                    Button{
+                        selectedTab = tab
+                    }label: {
+                        Text(tab.rawValue)
+                            .padding(.vertical , 7)
+                            .padding(.horizontal)
+                            .foregroundColor(
+                                selectedTab == tab ? .white : .black
+                            )
+                            .background(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(
+                                        selectedTab == tab
+                                        ? uiColor.ButtonBlue
+                                        : Color.clear
+                                    )
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 18)
+                                    .stroke(
+                                        selectedTab == tab
+                                        ? Color.clear
+                                        : uiColor.DarkGrayText ,
+                                        lineWidth: 1
+                                    )
+                            )
+                    }.frame(maxWidth: .infinity)
+                    
+                }
             }
+            
            
         }.padding()
         .navigationBarBackButtonHidden(true)
+        .task{
+            print("IDS = \(course_id)")
+        }
         
         switch selectedTab {
         case .overview:
@@ -69,7 +110,7 @@ struct BuyCourseView : View {
         case .content:
             CourseContent(path: $path ,batch_id: course_id)
         case .liveClass:
-            LiveClassView()
+            LiveClassView(path: $path ,batch_id: course_id)
         }
         
         Spacer()

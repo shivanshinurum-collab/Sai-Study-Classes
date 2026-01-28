@@ -34,36 +34,8 @@ struct WelcomeView: View {
                     } placeholder: {
                         ProgressView()
                     }.padding(.bottom,300)
-                    //.frame(height: 420)
                 }
-                /*Image("welcome")
-                 .resizable()
-                 .scaledToFit()
-                 .frame(height: 420)*/
-                
-                //Spacer()
-           // }
             
-            /*VStack {
-                
-                Spacer()
-                VStack(spacing: 6) {
-                    Text(uiString.WelcomeTitle)
-                        .font(.system(size: 52, weight: .heavy))
-                        .foregroundColor(uiColor.white)
-                    
-                    Text(uiString.WelcomeSubTitle)
-                        .font(.system(size: 44, weight: .heavy))
-                        .foregroundColor(uiColor.white)
-                }.padding()
-                .background(
-                    LinearGradient(colors: [.black.opacity(0.8),.black,.black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
-                )
-                .padding(.bottom, 330)
-                
-                
-                
-            }*/
 
            
             VStack(alignment:.leading,spacing: 16) {
@@ -125,18 +97,18 @@ struct WelcomeView: View {
         ]
         
         guard let url = components?.url else {
-            print("❌ Invalid URL")
+            print(" Invalid URL")
             return
         }
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error {
-                print("❌ API Error:", error.localizedDescription)
+                print(" API Error:", error.localizedDescription)
                 return
             }
 
             guard let data else {
-                print("❌ No data received")
+                print(" No data received")
                 return
             }
 
@@ -147,7 +119,7 @@ struct WelcomeView: View {
                     self.bannerResponse = decodedResponse
                 }
             } catch {
-                print("❌ Decode Error:", error)
+                print(" Decode Error:", error)
             }
         }.resume()
     }

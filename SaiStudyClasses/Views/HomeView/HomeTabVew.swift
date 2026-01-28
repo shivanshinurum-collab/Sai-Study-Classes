@@ -83,6 +83,11 @@ struct HomeTabVew: View {
                                 Text(titleTab)
                                     .font(.subheadline)
                                     .foregroundColor(.black)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
+                                    //.minimumScaleFactor(0.5)
+                                    .frame(maxWidth: 115, alignment: .leading)
+
                                 
                                 Image(systemName: "chevron.right")
                                     .font(.subheadline)

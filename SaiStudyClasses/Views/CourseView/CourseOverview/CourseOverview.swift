@@ -1,6 +1,10 @@
 import SwiftUI
 
 struct CourseOverview: View {
+    
+    @State static var isLiveClass: Int = 0
+    @State static var isTestSeries: Int = 0
+    
     let course_id: String
     //let course: batchData
     
@@ -12,7 +16,7 @@ struct CourseOverview: View {
     
     var body: some View {
         let batchPrice = Int(batch?.batchPrice ?? "0") ?? 0
-        let offerPrice = Int(batch?.batchOfferPrice ?? "0") ?? 0
+        //let offerPrice = Int(batch?.batchOfferPrice ?? "0") ?? 0
         ZStack(alignment: .bottom) {
            // uiColor.white
               //  .ignoresSafeArea()
@@ -223,28 +227,13 @@ struct CourseOverview: View {
                     self.batch = decodedResponse.batch
                     self.batchResponse = decodedResponse
                     
+                    CourseOverview.isLiveClass = decodedResponse.isLiveClass
+                    CourseOverview.isTestSeries = decodedResponse.isTestSeriesAvailable
+                    
                 }
             } catch {
                 print("❌ Decode Error:", error)
-                if let decodingError = error as? DecodingError {
-                    switch decodingError {
-                    case .keyNotFound(let key, let context):
-                        print("Missing key:", key.stringValue)
-                        print("Context:", context.debugDescription)
-                        print("Coding Path:", context.codingPath.map { $0.stringValue }.joined(separator: " -> "))
-                    case .typeMismatch(let type, let context):
-                        print("Type mismatch for type:", type)
-                        print("Context:", context.debugDescription)
-                        print("Coding Path:", context.codingPath.map { $0.stringValue }.joined(separator: " -> "))
-                    case .valueNotFound(let type, let context):
-                        print("Value not found for type:", type)
-                        print("Context:", context.debugDescription)
-                    case .dataCorrupted(let context):
-                        print("Data corrupted:", context.debugDescription)
-                    @unknown default:
-                        print("Unknown decoding error")
-                    }
-                }
+               
             }
         }.resume()
     }

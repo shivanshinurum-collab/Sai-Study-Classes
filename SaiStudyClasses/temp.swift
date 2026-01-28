@@ -1,129 +1,234 @@
-
 import SwiftUI
+import StoreKit
+import Foundation
 import Combine
 
-#Preview {
-    temp()
+
+struct temp: View {
+
+    @StateObject private var store = StoreViewModel()
+
+    var body: some View {
+        VStack(spacing: 20) {
+
+            Text(store.isPurchased ? " Feature Unlocked" : " Feature Locked")
+                .font(.title2)
+                .fontWeight(.bold)
+
+            if let product = store.product {
+                Button {
+                    Task {
+                        await store.purchase()
+                    }
+                } label: {
+                    Text(store.isPurchased ? "Purchased" : "Buy \(product.displayPrice)")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(store.isPurchased ? Color.gray : Color.blue)
+                        .cornerRadius(12)
+                }
+                .disabled(store.isPurchased)
+                .padding(.horizontal)
+                
+            } else {
+                ProgressView("Loading Store…")
+            }
+        }
+        .padding()
+    }
 }
 
-import StoreKit
 
-// MARK: - IAP Manager
 @MainActor
-class CourseIAPManager: ObservableObject {
+final class StoreViewModel: ObservableObject {
 
-    @Published var products: [Product] = []
-    @Published var purchasedCourseIDs: Set<String> = []
+    private let productIdentifier = "com.app.marine.wisdom.study.course0"
 
-    // 👉 Add all your course product IDs here
-    private let productIDs: [String] = [
-        "com.yourapp.course.math",
-        "com.yourapp.course.physics"
-    ]
+    @Published var product: Product?
+    @Published var isPurchased = false
 
-    // Fetch products from App Store
-    func fetchProducts() async {
-        do {
-            products = try await Product.products(for: productIDs)
-        } catch {
-            print("❌ Failed to fetch products:", error)
+    private var transactionListenerTask: Task<Void, Never>?
+
+    
+    init() {
+        transactionListenerTask = listenForTransactions()
+
+        Task {
+            await loadProduct()
+            await updatePurchaseStatus()
         }
     }
 
-    // Purchase course
-    func purchase(product: Product) async {
+    deinit {
+        transactionListenerTask?.cancel()
+    }
+
+    
+    func loadProduct() async {
+        product = try? await Product.products(for: [productIdentifier]).first
+    }
+
+    
+    func purchase() async {
+        guard let product else { return }
+
         do {
             let result = try await product.purchase()
 
             switch result {
-            case .success(let verification):
-                let transaction = try verified(verification)
-                purchasedCourseIDs.insert(transaction.productID)
+
+            case .success(let verificationResult):
+                let transaction = try checkVerified(verificationResult)
                 await transaction.finish()
-                print("✅ Purchased:", transaction.productID)
+                await updatePurchaseStatus()
 
             case .userCancelled:
-                print("⚠️ User cancelled purchase")
+                print(" User cancelled purchase")
 
-            default:
+            case .pending:
+                print(" Purchase pending")
+
+            @unknown default:
                 break
             }
         } catch {
-            print("❌ Purchase failed:", error)
+            print(" Purchase failed:", error)
         }
     }
 
-    // Restore purchases
-    func restorePurchases() async {
-        for await result in Transaction.currentEntitlements {
-            if case .verified(let transaction) = result {
-                purchasedCourseIDs.insert(transaction.productID)
+  
+    func updatePurchaseStatus() async {
+        if let result = await Transaction.latest(for: productIdentifier),
+           case .verified(let transaction) = result {
+            isPurchased = transaction.revocationDate == nil
+        } else {
+            isPurchased = false
+        }
+    }
+
+   
+    private func listenForTransactions() -> Task<Void, Never> {
+        Task.detached { [weak self] in
+            for await update in Transaction.updates {
+                guard let self else { return }
+
+                if case .verified(let transaction) = update,
+                   transaction.productID == self.productIdentifier {
+
+                    await transaction.finish()
+                    await self.updatePurchaseStatus()
+                }
             }
         }
-        print("🔁 Restore completed")
     }
 
-    // Verification helper
-    private func verified<T>(_ result: VerificationResult<T>) throws -> T {
+    
+    private func checkVerified<T>(
+        _ result: VerificationResult<T>
+    ) throws -> T {
         switch result {
         case .verified(let safe):
             return safe
         case .unverified:
-            throw NSError(domain: "IAPError", code: 0)
+            throw StoreError.failedVerification
         }
-    }
-
-    // Access check
-    func hasAccess(courseID: String) -> Bool {
-        purchasedCourseIDs.contains(courseID)
     }
 }
 
-// MARK: - UI
-struct temp: View {
 
-    @StateObject private var iapManager = CourseIAPManager()
+enum StoreError: Error {
+    case failedVerification
+}
 
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(iapManager.products, id: \.id) { product in
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(product.displayName)
-                            .font(.headline)
 
-                        Text(product.displayPrice)
-                            .foregroundColor(.gray)
 
-                        if iapManager.hasAccess(courseID: product.id) {
-                            Text("Purchased ✅")
-                                .foregroundColor(.green)
-                        } else {
-                            Button("Buy Course") {
-                                Task {
-                                    await iapManager.purchase(product: product)
-                                }
-                            }
-                        }
+/*import SwiftUI
+import Combine
+import StoreKit
+import Foundation
+
+struct temp : View {
+    @StateObject private var store = StoreViewModel()
+    
+    var body : some View {
+        VStack{
+            Text(store.isPurchased ? "Feature Unlocked" : "Locked")
+                .font(.title)
+            
+            if let product = store.product {
+                Button{
+                    Task{
+                        await store.purchase()
                     }
-                    .padding(.vertical, 6)
+                } label: {
+                    Text(store.isPurchased ? "Purchased" : "Buy \(product.displayPrice)")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
                 }
-
-                Button("Restore Purchases") {
-                    Task {
-                        await iapManager.restorePurchases()
-                    }
-                }
-                .foregroundColor(.blue)
+                .padding()
+                .background(uiColor.ButtonBlue)
+                .cornerRadius(15)
+                .padding()
+                .disabled(store.isPurchased)
+            } else{
+                Text("Loading Store...")
             }
-            .navigationTitle("Courses")
-        }
-        .task {
-            await iapManager.fetchProducts()
-            await iapManager.restorePurchases()
         }
     }
 }
 
 
-
+@MainActor
+final class StoreViewModel : ObservableObject {
+    //private let productIdentifier = "com.app.marine.wisdom.study.course0"
+    private let productIdentifier = "com.app.marine.wisdom.study.course0"
+    
+    @Published var product : Product?
+    @Published var isPurchased = false
+    
+    init() {
+        Task{
+            await loadProduct()
+            await updatePurchaseStatus()
+        }
+    }
+    
+    func loadProduct() async {
+        if let loaded = try? await Product.products(for: [productIdentifier]).first {
+            product = loaded
+        }
+    }
+    
+    func purchase() async {
+        guard let product else { return }
+        
+        if case .success(let result) = try? await product.purchase(),
+           case .verified(let transaction) = result {
+            await transaction.finish()
+            await updatePurchaseStatus()
+        }
+    }
+    
+    func updatePurchaseStatus() async {
+        if let result = await Transaction.latest(for: productIdentifier),
+           case .verified(let transaction) = result {
+            isPurchased = (transaction.revocationDate == nil)
+        } else{
+            isPurchased = false
+        }
+    }
+    
+    private func listenForTransaction() {
+        Task{
+            for await update in Transaction.updates {
+                if case .verified(let transaction) = update ,
+                   transaction.productID == productIdentifier {
+                    await transaction.finish()
+                    await self.updatePurchaseStatus()
+                }
+            }
+        }
+    }
+}
+*/

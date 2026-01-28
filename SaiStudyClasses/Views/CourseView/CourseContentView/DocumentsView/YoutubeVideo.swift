@@ -19,21 +19,25 @@ struct YouTubeVideoView : View {
             }
             Spacer()
             Text(title)
-            .font(.title2.bold())
-            .foregroundColor(.black)
+                .font(.title2.bold())
+                .foregroundColor(.black)
             Spacer()
         }.padding(.horizontal)
         
-            
-                
+        
+        
         VStack{
             YoutubePlayerView(videoId: videoId)
-          //  YouTubePlayerView(videoID: videoId)
-//                        .frame(height: 220)
-//                        .cornerRadius(12)
-//                        .padding()
+            //  YouTubePlayerView(videoID: videoId)
+            //                        .frame(height: 220)
+            //                        .cornerRadius(12)
+            //                        .padding()
             Spacer()
-        }
+        }.navigationBarBackButtonHidden(true)
+            .onAppear{
+                print("youtube = \(videoId)")
+            }
+        
     }
 }
 /*

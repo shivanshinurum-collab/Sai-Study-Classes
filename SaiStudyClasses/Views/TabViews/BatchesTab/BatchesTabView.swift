@@ -174,7 +174,7 @@ struct BatchesTabView : View {
 
             do {
                 let response = try JSONDecoder().decode(SubcategoryResponse.self, from: data)
-                
+                print("Batches Response = ",response)
                 DispatchQueue.main.async {
                     self.subCat = response.subcategoryList
                 }
@@ -213,7 +213,8 @@ struct BatchesTabView : View {
 
             do {
                 let response = try JSONDecoder().decode(BatchCourse.self, from: data)
-                print("Cat id = \(catId)")
+                print("IDS = \(catId)")
+                print("IDS = \(subCatId)")
                 print(response)
                 
                 DispatchQueue.main.async {
