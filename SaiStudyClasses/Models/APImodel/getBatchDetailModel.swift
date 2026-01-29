@@ -24,7 +24,7 @@ struct getBatchDetailResponse: Decodable {
     enum CodingKeys: String, CodingKey {
         case status
         case batchAccess
-        case multiPrice = "multi_price"  // ✅ Map snake_case to camelCase
+        case multiPrice = "multi_price"
         case isGST
         case batch
         case coupon
@@ -63,7 +63,7 @@ struct Batch: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case batchExpiry = "batch_expiry"  // ✅ Map snake_case
+        case batchExpiry = "batch_expiry"
         case access
         case batchName = "batch_name"
         case description
@@ -80,8 +80,13 @@ struct Batch: Decodable {
     }
 }
 
-struct MultiPrice: Decodable {
-    // Add properties here when you know the structure
+struct MultiPrice: Decodable , Identifiable{
+    let id: String
+    let course_id: String?
+    let duration_type: String?
+    let duration_value: String?
+    let course_price: String?
+    let created_at: String?
 }
 
 struct Coupon: Decodable {

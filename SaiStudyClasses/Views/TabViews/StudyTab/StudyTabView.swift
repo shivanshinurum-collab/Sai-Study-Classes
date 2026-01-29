@@ -77,7 +77,7 @@ struct StudyTabView: View {
                     }
                     
                     Button{
-                        
+                        path.append(Route.DigitalEbookView)
                     } label: {
                         LearningCard(
                             title: uiString.StudyEbookButton,

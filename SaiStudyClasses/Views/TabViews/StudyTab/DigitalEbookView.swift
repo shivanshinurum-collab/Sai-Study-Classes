@@ -1,5 +1,7 @@
 import SwiftUI
-struct MyDownloads : View {
+
+struct DigitalEbookView : View {
+    
     @Binding var path : NavigationPath
     
     var body : some View {
@@ -18,7 +20,7 @@ struct MyDownloads : View {
 
                 Spacer()
 
-                Text("My Downloads")
+                Text("Digital Ebook")
                     .foregroundColor(.white)
                     .font(.system(size: 18))
                     .bold()
@@ -35,3 +37,4 @@ struct MyDownloads : View {
         NotFoundView(title: "Not Found Data", about: "")
     }
 }
+

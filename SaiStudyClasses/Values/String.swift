@@ -2,8 +2,8 @@ import SwiftUI
 struct uiString {
     static let AppName = "MARINE WISDOM"
     
-    static let baseURL = "https://marinewisdom.com/"
-    
+    //static let baseURL = "https://marinewisdom.com/"
+    static let baseURL = "https://app2.lmh-ai.in/"
     
     //Welcome Screen
     static let WelcomeTitle = "WELCOME"

@@ -38,7 +38,7 @@ struct NavigationManager: View {
                     case .MyBatchesView:
                         MyBatchesView(path: $path)
                     case .MyDownloadsView:
-                        MyDownloads()
+                        MyDownloads(path: $path)
                     case .LiveChatView:
                         LiveChat()
                         
@@ -95,6 +95,8 @@ struct NavigationManager: View {
                     case .AllDocView(let title, let url):
                         AllDocView(path: $path, url: url, title: title)
                         
+                    case .DigitalEbookView:
+                        DigitalEbookView(path: $path)
                     //case .IAPView:
                      //   IAPView(path: $path)
                         

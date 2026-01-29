@@ -1,234 +1,81 @@
 import SwiftUI
-import StoreKit
-import Foundation
-import Combine
-
-
-struct temp: View {
-
-    @StateObject private var store = StoreViewModel()
-
-    var body: some View {
-        VStack(spacing: 20) {
-
-            Text(store.isPurchased ? " Feature Unlocked" : " Feature Locked")
-                .font(.title2)
-                .fontWeight(.bold)
-
-            if let product = store.product {
-                Button {
-                    Task {
-                        await store.purchase()
-                    }
-                } label: {
-                    Text(store.isPurchased ? "Purchased" : "Buy \(product.displayPrice)")
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(store.isPurchased ? Color.gray : Color.blue)
-                        .cornerRadius(12)
-                }
-                .disabled(store.isPurchased)
-                .padding(.horizontal)
-                
-            } else {
-                ProgressView("Loading Store…")
-            }
-        }
-        .padding()
-    }
-}
-
-
-@MainActor
-final class StoreViewModel: ObservableObject {
-
-    private let productIdentifier = "com.app.marine.wisdom.study.course0"
-
-    @Published var product: Product?
-    @Published var isPurchased = false
-
-    private var transactionListenerTask: Task<Void, Never>?
-
-    
-    init() {
-        transactionListenerTask = listenForTransactions()
-
-        Task {
-            await loadProduct()
-            await updatePurchaseStatus()
-        }
-    }
-
-    deinit {
-        transactionListenerTask?.cancel()
-    }
-
-    
-    func loadProduct() async {
-        product = try? await Product.products(for: [productIdentifier]).first
-    }
-
-    
-    func purchase() async {
-        guard let product else { return }
-
-        do {
-            let result = try await product.purchase()
-
-            switch result {
-
-            case .success(let verificationResult):
-                let transaction = try checkVerified(verificationResult)
-                await transaction.finish()
-                await updatePurchaseStatus()
-
-            case .userCancelled:
-                print(" User cancelled purchase")
-
-            case .pending:
-                print(" Purchase pending")
-
-            @unknown default:
-                break
-            }
-        } catch {
-            print(" Purchase failed:", error)
-        }
-    }
-
-  
-    func updatePurchaseStatus() async {
-        if let result = await Transaction.latest(for: productIdentifier),
-           case .verified(let transaction) = result {
-            isPurchased = transaction.revocationDate == nil
-        } else {
-            isPurchased = false
-        }
-    }
-
-   
-    private func listenForTransactions() -> Task<Void, Never> {
-        Task.detached { [weak self] in
-            for await update in Transaction.updates {
-                guard let self else { return }
-
-                if case .verified(let transaction) = update,
-                   transaction.productID == self.productIdentifier {
-
-                    await transaction.finish()
-                    await self.updatePurchaseStatus()
-                }
-            }
-        }
-    }
-
-    
-    private func checkVerified<T>(
-        _ result: VerificationResult<T>
-    ) throws -> T {
-        switch result {
-        case .verified(let safe):
-            return safe
-        case .unverified:
-            throw StoreError.failedVerification
-        }
-    }
-}
-
-
-enum StoreError: Error {
-    case failedVerification
-}
-
-
-
-/*import SwiftUI
-import Combine
-import StoreKit
-import Foundation
 
 struct temp : View {
-    @StateObject private var store = StoreViewModel()
+    
+    @State private var selectedPlanID: String?
+
+    
+    var multiPrice: [MultiPrice] = [
+        MultiPrice(
+            id: "52",
+            course_id: "100",
+            duration_type: "months",
+            duration_value: "1",
+            course_price: "100.00",
+            created_at: "2026-01-29 15:53:59"
+        ),
+        MultiPrice(
+            id: "53",
+            course_id: "100",
+            duration_type: "days",
+            duration_value: "7",
+            course_price: "70.00",
+            created_at: "2026-01-29 15:53:59"
+        ),
+        MultiPrice(
+            id: "54",
+            course_id: "100",
+            duration_type: "years",
+            duration_value: "1",
+            course_price: "1000.00",
+            created_at: "2026-01-29 15:53:59"
+        )
+    ]
+
     
     var body : some View {
-        VStack{
-            Text(store.isPurchased ? "Feature Unlocked" : "Locked")
-                .font(.title)
-            
-            if let product = store.product {
-                Button{
-                    Task{
-                        await store.purchase()
-                    }
-                } label: {
-                    Text(store.isPurchased ? "Purchased" : "Buy \(product.displayPrice)")
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                }
-                .padding()
-                .background(uiColor.ButtonBlue)
-                .cornerRadius(15)
-                .padding()
-                .disabled(store.isPurchased)
-            } else{
-                Text("Loading Store...")
-            }
-        }
-    }
-}
-
-
-@MainActor
-final class StoreViewModel : ObservableObject {
-    //private let productIdentifier = "com.app.marine.wisdom.study.course0"
-    private let productIdentifier = "com.app.marine.wisdom.study.course0"
-    
-    @Published var product : Product?
-    @Published var isPurchased = false
-    
-    init() {
-        Task{
-            await loadProduct()
-            await updatePurchaseStatus()
-        }
-    }
-    
-    func loadProduct() async {
-        if let loaded = try? await Product.products(for: [productIdentifier]).first {
-            product = loaded
-        }
-    }
-    
-    func purchase() async {
-        guard let product else { return }
         
-        if case .success(let result) = try? await product.purchase(),
-           case .verified(let transaction) = result {
-            await transaction.finish()
-            await updatePurchaseStatus()
-        }
-    }
-    
-    func updatePurchaseStatus() async {
-        if let result = await Transaction.latest(for: productIdentifier),
-           case .verified(let transaction) = result {
-            isPurchased = (transaction.revocationDate == nil)
-        } else{
-            isPurchased = false
-        }
-    }
-    
-    private func listenForTransaction() {
-        Task{
-            for await update in Transaction.updates {
-                if case .verified(let transaction) = update ,
-                   transaction.productID == productIdentifier {
-                    await transaction.finish()
-                    await self.updatePurchaseStatus()
-                }
+        ForEach(multiPrice) { plan in
+        Button{
+            selectedPlanID = plan.id
+            print("PLAIN ID SELCET",selectedPlanID ?? "")
+        }label:{
+            HStack(spacing: 12) {
+
+                Image(systemName: selectedPlanID == plan.id
+                      ? "largecircle.fill.circle"
+                      : "circle")
+                    .foregroundColor(
+                        selectedPlanID == plan.id ? uiColor.ButtonBlue : .gray
+                    )
+
+                Text("\(plan.duration_value ?? "") \(plan.duration_type ?? "") validity")
+                    .font(.system(size: 16, weight: .medium))
+                    .frame(maxWidth: 160, alignment: .leading)
+                    .foregroundColor(.black)
+
+                Rectangle()
+                    .frame(width: 0.5, height: 25)
+                    .foregroundColor(.gray.opacity(0.4))
+
+                Text("₹\(plan.course_price ?? "")")
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundColor(.black)
+
+                Spacer()
             }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(
+                        selectedPlanID == plan.id
+                        ? uiColor.ButtonBlue
+                        : Color.gray.opacity(0.3),
+                        lineWidth: 1.4
+                    )
+            )
         }
+    }
     }
 }
-*/
+

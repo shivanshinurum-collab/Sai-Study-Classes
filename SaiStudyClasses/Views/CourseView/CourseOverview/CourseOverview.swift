@@ -23,6 +23,9 @@ struct CourseOverview: View {
             ScrollView() {
                 if let unwrappedBatch = batch, let unwrappedBatchResponse = batchResponse {
                     CourseAbout(batch: unwrappedBatch, batchResponse: unwrappedBatchResponse)//,course: course)
+                    CouponView(batch_id: String(course_id))
+                        .padding(.horizontal)
+                        .padding(.bottom)
                 } else {
                     // ✅ Show loading state
                     VStack {
@@ -221,7 +224,8 @@ struct CourseOverview: View {
 
             do {
                 let decodedResponse = try JSONDecoder().decode(getBatchDetailResponse.self, from: data)
-                
+                print("Student ID = ",student_id)
+                print("Batch ID = ",course_id)
                 DispatchQueue.main.async {
                     // ✅ Store the response
                     self.batch = decodedResponse.batch

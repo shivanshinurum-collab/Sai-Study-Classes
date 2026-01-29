@@ -33,70 +33,74 @@ struct BuyCourseView : View {
         .padding(.horizontal)
         Divider()
         HStack{
-            ForEach(CourseAboutTabModel.allCases , id: \.self) { tab in
-                
-                if(tab.rawValue == "Live Class"){
-                    if(CourseOverview.isLiveClass == 1){
-                        Button{
-                            selectedTab = tab
-                        }label: {
-                            Text(tab.rawValue)
-                                .padding(.vertical , 7)
-                                .padding(.horizontal)
-                                .foregroundColor(
-                                    selectedTab == tab ? .white : .black
-                                )
-                                .background(
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .fill(
-                                            selectedTab == tab
-                                            ? uiColor.ButtonBlue
-                                            : Color.clear
-                                        )
-                                )
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 18)
-                                        .stroke(
-                                            selectedTab == tab
-                                            ? Color.clear
-                                            : uiColor.DarkGrayText ,
-                                            lineWidth: 1
-                                        )
-                                )
-                        }.frame(maxWidth: .infinity)
-                    }
-                }else{
-                    Button{
-                        selectedTab = tab
-                    }label: {
-                        Text(tab.rawValue)
-                            .padding(.vertical , 7)
-                            .padding(.horizontal)
-                            .foregroundColor(
-                                selectedTab == tab ? .white : .black
-                            )
-                            .background(
-                                RoundedRectangle(cornerRadius: 30)
-                                    .fill(
-                                        selectedTab == tab
-                                        ? uiColor.ButtonBlue
-                                        : Color.clear
-                                    )
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 18)
-                                    .stroke(
-                                        selectedTab == tab
-                                        ? Color.clear
-                                        : uiColor.DarkGrayText ,
-                                        lineWidth: 1
-                                    )
-                            )
-                    }.frame(maxWidth: .infinity)
+            ScrollView(.horizontal , showsIndicators: false){
+                HStack{
+                ForEach(CourseAboutTabModel.allCases , id: \.self) { tab in
                     
+                        if(tab.rawValue == "Live Class"){
+                            if(CourseOverview.isLiveClass == 1){
+                                Button{
+                                    selectedTab = tab
+                                }label: {
+                                    Text(tab.rawValue)
+                                        .padding(.vertical , 7)
+                                        .padding(.horizontal)
+                                        .foregroundColor(
+                                            selectedTab == tab ? .white : .black
+                                        )
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .fill(
+                                                    selectedTab == tab
+                                                    ? uiColor.ButtonBlue
+                                                    : Color.clear
+                                                )
+                                        )
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 18)
+                                                .stroke(
+                                                    selectedTab == tab
+                                                    ? Color.clear
+                                                    : uiColor.DarkGrayText ,
+                                                    lineWidth: 1
+                                                )
+                                        )
+                                }//.frame(maxWidth: .infinity)
+                                .padding(.horizontal)
+                            }
+                        }else{
+                            Button{
+                                selectedTab = tab
+                            }label: {
+                                Text(tab.rawValue)
+                                    .padding(.vertical , 7)
+                                    .padding(.horizontal)
+                                    .foregroundColor(
+                                        selectedTab == tab ? .white : .black
+                                    )
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 30)
+                                            .fill(
+                                                selectedTab == tab
+                                                ? uiColor.ButtonBlue
+                                                : Color.clear
+                                            )
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 18)
+                                            .stroke(
+                                                selectedTab == tab
+                                                ? Color.clear
+                                                : uiColor.DarkGrayText ,
+                                                lineWidth: 1
+                                            )
+                                    )
+                            }//.frame(maxWidth: .infinity)
+                            .padding(.horizontal)
+                        }
+                    }
                 }
             }
-            
            
         }.padding()
         .navigationBarBackButtonHidden(true)

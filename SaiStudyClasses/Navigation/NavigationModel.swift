@@ -27,6 +27,7 @@ enum Route : Hashable {
     case MyBatchesView
     case MyDownloadsView
     case LiveChatView
+    case DigitalEbookView
     
     case NotificationView
     
