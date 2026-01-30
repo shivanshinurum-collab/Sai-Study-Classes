@@ -17,6 +17,10 @@ struct VideoView: View {
     @State private var timeObserver: Any?
     @State private var speaker = true
     
+    @State private var isDownloading = false
+    @State private var showToast = false
+    
+    
     var body: some View {
         HStack{
             Button{
@@ -31,6 +35,18 @@ struct VideoView: View {
             .font(.title2.bold())
             .foregroundColor(.black)
             Spacer()
+            
+            // ⬇️ Download Button
+            Button {
+                downloadAndSave()
+            } label: {
+                Image(systemName: "arrow.down.circle.fill")
+                    .font(.title2)
+                    .foregroundColor(.blue)
+            }
+            .disabled(isDownloading)
+            
+            
         }.padding(.horizontal)
         
         ZStack {
@@ -146,82 +162,26 @@ struct VideoView: View {
                                         .shadow(radius: 10)
                                 }
                             }
-                           /* VStack {
-                                Spacer()
-                                
-                                // Progress Bar
-                                VStack() {
-                                    // Time Labels
-                                    HStack {
-                                        Text(formatTime(currentTime))
-                                            .foregroundColor(.white)
-                                            .font(.caption)
-                                        
-                                        Spacer()
-                                        
-                                        Text(formatTime(duration))
-                                            .foregroundColor(.white)
-                                            .font(.caption)
-                                    }
-                                    .padding(.horizontal)
-                                    
-                                    // Progress Slider
-                                    Slider(value: $currentTime, in: 0...max(duration, 1)) { editing in
-                                        if !editing {
-                                            player.seek(to: CMTime(seconds: currentTime, preferredTimescale: 600))
-                                        }
-                                    }
-                                    .tint(.red)
-                                    .padding(.horizontal)
-                                }
-                                
-                                // Control Buttons
-                                HStack(spacing: 40) {
-                                    // Rewind 10 seconds
-                                    Button {
-                                        seekVideo(by: -10)
-                                    } label: {
-                                        Image(systemName: "gobackward.10")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.white)
-                                    }
-                                    
-                                    // Play/Pause Button
-                                    Button {
-                                        togglePlayPause()
-                                    } label: {
-                                        Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                                            .font(.system(size: 30))
-                                            .foregroundColor(.white)
-                                            .shadow(radius: 10)
-                                    }
-                                    
-                                    // Forward 10 seconds
-                                    Button {
-                                        seekVideo(by: 10)
-                                    } label: {
-                                        Image(systemName: "goforward.10")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.white)
-                                    }
-                                }
-                            }.padding(.bottom)
-                            .frame(height: 50, alignment: .bottom)
-                            .background(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [Color.black.opacity(0), Color.black.opacity(0.7)]),
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                            .transition(.opacity)*/
+                           
                         }
                     }.padding(.bottom)
                         .frame(height: 230)
                     Spacer()
                 }
             }
-        }
+        }.overlay(
+            VStack {
+                Spacer()
+                
+                if showToast {
+                    ToastView(message: "Downloaded and saved to your device")
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .padding(.bottom, 40)
+                }
+            }
+            .animation(.easeInOut, value: showToast)
+        )
+        .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             loadVideo()
@@ -230,6 +190,26 @@ struct VideoView: View {
             cleanupPlayer()
         }
     }
+    
+    // MARK: - Download + Save + Open Offline
+    private func downloadAndSave() {
+        isDownloading = true
+        
+        DocumentDownloadManager.shared.downloadAndSave(name : title ,remoteURL: videoURL) { localURL in
+            DispatchQueue.main.async {
+                isDownloading = false
+                
+                if let localURL {
+                    // ✅ Open offline document
+                    //path.append(DocumentRoute.offline(localURL))
+                    showToast = true
+                } else {
+                    print("❌ Download failed")
+                }
+            }
+        }
+    }
+    
     
     func loadVideo() {
         isLoading = true

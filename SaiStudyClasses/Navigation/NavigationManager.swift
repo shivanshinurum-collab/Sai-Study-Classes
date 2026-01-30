@@ -37,8 +37,12 @@ struct NavigationManager: View {
                           
                     case .MyBatchesView:
                         MyBatchesView(path: $path)
+                        
                     case .MyDownloadsView:
-                        MyDownloads(path: $path)
+                        //MyDownloads(path: $path)
+                        DownloadsView(path: $path)
+                        
+                        
                     case .LiveChatView:
                         LiveChat()
                         

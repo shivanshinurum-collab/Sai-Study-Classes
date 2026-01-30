@@ -145,8 +145,8 @@ struct SaiStudyClassesApp: App {
 
     var body: some Scene {
         WindowGroup {
-            zContentView()
-            /*NavigationManager()
+           
+            NavigationManager()
                 .onAppear {
                     // Listen for FCM token updates
                     NotificationCenter.default.addObserver(
@@ -158,7 +158,7 @@ struct SaiStudyClassesApp: App {
                             print("🎯 FCM Token updated in app: \(token)")
                         }
                     }
-                }*/
+                }
         }
     }
 }

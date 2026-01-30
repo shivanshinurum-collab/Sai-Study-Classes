@@ -57,5 +57,6 @@ enum Route : Hashable {
     
     case AllDocView(title : String , url : String)
     
+    
     //case IAPView
 }
