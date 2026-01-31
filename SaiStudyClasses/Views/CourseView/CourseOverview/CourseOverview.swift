@@ -23,9 +23,11 @@ struct CourseOverview: View {
             ScrollView() {
                 if let unwrappedBatch = batch, let unwrappedBatchResponse = batchResponse {
                     CourseAbout(batch: unwrappedBatch, batchResponse: unwrappedBatchResponse)//,course: course)
-                    CouponView(batch_id: String(course_id))
-                        .padding(.horizontal)
-                        .padding(.bottom)
+                    if(batchResponse?.purchaseCondition != true){
+                        CouponView(batch_id: String(course_id))
+                            .padding(.horizontal)
+                            .padding(.bottom)
+                    }
                 } else {
                     // ✅ Show loading state
                     VStack {

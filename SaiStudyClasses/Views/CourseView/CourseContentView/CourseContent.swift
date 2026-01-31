@@ -174,6 +174,7 @@ struct CourseContent : View {
                 
                 }
             }
+            //.screenshotProtected()
         }
         .alert("Alert", isPresented: $showAlert, actions: {
             Button("OK") { showAlert = false }

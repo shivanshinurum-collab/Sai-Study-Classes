@@ -1,20 +1,19 @@
 import SwiftUI
 
-struct AttendanceModel : Hashable{
-    let id = UUID()
-    let date : String
-    let time : String
-    let status : Bool
-}
 
 struct AttendanceView : View {
     @Binding var path : NavigationPath
     
-   @State var attendance : [AttendanceModel] = [
-        AttendanceModel(date: "2026-01-04", time: "11:33:06", status: true),
-        AttendanceModel(date: "2026-01-05", time: "05:00:15", status: true),
-        AttendanceModel(date: "2026-01-06", time: "10:30:23", status: true),
-    ]
+   @State var attendance : [Attendance] = []
+    let student_id = UserDefaults.standard.string(forKey: "studentId") ?? ""
+    
+    @State var selectedMonth = "01"
+    @State var selectedYear = "2026"
+
+    let months = Array(1...12).map { String(format: "%02d", $0) }
+    let years = ["2026","2027", "2028", "2029","2030"]
+    
+    
     
     var body: some View {
         VStack(){
@@ -52,7 +51,7 @@ struct AttendanceView : View {
                 }
                 .padding(.horizontal)
                 
-               DatePickerView()
+                DatePickerView
                     .padding(.top,30)
                     .shadow(color: uiColor.DarkGrayText,radius: 1)
                 
@@ -78,14 +77,14 @@ struct AttendanceView : View {
                 
                 
                 ScrollView{
-                    ForEach(attendance , id: \.self){ date in
+                    ForEach(attendance ,id: \.self){ date in
                         HStack{
                             HStack{
                                 Text(date.date)
                                     .frame(maxWidth: .infinity)
                                 Text(date.time)
                                     .frame(maxWidth: .infinity)
-                                Text(date.status ? "Present" : "Absent")
+                                Text("Present")
                                     .frame(maxWidth: .infinity)
                                 
                             }.padding()
@@ -102,18 +101,56 @@ struct AttendanceView : View {
             Spacer()
            
         }.navigationBarBackButtonHidden(true)
+            .onAppear{
+                fetchData()
+            }
     }
-}
+    
+    
+    func fetchData() {
+        let student_id = UserDefaults.standard.string(forKey: "studentId")
+        
+        var components = URLComponents(
+            string: "\(uiString.baseURL)api/v2/home/getAttendance"
+        )
+        
+        components?.queryItems = [
+            URLQueryItem(name: "student_id", value: student_id),
+            URLQueryItem(name: "month", value: selectedMonth),
+            URLQueryItem(name: "year", value: selectedYear)
+        ]
+        
+        guard let url = components?.url else {
+            print(" Invalid URL")
+            return
+        }
 
-struct DatePickerView : View {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                print(" API Error:", error.localizedDescription)
+                return
+            }
+
+            guard let data else {
+                print(" No data received")
+                return
+            }
+
+            do {
+                let decodedResponse = try JSONDecoder().decode(AttendanceResponse.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.attendance = decodedResponse.attendance ?? []
+                }
+            } catch {
+                print(" Decode Error:", error)
+            }
+        }.resume()
+    }
     
-        @State private var selectedMonth = "01"
-        @State private var selectedYear = "2026"
     
-    let months = Array(1...12).map { String(format: "%02d", $0) }
-        let years = ["2026","2027", "2028", "2029","2030"]
     
-    var body: some View {
+    var DatePickerView: some View {
         VStack(alignment: .leading, spacing: 12) {
 
             Text("Select Month And Year To Filter Results")
@@ -145,7 +182,7 @@ struct DatePickerView : View {
                 .cornerRadius(6)
 
                 Button {
-                    // Filter Action
+                    fetchData()
                 } label: {
                     Text("OK")
                         .foregroundColor(.white)
@@ -162,5 +199,8 @@ struct DatePickerView : View {
         .shadow(color: .black.opacity(0.05), radius: 6)
         .padding(20)
     }
+    
+    
 }
+
 

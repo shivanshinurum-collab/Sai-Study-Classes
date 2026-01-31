@@ -22,8 +22,8 @@ struct NavigationManager: View {
                         SelectGoalView(path: $path)
                     case .EditProfileView:
                         EditProfile(path: $path)
-                    case .BookmarkView:
-                        Bookmark(path: $path)
+                    case .BookmarkView(let url , let title):
+                        Bookmark(path: $path,url: url , title: title)
                     case .NoticeBoardView:
                         NoticeBoardView(path: $path)
                     case .PaymentHistoryView:
