@@ -9,20 +9,55 @@ import ScreenProtectorKit //  Add the package
 class AppDelegate: NSObject, UIApplicationDelegate {
 
     var window: UIWindow?
-    private var screenProtector: ScreenProtectorKit?
+    //private var screenProtector: ScreenProtectorKit?
+    //private var screenBlur: ScreenshotProtectionModifier?
+    private var screenProtector: CustomScreenProtectorKit?
+
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
+ //
+        //  Screenshot detection (Apple approved)
+        NotificationCenter.default.addObserver(
+            forName: UIApplication.userDidTakeScreenshotNotification,
+            object: nil,
+            queue: .main
+        ) { _ in
+            self.screenProtector?.showCustomScreen()
 
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.screenProtector?.hideCustomScreen()
+            }
+        }
+
+        
+       // self.screenProtector?.configurePreventionScreenshot()
+       // self.screenProtector?.enabledPreventScreenshot()
+//
         // Initialize ScreenProtectorKit with main window (will be nil at launch, so create after UI appears)
         DispatchQueue.main.async {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let keyWindow = windowScene.windows.first {
-                self.screenProtector = ScreenProtectorKit(window: keyWindow)
-                self.screenProtector?.configurePreventionScreenshot()
-                self.screenProtector?.enabledPreventScreenshot()
+                
+                //self.screenblur = CustomScreenProtectorKit(window: keyWindow)
+                 //       self.screenblur?.enable()
+                let protector = CustomScreenProtectorKit(window: keyWindow)
+                        protector.enable()
+
+                        self.screenProtector = protector
+                
+                
+              //  self.screenProtector = ScreenProtectorKit(window: keyWindow)
+ 
+                 //self.screenProtector?.configurePreventionScreenshot()
+                // self.screenProtector?.enabledPreventScreenshot()
+            
+                
+                
             }
         }
+      
 
         // Configure Firebase
         FirebaseApp.configure()
@@ -43,6 +78,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         return true
     }
+    @objc func userDidTakeScreenshot() {
+        showToast(message: "⚠️ Screenshot is not allowed for security reasons")
+    }
 
     private func requestNotificationPermission() {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -57,7 +95,41 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         )
     }
 
-    // Blur screen when app goes inactive (banking style)
+    
+    func showToast(message: String) {
+        guard let window = UIApplication.shared
+            .connectedScenes
+            .compactMap({ ($0 as? UIWindowScene)?.windows.first })
+            .first else { return }
+
+        let toastLabel = UILabel()
+        toastLabel.text = message
+        toastLabel.textColor = .white
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.85)
+        toastLabel.textAlignment = .center
+        toastLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        toastLabel.numberOfLines = 2
+        toastLabel.layer.cornerRadius = 12
+        toastLabel.clipsToBounds = true
+
+        let width = window.frame.width - 40
+        toastLabel.frame = CGRect(
+            x: 20,
+            y: window.frame.height - 120,
+            width: width,
+            height: 50
+        )
+
+        window.addSubview(toastLabel)
+
+        UIView.animate(withDuration: 0.4, delay: 2.0, options: .curveEaseOut) {
+            toastLabel.alpha = 0
+        } completion: { _ in
+            toastLabel.removeFromSuperview()
+        }
+    }
+
+    /*// Blur screen when app goes inactive (banking style)
     func applicationWillResignActive(_ application: UIApplication) {
         screenProtector?.enabledBlurScreen()
     }
@@ -65,7 +137,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         screenProtector?.disableBlurScreen()
         screenProtector?.enabledPreventScreenshot()
+    }*/
+    
+   /* func applicationWillResignActive(_ application: UIApplication) {
+        screenblur?.showScreen(forScreenshot: false) // Show when app goes background
     }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        screenblur?.hideScreen() // Hide when app becomes active
+    }*/
+
+
 
     // MARK: - Remote Notification Handlers
     func application(_ application: UIApplication,
@@ -162,6 +244,5 @@ struct SaiStudyClassesApp: App {
         }
     }
 }
-
 
 

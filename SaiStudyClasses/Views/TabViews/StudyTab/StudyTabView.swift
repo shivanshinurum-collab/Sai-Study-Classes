@@ -18,7 +18,7 @@ struct StudyTabView: View {
                         //path.append(Route.ExamView(ExamUrl: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A"))
                         
                         
-                        path.append(Route.AllDocView(title: "Bookmark", url: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A"))
+                        path.append(Route.BookmarkView(url: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A",title: "Bookmark"))
                     }label: {
                         QuickAccessCard(
                             title: uiString.StudyBookmarkButton,
@@ -106,6 +106,7 @@ struct StudyTabView: View {
             .padding(.top)
         }
         .background(Color.white)
+        
     }
 }
 

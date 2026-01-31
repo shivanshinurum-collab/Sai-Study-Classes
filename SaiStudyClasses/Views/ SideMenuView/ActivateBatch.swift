@@ -7,6 +7,8 @@ struct ActivateBatch : View{
     @State var Response : String = ""
     @State var Status : String = ""
     
+    @State var showLoading : Bool = false
+    
     var body: some View {
         
         ZStack(alignment: .top){
@@ -30,7 +32,7 @@ struct ActivateBatch : View{
                     .ignoresSafeArea()
                     .padding(.top , 70)
                 VStack(spacing: 10){
-                   
+                    
                     VStack(spacing:25){
                         Text(uiString.BatchHead)
                             .multilineTextAlignment(.center)
@@ -47,11 +49,17 @@ struct ActivateBatch : View{
                             )
                             .padding(.bottom , 30)
                             .onChange(of: BatchCode){
-                                 Response = ""
+                                Response = ""
                             }
+                        
+                        if showLoading {
+                            ProgressView()
+                        }
+                        
                         
                         Button{
                             if(BatchCode != ""){
+                                showLoading = true
                                 fetchData()
                             }else{
                                 Response = "Please Enter Batch Code"
@@ -84,7 +92,7 @@ struct ActivateBatch : View{
                         
                         Spacer()
                     }.padding(25)
-                    .background(.clear)
+                        .background(.clear)
                     
                 }.padding(.top , 100)
             }
@@ -92,7 +100,7 @@ struct ActivateBatch : View{
         .frame(maxWidth: .infinity , maxHeight: .infinity)
         .background(uiColor.ButtonBlue)
         .navigationBarBackButtonHidden(true)
-            
+        
     }
     
     func fetchData() {
@@ -129,6 +137,7 @@ struct ActivateBatch : View{
                 DispatchQueue.main.async {
                     self.Response = decodedResponse.msg
                     self.Status = decodedResponse.status
+                    self.showLoading = false
                 }
             } catch {
                 print("❌ Decode Error:", error)

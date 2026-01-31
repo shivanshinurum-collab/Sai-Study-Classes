@@ -15,7 +15,7 @@ enum Route : Hashable {
     
     //Side Bar
     case EditProfileView
-    case BookmarkView
+    case BookmarkView(url : String , title : String)
     case NoticeBoardView
     case PaymentHistoryView
     case BatchActivateView

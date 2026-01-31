@@ -188,6 +188,7 @@ struct FoldersView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .alert("Alert", isPresented: $showAlert, actions: {
             Button("OK") { showAlert = false }
         }, message: {

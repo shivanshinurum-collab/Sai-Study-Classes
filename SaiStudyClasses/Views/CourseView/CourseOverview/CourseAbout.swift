@@ -30,13 +30,6 @@ struct CourseAbout: View {
    
     var body: some View {
         
-       /* let multiPrice = batchResponse.multiPrice ?? []
-        
-        let material = batchResponse.totalItemsAvailable
-        let files =
-            (Int(batchResponse.totalPDF) ?? 0) +
-            (Int(batchResponse.totalNotes) ?? 0) +
-            (Int(batchResponse.totalVideos) ?? 0)*/
 
         ScrollView {
             VStack(alignment: .leading, spacing: 15) {
