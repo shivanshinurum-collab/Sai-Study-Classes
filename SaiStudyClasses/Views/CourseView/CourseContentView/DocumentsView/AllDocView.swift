@@ -5,15 +5,14 @@ struct AllDocView: View {
 
     @Binding var path: NavigationPath
     
-    
-
-    let download  = true
     let url: String
     let title: String
 
     @State private var isLoading = true
     @State private var isDownloading = false
     @State private var showToast = false
+    
+    @State var isDownload = ""
     
     var body: some View {
 
@@ -39,7 +38,7 @@ struct AllDocView: View {
                 Spacer()
 
                 // ⬇️ Download Button
-                if download {
+                if isDownload == "1" {
                     Button {
                         downloadAndSave()
                     } label: {
@@ -92,8 +91,7 @@ struct AllDocView: View {
             DispatchQueue.main.async {
                 isDownloading = false
                 
-                if let localURL {
-                    // ✅ Open offline document
+                if localURL != nil {
                     //path.append(DocumentRoute.offline(localURL))
                     showToast = true
                 } else {
@@ -102,5 +100,43 @@ struct AllDocView: View {
             }
         }
     }
+    
+    
+    func fetchData() {
+        let components = URLComponents(
+            string: apiURL.generalSetting
+        )
+        
+       
+        guard let url = components?.url else {
+            print("❌ Invalid URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                print("❌ API Error:", error.localizedDescription)
+                return
+            }
+            
+            guard let data else {
+                print("❌ No data received")
+                return
+            }
+            
+            do {
+                let response = try JSONDecoder().decode(AppConfigResponse.self, from: data)
+               
+                
+                DispatchQueue.main.async {
+                    self.isDownload = response.data.isDownloadPdf
+                }
+            } catch {
+                print("❌ Decode Error:", error)
+            }
+        }.resume()
+    }
+    
+    
 }
 

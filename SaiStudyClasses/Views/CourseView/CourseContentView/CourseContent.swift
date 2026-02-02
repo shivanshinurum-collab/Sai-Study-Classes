@@ -26,7 +26,7 @@ struct CourseContent : View {
                         let encryptedStudent = encryptToUrlSafe(student_id!)
                         let encryptedExam = encryptToUrlSafe(exam_id)
                         
-                       let examURL = "\(uiString.baseURL)exam-panel/\(encryptedStudent)/\(encryptedExam)"
+                        let examURL = "\(apiURL.DocexamPanel)\(encryptedStudent)/\(encryptedExam)"
                         Button{
                             if purchaseCodition {
                                 path.append(Route.ExamInfo(title: item.insTitle ?? "", dis: item.insDesc ?? "", url: examURL))
@@ -215,9 +215,12 @@ struct CourseContent : View {
     
     func fetchBatchContent() {
         
-        var components = URLComponents(string: "\(uiString.baseURL)api/HomeNew/manage_content/\(batch_id)")
-        print("MAIN URL API \(String(describing: components))")
+        var components = URLComponents(
+            string: "\(apiURL.manageContent)\(batch_id)"
+        )
+        
         let student_id = UserDefaults.standard.string(forKey: "studentId")
+        
         components?.queryItems = [
             URLQueryItem(name: "batch_id", value: batch_id),
             URLQueryItem(name: "student_id", value: student_id)
@@ -241,8 +244,7 @@ struct CourseContent : View {
             
             do {
                 let response = try JSONDecoder().decode(BatchContentResponse.self, from: data)
-               print("Bach ID = ",batch_id)
-                print(response)
+               
                 DispatchQueue.main.async {
                     self.purchaseCondition = response.purchaseCondition
                     self.Documents = response.allData

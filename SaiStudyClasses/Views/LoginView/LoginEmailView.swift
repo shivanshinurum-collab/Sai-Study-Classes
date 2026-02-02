@@ -148,7 +148,7 @@ struct LoginEmailView: View {
         let app_version = "55"
         
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/MobileApi/generateOTP"
+            string: apiURL.generateOTP
         )
         
         components?.queryItems = [

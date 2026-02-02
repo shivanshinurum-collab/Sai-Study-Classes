@@ -15,6 +15,21 @@
   ],
   "products" : [
     {
+      "displayPrice" : "39.99",
+      "familyShareable" : false,
+      "internalID" : "6758613138",
+      "localizations" : [
+        {
+          "description" : "Full access to study course",
+          "displayName" : "MEO CLASS 2 - GENERAL WRITTEN",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.app.marine.wisdom.study.course001",
+      "referenceName" : "MEO CLASS 2 - GENERAL WRITTEN",
+      "type" : "NonConsumable"
+    },
+    {
       "displayPrice" : "0.99",
       "familyShareable" : false,
       "internalID" : "6758335876",
@@ -28,6 +43,21 @@
       "productID" : "com.app.marine.wisdom.study.course0",
       "referenceName" : "Study Course",
       "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6758373496",
+      "localizations" : [
+        {
+          "description" : "Full access to study course",
+          "displayName" : "Study Course Consumable",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.app.marine.wisdom.study.course01",
+      "referenceName" : "Study Course Consumable",
+      "type" : "Consumable"
     }
   ],
   "settings" : {
@@ -38,7 +68,7 @@
     "_developerTeamID" : "7ALJPF39A5",
     "_disableDialogs" : false,
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 791271621.38032603,
+    "_lastSynchronizedDate" : 791725974.3858,
     "_locale" : "en_US",
     "_renewalBillingIssuesEnabled" : false,
     "_storefront" : "USA",

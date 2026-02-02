@@ -165,7 +165,8 @@ extension SelectGoalView {
     func fetchCategoryData() {
         isLoading = true
         
-        guard let url = URL(string: "\(uiString.baseURL)api/HomeNew/getCategoryData") else { return }
+        guard let url = URL(string: apiURL.getCategoryData )
+        else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

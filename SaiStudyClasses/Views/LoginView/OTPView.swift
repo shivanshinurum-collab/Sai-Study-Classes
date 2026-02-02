@@ -229,7 +229,7 @@ struct OTPView: View {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
 
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/MobileApi/checkOTP"
+            string: apiURL.checkOTP
         )
 
         components?.queryItems = [
@@ -254,17 +254,6 @@ struct OTPView: View {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-
-        // 🔍 DETAILED LOGGING
-        //print("=" + 50)
-        print("🔑 OTP VERIFICATION REQUEST")
-       // print("=" + 50)
-        print("📧 Email/Mobile:", email)
-        print("🔢 OTP Entered:", otp)
-        print("📱 Is Mobile:", isMobile)
-        print("🌍 Country Code:", countryCode)
-        print("🔗 Full URL:", url.absoluteString)
-        //print("=" + 50)
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
@@ -295,7 +284,7 @@ struct OTPView: View {
             if let rawResponse = String(data: data, encoding: .utf8) {
                 print("📥 RAW SERVER RESPONSE:")
                 print(rawResponse)
-                //print("=" * 50)
+               
             }
 
             do {

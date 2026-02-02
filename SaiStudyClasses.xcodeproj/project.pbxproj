@@ -42,9 +42,22 @@
 		AEDA4AAB2F28DA3D008CA37A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AEA3AF792F2E3A7400483DBB /* Exceptions for "SaiStudyClasses" folder in "SaiStudyClasses" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = AE562E472F08E17B00D6C662 /* SaiStudyClasses */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AE562E4A2F08E17B00D6C662 /* SaiStudyClasses */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AEA3AF792F2E3A7400483DBB /* Exceptions for "SaiStudyClasses" folder in "SaiStudyClasses" target */,
+			);
 			path = SaiStudyClasses;
 			sourceTree = "<group>";
 		};

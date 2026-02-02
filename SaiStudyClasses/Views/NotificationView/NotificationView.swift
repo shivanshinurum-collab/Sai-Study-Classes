@@ -62,7 +62,7 @@ struct NotificationView: View {
     func fetchData() {
         
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/home/get_notification"
+            string: apiURL.getNotification
         )
         
         

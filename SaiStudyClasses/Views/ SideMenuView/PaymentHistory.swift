@@ -54,7 +54,7 @@ struct PaymentHistory : View{
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         //print("studentID",student_id)
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/home/get_payment_history"
+            string: apiURL.getPaymentHistory
         )
         
         components?.queryItems = [

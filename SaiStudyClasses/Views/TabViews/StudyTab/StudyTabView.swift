@@ -18,7 +18,7 @@ struct StudyTabView: View {
                         //path.append(Route.ExamView(ExamUrl: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A"))
                         
                         
-                        path.append(Route.BookmarkView(url: "\(uiString.baseURL)/bookmark_page/QJYvEnPAMfImtzN3O-4W1A",title: "Bookmark"))
+                        path.append(Route.BookmarkView(url: apiURL.BookmarkPage ,title: "Bookmark"))
                     }label: {
                         QuickAccessCard(
                             title: uiString.StudyBookmarkButton,
@@ -87,7 +87,7 @@ struct StudyTabView: View {
                     }
                     
                     Button{
-                        path.append(Route.AllDocView(title: "Support", url: "\(uiString.baseURL)"))
+                        path.append(Route.AllDocView(title: "Support", url: "\(apiURL.baseURL)"))
                     } label: {
                         LearningCard(
                             title: uiString.StudySupportButton,

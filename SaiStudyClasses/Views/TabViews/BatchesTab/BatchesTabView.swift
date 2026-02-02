@@ -154,7 +154,7 @@ struct BatchesTabView : View {
     func fetchCat() {
 
         let components = URLComponents(
-            string: "\(uiString.baseURL)api/HomeNew/getSubcategoryList/\(catId)"
+            string: "\(apiURL.getSubCategoryList)\(catId)"
         )
 
 
@@ -189,7 +189,7 @@ struct BatchesTabView : View {
     func fetchBatches() {
 
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/Home/getBatchByCatSubCat"
+            string: apiURL.getBatchByCatSubCat
         )
 
         components?.queryItems = [
@@ -228,7 +228,7 @@ struct BatchesTabView : View {
     }
     
     func fetchHomeBanners() {
-        guard let url = URL(string: "\(uiString.baseURL)api/home/getHomeBanner") else { return }
+        guard let url = URL(string: apiURL.getHomeBanner ) else { return }
 
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {

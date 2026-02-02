@@ -114,56 +114,7 @@ struct CourseAbout: View {
                     
                 }else if batch.durationType == "4" {
                     PricePlanView(multiPrice: multiPrice)
-                   /* HStack {
-                        Image(systemName: "clock").font(.system(size: 22))
-                        VStack(alignment: .leading) {
-                            Text("Batch Validity")
-                                .font(.title2.bold())
-                            Text("You will get the course for lifetime")
-                        }
-                    }
-                    ForEach(multiPrice) { plan in
-                        Button{
-                            selectedPlanID = plan.id
-                            print("PLAIN ID SELCET",selectedPlanID ?? "")
-                        }label:{
-                            HStack(spacing: 12) {
-
-                                Image(systemName: selectedPlanID == plan.id
-                                      ? "largecircle.fill.circle"
-                                      : "circle")
-                                    .foregroundColor(
-                                        selectedPlanID == plan.id ? uiColor.ButtonBlue : .gray
-                                    )
-
-                                Text("\(plan.duration_value ?? "") \(plan.duration_type ?? "") validity")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .frame(maxWidth: 160, alignment: .leading)
-                                    .foregroundColor(.black)
-
-                                Rectangle()
-                                    .frame(width: 0.5, height: 25)
-                                    .foregroundColor(.gray.opacity(0.4))
-
-                                Text("₹\(plan.course_price ?? "")")
-                                    .font(.system(size: 17, weight: .bold))
-                                    .foregroundColor(.black)
-
-                                Spacer()
-                            }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(
-                                        selectedPlanID == plan.id
-                                        ? uiColor.ButtonBlue
-                                        : Color.gray.opacity(0.3),
-                                        lineWidth: 1.4
-                                    )
-                            )
-                        }
-                    }
-                    */
+                   
                 }
                 
                 // MARK: - Materials
@@ -192,46 +143,5 @@ struct CourseAbout: View {
 
 
     
-    // MARK: - API Call
-    func checkCoupon() {
-
-        couponResponse = nil
-
-        var components = URLComponents(
-            string: "\(uiString.baseURL)api/v2/Home/appliedCoupon"
-        )
-
-        components?.queryItems = [
-            URLQueryItem(name: "coupon_code", value: coupon),
-            URLQueryItem(name: "batch_id", value: batch.id)
-        ]
-
-        guard let url = components?.url else {
-            print(" Invalid URL")
-            return
-        }
-
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let error {
-                print(" API Error:", error.localizedDescription)
-                return
-            }
-
-            guard let data else {
-                print(" No data received")
-                return
-            }
-
-            do {
-                let decodedResponse = try JSONDecoder().decode(CouponModel.self, from: data)
-                print("Response = ",decodedResponse)
-                DispatchQueue.main.async {
-                    self.couponResponse = decodedResponse
-                }
-            } catch {
-                print(" Decode Error:", error)
-            }
-        }
-        .resume()
-    }
+    
 }

@@ -56,7 +56,7 @@ struct CouponView : View {
         couponResponse = nil
 
         var components = URLComponents(
-            string: "https://marinewisdom.com/api/v2/Home/appliedCoupon"
+            string: apiURL.appliedCoupon
         )
 
         components?.queryItems = [
