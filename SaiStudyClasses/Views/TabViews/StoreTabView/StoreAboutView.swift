@@ -127,7 +127,7 @@ struct StoreAboutView: View {
     func fetchData() {
 
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/HomeNew/getContentDetail"
+            string: apiURL.getContentDetail
         )
 
         components?.queryItems = [

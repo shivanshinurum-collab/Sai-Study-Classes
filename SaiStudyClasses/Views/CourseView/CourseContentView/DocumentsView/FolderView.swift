@@ -38,7 +38,7 @@ struct FoldersView: View {
                     let purchaseCodition = purchaseCondition
                     //\(uiString.baseURL)
                     //let imageURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/batch_image/\(item.image ?? "")"
-                    let imageURL = "\(uiString.baseURL)uploads/batch_image/\(item.image ?? "")"
+                    let imageURL = "\(apiURL.DocbatchImage)\(item.image ?? "")"
                     //EXam
                     if(item.contentType == "Exam"){
                         
@@ -48,7 +48,7 @@ struct FoldersView: View {
                         let encryptedStudent = encryptToUrlSafe(student_id!)
                         let encryptedExam = encryptToUrlSafe(exam_id)
                         
-                        let examURL = "\(uiString.baseURL)exam-panel/\(encryptedStudent)/\(encryptedExam)"
+                        let examURL = "\(apiURL.DocexamPanel)\(encryptedStudent)/\(encryptedExam)"
                         Button{
                             if purchaseCodition {
                                 path.append(Route.ExamView(ExamUrl: examURL))
@@ -116,14 +116,14 @@ struct FoldersView: View {
                     //Video
                     else if(item.contentType == "Video"){
                         //let videoimg = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/video/\(item.image ?? "")"
-                        let videoimg = "\(uiString.baseURL)uploads/video/\(item.image ?? "")"
+                        let videoimg = "\(apiURL.DocVideoImg)\(item.image ?? "")"
                         Button{
                             if purchaseCodition {
                                 if(item.type == "youtube"){
                                     path.append(Route.YouTubeView(videoId: item.redirectionUrl ?? "" , title: item.name))
                                 }else{
                                     //let videoURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/\(item.redirectionUrl ?? "")"
-                                    let videoURL = "\(uiString.baseURL)uploads/\(item.redirectionUrl ?? "")"
+                                    let videoURL = "\(apiURL.DocVideo)\(item.redirectionUrl ?? "")"
                                     //custom url
                                     path.append(Route.VideoView(url: videoURL, title: item.name))
                                 }
@@ -200,7 +200,9 @@ struct FoldersView: View {
     }
     
     func fetchBatchContent() {
-        var components = URLComponents(string: "\(uiString.baseURL)api/HomeNew/manage_content/\(batch_id)/\(folder_id)")
+        var components = URLComponents(
+            string: "\(apiURL.manageContent)\(batch_id)/\(folder_id)"
+        )
         
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         components?.queryItems = [

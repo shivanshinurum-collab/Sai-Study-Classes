@@ -9,35 +9,42 @@ struct WelcomeView: View {
     var body: some View {
         
         ZStack (alignment: .bottom){
-       
-            LinearGradient(
-                colors: [
-                    
-                    Color(red: 0.9, green: 0.9, blue: 0.0),
-                    .white,
-                    Color(red: 0.9, green: 0.9, blue: 0.0)
-                
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            ).padding(.bottom,50)
-            .ignoresSafeArea()
+            
+            /* LinearGradient(
+             colors: [
+             
+             Color(red: 0.9, green: 0.9, blue: 0.0),
+             .white,
+             Color(red: 0.9, green: 0.9, blue: 0.0)
+             
+             ],
+             startPoint: .top,
+             endPoint: .bottom
+             ).padding(.bottom,50)
+             .ignoresSafeArea()*/
             
             //VStack(spacing: 0) {
-                
-                if let imageName = bannerResponse?.data.first?.first,
-                   let url = URL(string: bannerResponse!.filesUrl + imageName) {
-                    
-                    AsyncImage(url: url) { image in
-                        image.resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        ProgressView()
-                    }.padding(.bottom,300)
-                }
             
-
-           
+            if let imageName = bannerResponse?.data.first?.first{
+                //https://nbg1.your-objectstorage.com/cdnsecure/marinewisdom.com/uploads/login_banners/ce9c1f85d79f9e9abde598e0ea18d2d3.jpg
+                //bannerResponse!.filesUrl + imageName
+                AsyncImage(url: URL(string: bannerResponse!.filesUrl + imageName)) { image in
+                    image.resizable()
+                    //.scaledToFill()
+                        .frame(maxWidth: .infinity,maxHeight: .infinity)
+                        .ignoresSafeArea(edges: .top)
+                        .padding(.bottom)
+                } placeholder: {
+                    Image("logo")
+                        .resizable()
+                    //.scaledToFill()
+                        .frame(maxWidth: .infinity,maxHeight: .infinity)
+                        .ignoresSafeArea()
+                }
+            }
+            
+            
+            
             VStack(alignment:.leading,spacing: 16) {
                 
                 Text(uiString.WelcomeLoginTitle)
@@ -82,14 +89,14 @@ struct WelcomeView: View {
             .onAppear{
                 fetchData()
             }
-
+            
         }
     }
    
     func fetchData() {
         
         var components = URLComponents(
-            string: "\(uiString.baseURL)ajaxcall/api_login_banners"
+            string: apiURL.loginBanners
         )
         
         components?.queryItems = [

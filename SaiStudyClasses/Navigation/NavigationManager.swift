@@ -101,8 +101,8 @@ struct NavigationManager: View {
                         
                     case .DigitalEbookView:
                         DigitalEbookView(path: $path)
-                    //case .IAPView:
-                     //   IAPView(path: $path)
+                    case .IAPView:
+                        IAPView(path: $path)
                         
                     }
                 }

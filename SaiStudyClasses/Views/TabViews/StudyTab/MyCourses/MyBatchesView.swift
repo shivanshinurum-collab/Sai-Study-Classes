@@ -54,7 +54,7 @@ struct MyBatchesView : View{
     func fetchBatches() {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/home/myCourse"
+            string: apiURL.myCourse
         )
 
         components?.queryItems = [

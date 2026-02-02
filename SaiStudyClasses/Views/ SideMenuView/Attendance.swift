@@ -111,7 +111,7 @@ struct AttendanceView : View {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/v2/home/getAttendance"
+            string: apiURL.getAttendance 
         )
         
         components?.queryItems = [

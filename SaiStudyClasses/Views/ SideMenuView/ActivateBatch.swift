@@ -107,7 +107,7 @@ struct ActivateBatch : View{
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/home/add_activation_batch_code"
+            string: apiURL.activateBatch
         )
         
         components?.queryItems = [

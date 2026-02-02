@@ -127,75 +127,8 @@ struct AudioPlayerView: View {
             .disabled(!audioVM.isReadyToPlay)
         }
         .foregroundColor(.primary)
+        .navigationBarBackButtonHidden(true)
     }
-    
-   /* private var volumeControlView: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "speaker.fill")
-                .foregroundColor(.secondary)
-                .font(.caption)
-            
-            Slider(
-                value: Binding(
-                    get: { audioVM.volume },
-                    set: { audioVM.setVolume($0) }
-                ),
-                in: 0...1
-            )
-            
-            Image(systemName: "speaker.wave.3.fill")
-                .foregroundColor(.secondary)
-                .font(.caption)
-        }
-        .padding(.horizontal)
-    }
-    */
-   /* private var playbackRateView: some View {
-        VStack(spacing: 10) {
-            Text("Speed:")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            HStack(spacing: 8) {
-                PlaybackRateButton(rate: 0.5, currentRate: audioVM.playbackRate) {
-                    audioVM.setPlaybackRate(0.5)
-                }
-                PlaybackRateButton(rate: 0.75, currentRate: audioVM.playbackRate) {
-                    audioVM.setPlaybackRate(0.75)
-                }
-                PlaybackRateButton(rate: 1.0, currentRate: audioVM.playbackRate) {
-                    audioVM.setPlaybackRate(1.0)
-                }
-            }
-            
-            HStack(spacing: 8) {
-                PlaybackRateButton(rate: 1.25, currentRate: audioVM.playbackRate) {
-                    audioVM.setPlaybackRate(1.25)
-                }
-                PlaybackRateButton(rate: 1.5, currentRate: audioVM.playbackRate) {
-                    audioVM.setPlaybackRate(1.5)
-                }
-                PlaybackRateButton(rate: 2.0, currentRate: audioVM.playbackRate) {
-                    audioVM.setPlaybackRate(2.0)
-                }
-            }
-        }
-    }
-    */
-    /*private var additionalControlsView: some View {
-        HStack(spacing: 20) {
-            Button(action: { audioVM.toggleRepeat() }) {
-                Image(systemName: audioVM.isRepeating ? "repeat.1" : "repeat")
-                    .foregroundColor(audioVM.isRepeating ? .blue : .secondary)
-            }
-            
-            Button(action: { audioVM.stop() }) {
-                Image(systemName: "stop.fill")
-                    .foregroundColor(.secondary)
-            }
-        }
-        .font(.title3)
-    }*/
     
     private func formatTime(_ time: Double) -> String {
         guard !time.isNaN && !time.isInfinite else { return "0:00" }

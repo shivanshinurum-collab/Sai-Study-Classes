@@ -52,7 +52,7 @@ struct TestTabView : View {
     func fetchBatches() {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/Home/getTestSeriesBatch"
+            string: apiURL.getTestSeriesBatch
         )
 
         components?.queryItems = [

@@ -32,27 +32,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
 
         
-       // self.screenProtector?.configurePreventionScreenshot()
-       // self.screenProtector?.enabledPreventScreenshot()
-//
-        // Initialize ScreenProtectorKit with main window (will be nil at launch, so create after UI appears)
         DispatchQueue.main.async {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let keyWindow = windowScene.windows.first {
                 
-                //self.screenblur = CustomScreenProtectorKit(window: keyWindow)
-                 //       self.screenblur?.enable()
+                
                 let protector = CustomScreenProtectorKit(window: keyWindow)
                         protector.enable()
 
                         self.screenProtector = protector
-                
-                
-              //  self.screenProtector = ScreenProtectorKit(window: keyWindow)
- 
-                 //self.screenProtector?.configurePreventionScreenshot()
-                // self.screenProtector?.enabledPreventScreenshot()
-            
+              
                 
                 
             }
@@ -128,25 +117,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             toastLabel.removeFromSuperview()
         }
     }
-
-    /*// Blur screen when app goes inactive (banking style)
-    func applicationWillResignActive(_ application: UIApplication) {
-        screenProtector?.enabledBlurScreen()
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        screenProtector?.disableBlurScreen()
-        screenProtector?.enabledPreventScreenshot()
-    }*/
-    
-   /* func applicationWillResignActive(_ application: UIApplication) {
-        screenblur?.showScreen(forScreenshot: false) // Show when app goes background
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        screenblur?.hideScreen() // Hide when app becomes active
-    }*/
-
 
 
     // MARK: - Remote Notification Handlers

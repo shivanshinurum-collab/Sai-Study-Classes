@@ -74,7 +74,7 @@ struct LiveClassView : View {
     func fetchData() {
         
         var components = URLComponents(
-            string: "\(uiString.baseURL)api/Home/checkActiveLiveClass"
+            string: apiURL.checkActiveLiveClass
         )
         
         components?.queryItems = [

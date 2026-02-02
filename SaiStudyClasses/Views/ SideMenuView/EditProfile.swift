@@ -171,7 +171,7 @@ struct EditProfile : View{
     func fetchData() {
         
         let components = URLComponents(
-            string: "\(uiString.baseURL)api/home/getProfile/\(studentId)"
+            string: "\(apiURL.getProfile)\(studentId)"
         )
 
         guard let url = components?.url else {
@@ -279,7 +279,7 @@ struct EditProfile : View{
         print(" Multipart data size: \(multipartData.count) bytes")
         
         // Create URL
-        guard let url = URL(string: "\(uiString.baseURL)api/home/profile_update") else {
+        guard let url = URL(string: apiURL.profileUpdate ) else {
             print(" Invalid URL")
             await MainActor.run {
                 isUploading = false

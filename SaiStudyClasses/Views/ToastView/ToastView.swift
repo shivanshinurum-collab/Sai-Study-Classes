@@ -23,7 +23,7 @@ struct ToastModifier: ViewModifier {
 
     @Binding var isShowing: Bool
     let message: String
-    let duration: Double
+    let duration: Double = 0.7
 
     @State private var workItem: DispatchWorkItem?
 
@@ -73,7 +73,6 @@ extension View {
             ToastModifier(
                 isShowing: isShowing,
                 message: message,
-                duration: duration
             )
         )
     }

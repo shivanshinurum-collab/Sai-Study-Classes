@@ -110,7 +110,7 @@ struct BuyCourseView : View {
         
         switch selectedTab {
         case .overview:
-            CourseOverview(course_id: course_id)
+            CourseOverview(path: $path ,course_id: course_id)
         case .content:
             CourseContent(path: $path ,batch_id: course_id)
         case .liveClass:
