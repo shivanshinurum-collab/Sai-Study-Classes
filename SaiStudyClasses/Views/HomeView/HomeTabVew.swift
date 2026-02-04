@@ -52,7 +52,7 @@ struct HomeTabVew: View {
                 .disabled(!showMenu)
             
             
-        }
+        }.background(SwipeBackEnabler())
         .navigationBarBackButtonHidden(true)
             .toolbar{
                 

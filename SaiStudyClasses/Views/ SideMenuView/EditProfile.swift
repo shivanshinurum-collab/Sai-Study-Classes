@@ -27,12 +27,12 @@ struct EditProfile : View{
                     path.removeLast()
                 }label: {
                     Image(systemName: "arrow.left")
-                        .font(.system(size: 30))
+                        .font(.system(size: uiString.backSize))
                         .foregroundColor(uiColor.white)
                 }
                 Spacer()
                 Text(uiString.ProfileTitle)
-                    .font(.system(size: 25).bold())
+                    .font(.system(size: uiString.titleSize).bold())
                     .foregroundColor(uiColor.white)
                 Spacer()
             }.padding(.horizontal , 15)

@@ -155,7 +155,7 @@ struct DownloadedDocsView: View {
                     path.removeLast()
                 } label: {
                     Image(systemName: "arrow.left")
-                        .font(.body.bold())
+                        .font(.system(size: uiString.backSize))
                         .foregroundColor(.black)
                 }
             }
@@ -269,7 +269,7 @@ struct OfflineDocumentView: View {
                     path.removeLast()
                 } label: {
                     Image(systemName: "arrow.left")
-                        .font(.headline.bold())
+                        .font(.system(size: uiString.backSize))
                         .foregroundColor(.black)
                         .padding(.horizontal)
                 }

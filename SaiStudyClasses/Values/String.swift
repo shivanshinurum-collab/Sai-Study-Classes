@@ -2,6 +2,8 @@ import SwiftUI
 struct uiString {
     static let AppName = "MARINE WISDOM"
     
+    static let backSize : CGFloat = 25
+    static let titleSize : CGFloat = 20
     
     //Welcome Screen
     static let WelcomeTitle = "WELCOME"

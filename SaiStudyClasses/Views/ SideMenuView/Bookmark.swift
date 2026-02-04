@@ -19,14 +19,14 @@ struct Bookmark : View {
                 } label: {
                     Image(systemName: "arrow.left")
                         .foregroundColor(.black)
-                        .font(.title3.bold())
+                        .font(.system(size: uiString.backSize))
                 }
 
                 Spacer()
 
                 Text(title)
                     .foregroundColor(.black)
-                    .font(.title3.bold())
+                    .font(.system(size: uiString.titleSize).bold())
                     .lineLimit(1)
 
                 Spacer()

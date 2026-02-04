@@ -17,12 +17,12 @@ struct ActivateBatch : View{
                     path.removeLast()
                 }label: {
                     Image(systemName: "arrow.left")
-                        .font(.system(size: 30))
+                        .font(.system(size: uiString.backSize))
                         .foregroundColor(uiColor.white)
                 }
                 Spacer()
                 Text(uiString.BatchTitle)
-                    .font(.system(size: 25).bold())
+                    .font(.system(size: uiString.titleSize).bold())
                     .foregroundColor(uiColor.white)
                 Spacer()
             }.padding(.horizontal , 15)
@@ -100,6 +100,7 @@ struct ActivateBatch : View{
         .frame(maxWidth: .infinity , maxHeight: .infinity)
         .background(uiColor.ButtonBlue)
         .navigationBarBackButtonHidden(true)
+        
         
     }
     

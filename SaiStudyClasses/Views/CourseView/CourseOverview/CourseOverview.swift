@@ -152,6 +152,8 @@ struct CourseOverview: View {
                     } label: {
                         if(batch?.batchOfferPrice == "0") {
                             Text("Free")
+                                .padding()
+                                .frame(maxWidth: .infinity)
                         }else{
                             if //let batchPrice = batch?.batchPrice,
                                 let offerPrice = batch?.batchOfferPrice,
@@ -162,13 +164,11 @@ struct CourseOverview: View {
                                 let gst = fee * 0.18
                                 let total = Double(offer) + fee + gst
                                 Text("₹\(String(format: "%.2f", total))")
-                            } else {
-                                Text("Buy Now")
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
                             }
                         }
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
                     .foregroundColor(uiColor.white)
                     .bold()
                     .font(.title2)

@@ -21,7 +21,7 @@ struct StoreAboutView: View {
                     } label: {
                         Image(systemName: "arrow.left")
                             .foregroundColor(.white)
-                            .font(.title2.bold())
+                            .font(.system(size: uiString.backSize))
                     }
 
                     Spacer()
@@ -29,7 +29,7 @@ struct StoreAboutView: View {
                     Text(detail.courseName)
                         .lineLimit(1)
                         .foregroundColor(.white)
-                        .font(.title3.bold())
+                        .font(.system(size: uiString.titleSize).bold())
 
 
                     Spacer()

@@ -1,6 +1,6 @@
 struct apiURL {
-    //static let baseURL = "https://marinewisdom.com/"
-    static let baseURL = "https://app2.lmh-ai.in/"
+    static let baseURL = "https://marinewisdom.com/"
+    //static let baseURL = "https://app2.lmh-ai.in/"
     
     //Login Banners
     static let loginBanners = "\(apiURL.baseURL)ajaxcall/api_login_banners"

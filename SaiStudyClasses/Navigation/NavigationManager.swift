@@ -67,7 +67,7 @@ struct NavigationManager: View {
                         RegisterLocationView(path: $path)
                         
                     case .temp :
-                        temp()
+                        temp(path: $path)
                         
                         //Document View
                     case .PDFview(let url ,let title):

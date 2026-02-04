@@ -34,14 +34,14 @@ struct AddressFormView: View {
                     path.removeLast()
                 } label: {
                     Image(systemName: "arrow.left")
-                        .font(.title2.bold())
+                        .font(.system(size: uiString.backSize))
                         .foregroundColor(.white)
                 }
 
                 Spacer()
 
                 Text("Shipping Address")
-                    .font(.title2.bold())
+                    .font(.system(size: uiString.titleSize).bold())
                     .foregroundColor(.white)
 
                 Spacer()

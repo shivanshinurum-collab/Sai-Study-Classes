@@ -18,13 +18,13 @@ struct FoldersView: View {
                 }label:{
                     Image(systemName: "arrow.left")
                         .foregroundColor(.black)
-                        .font(.title3.bold())
+                        .font(.system(size: uiString.backSize))
                 }
                 Spacer()
                 Text("Folder")
                     .foregroundColor(.black)
                     .lineLimit(0)
-                    .font(.title2.bold())
+                    .font(.system(size: uiString.titleSize).bold())
                 Spacer()
             }.padding(.horizontal)
     

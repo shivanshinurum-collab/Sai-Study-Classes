@@ -22,12 +22,14 @@ struct RegisterLocationView: View {
                     } label: {
                         Image(systemName: "arrow.left")
                             .foregroundColor(.white)
+                            .font(.system(size: uiString.backSize))
                     }
 
                     Spacer()
 
                     Text("Custom Field")
                         .foregroundColor(.white)
+                        .font(.system(size: uiString.titleSize).bold())
 
                     Spacer()
                 }

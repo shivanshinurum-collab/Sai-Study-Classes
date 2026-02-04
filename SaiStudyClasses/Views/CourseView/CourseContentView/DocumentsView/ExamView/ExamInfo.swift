@@ -14,12 +14,12 @@ struct ExamInfo : View {
                     path.removeLast()
                 }label: {
                     Image(systemName: "arrow.left")
-                        .font(Font.system(size: 20, weight: .bold))
+                        .font(.system(size: uiString.backSize))
                         .foregroundColor(.white)
                 }
                 Spacer()
                 Text("Instructions")
-                    .font(.title.bold())
+                    .font(.system(size: uiString.titleSize).bold())
                     .foregroundColor(.white)
                 Spacer()
             }.padding()

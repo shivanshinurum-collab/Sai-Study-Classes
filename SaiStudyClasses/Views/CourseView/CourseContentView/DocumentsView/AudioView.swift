@@ -17,11 +17,11 @@ struct AudioPlayerView: View {
             }label:{
                 Image(systemName: "arrow.left")
                     .foregroundColor(.black)
-                    .font(.title3.bold())
+                    .font(.system(size: uiString.backSize))
             }
             Spacer()
             Text(title)
-            .font(.title2.bold())
+                .font(.system(size: uiString.titleSize).bold())
             .foregroundColor(.black)
             Spacer()
         }.padding(.horizontal)

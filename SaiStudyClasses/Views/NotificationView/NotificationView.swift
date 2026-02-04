@@ -18,13 +18,14 @@ struct NotificationView: View {
                         } label: {
                             Image(systemName: "arrow.left")
                                 .foregroundColor(.white)
+                                .font(.system(size: uiString.backSize))
                         }
 
                         Spacer()
 
                         Text("Notification")
                             .foregroundColor(.white)
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(.system(size: uiString.titleSize).bold())
 
                         Spacer()
 

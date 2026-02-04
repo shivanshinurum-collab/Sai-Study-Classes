@@ -147,6 +147,8 @@ class IAPManager: ObservableObject {
 
     // MARK: - Unlock Purchase
     private func unlockPurchase() {
+        
+                     
         isPurchased = true
         UserDefaults.standard.set(true, forKey: "isPurchased")
         errorMessage = nil

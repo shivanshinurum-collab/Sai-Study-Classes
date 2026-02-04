@@ -21,11 +21,11 @@ struct BuyCourseView : View {
                 path.removeLast()
             }label: {
                 Image(systemName: "arrow.left")
-                    .font(.title2.bold())
+                    .font(.system(size: uiString.backSize))
             }
             Spacer()
             Text(course_name)
-                .font(.title3.bold())
+                .font(.system(size: uiString.titleSize).bold())
             
             Spacer()
         }

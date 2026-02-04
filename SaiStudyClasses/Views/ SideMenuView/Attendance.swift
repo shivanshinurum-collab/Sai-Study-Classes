@@ -36,14 +36,14 @@ struct AttendanceView : View {
                     } label: {
                         Image(systemName: "arrow.left")
                             .foregroundColor(uiColor.white)
-                            .font(.title)
+                            .font(.system(size: uiString.backSize))
                     }
                     
                     Spacer()
                     
                     Text("Attendance")
                         .foregroundColor(uiColor.white)
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: uiString.titleSize).bold())
                     
                     Spacer()
                     

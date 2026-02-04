@@ -21,14 +21,13 @@ struct RegisterView: View {
                 } label: {
                     Image(systemName: "arrow.left")
                         .foregroundColor(.black)
-                        .font(.title3.bold())
+                        .font(.system(size: uiString.backSize))
                 }
                 Spacer()
             }
             
             Text("Please enter your details before \ncontinue")
-                .font(.title3)
-                .fontWeight(.bold)
+                .font(.system(size: uiString.titleSize).bold())
             
             // MARK: - Fields
             VStack(spacing: 12) {

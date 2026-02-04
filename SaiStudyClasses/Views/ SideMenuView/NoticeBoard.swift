@@ -22,13 +22,14 @@ struct NoticeBoardView: View {
                         } label: {
                             Image(systemName: "arrow.left")
                                 .foregroundColor(uiColor.white)
+                                .font(.system(size: uiString.backSize))
                         }
 
                         Spacer()
 
                         Text(uiString.NoticeTitle)
                             .foregroundColor(uiColor.white)
-                            .font(.title2.bold())
+                            .font(.system(size: uiString.titleSize).bold())
 
                         Spacer()
 

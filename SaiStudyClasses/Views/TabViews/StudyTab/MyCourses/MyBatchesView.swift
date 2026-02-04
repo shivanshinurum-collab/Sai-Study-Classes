@@ -18,12 +18,12 @@ struct MyBatchesView : View{
                 }label: {
                     Image(systemName: "arrow.left")
                         .foregroundColor(.white)
-                        .font(.title)
+                        .font(.system(size: uiString.backSize))
                 }
                 Spacer()
                 Text("My Batches")
                     .foregroundColor(.white)
-                    .font(.title3.bold())
+                    .font(.system(size: uiString.titleSize).bold())
                 Spacer()
             }.padding(10)
         }

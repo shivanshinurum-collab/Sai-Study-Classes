@@ -15,14 +15,14 @@ struct DigitalEbookView : View {
                 } label: {
                     Image(systemName: "arrow.left")
                         .foregroundColor(.white)
-                        .bold()
+                        .font(.system(size: uiString.backSize))
                 }
 
                 Spacer()
 
                 Text("Digital Ebook")
                     .foregroundColor(.white)
-                    .font(.system(size: 18))
+                    .font(.system(size: uiString.titleSize).bold())
                     .bold()
 
                 Spacer()
@@ -32,7 +32,7 @@ struct DigitalEbookView : View {
             .padding(.horizontal)
             .padding(.top, 50)
         }.ignoresSafeArea()
-        .frame(height: 50)
+        .frame(height: 80)
         .navigationBarBackButtonHidden(true)
         NotFoundView(title: "Not Found Data", about: "")
     }
