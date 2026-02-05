@@ -16,8 +16,10 @@ struct NavigationManager: View {
                         WelcomeView(path: $path)
                     case .OTPView(let user , let isMobile):
                         OTPView(path: $path , user: user , isMobile: isMobile)
+                        
                     case .HomeView :
                         HomeTabVew(path: $path)
+                        
                     case .SelectGoalView:
                         SelectGoalView(path: $path)
                     case .EditProfileView:

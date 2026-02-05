@@ -52,7 +52,13 @@ struct HomeTabVew: View {
                 .disabled(!showMenu)
             
             
-        }.background(SwipeBackEnabler())
+        }//.background(SwipeBackEnabler())
+        .onAppear{
+            NotificationCenter.default.post(
+                name: NSNotification.Name("LoginStatusChanged"),
+                object: nil
+            )
+        }
         .navigationBarBackButtonHidden(true)
             .toolbar{
                 

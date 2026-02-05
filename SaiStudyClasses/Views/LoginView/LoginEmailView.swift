@@ -104,7 +104,9 @@ struct LoginEmailView: View {
             Spacer()
         }
         .background(uiColor.white)
-        .ignoresSafeArea(.keyboard)
+        .onTapGesture {
+            dismissKeyboard()
+        }
         .navigationBarBackButtonHidden(true)
     }
     

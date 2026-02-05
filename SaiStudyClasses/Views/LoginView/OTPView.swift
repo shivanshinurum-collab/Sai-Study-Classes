@@ -218,6 +218,9 @@ struct OTPView: View {
         UserDefaults.standard.set(studentData.amount, forKey: "amount")
         UserDefaults.standard.set(isMobile, forKey: "isMobile")
         
+        print("userEmail =",studentData.userEmail)
+        print("mobile =",studentData.mobile)
+        
         // Navigate based on user data completeness
         if studentData.fullName.isEmpty && studentData.enrollmentId.isEmpty && studentData.userEmail.isEmpty {
             path.append(Route.RegistrationView)

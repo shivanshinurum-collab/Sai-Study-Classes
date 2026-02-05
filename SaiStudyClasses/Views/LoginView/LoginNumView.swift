@@ -1,5 +1,18 @@
 import SwiftUI
 
+extension View {
+    func dismissKeyboard() {
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil
+        )
+    }
+}
+
+
+
 struct LoginNumView: View {
     @Binding var path: NavigationPath
     
@@ -124,7 +137,9 @@ struct LoginNumView: View {
             Spacer()
         }
         .background(Color.white)
-        .ignoresSafeArea(.keyboard)
+        .onTapGesture {
+            dismissKeyboard()
+        }
         .navigationBarBackButtonHidden(true)
     }
     
