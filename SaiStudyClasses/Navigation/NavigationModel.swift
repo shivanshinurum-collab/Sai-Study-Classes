@@ -58,5 +58,12 @@ enum Route : Hashable {
     case AllDocView(title : String , url : String)
     
     
-    case IAPView
+    case IAPView(productId : String)
+    
+    
+    
+    ///Theme 2
+    case HomeTabView2
+    case SelectGoal2
+    case TestListView2
 }

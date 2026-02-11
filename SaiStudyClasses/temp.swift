@@ -1,8 +1,15 @@
 import SwiftUI
 struct temp : View {
-    @Binding var path : NavigationPath
-    
+   
     var body : some View {
-        
+        ZStack{
+            uiColor.white
+            Rectangle()
+                .frame(width: 100, height: 100)
+                .foregroundColor(uiColor.empty)
+        }
     }
+}
+#Preview {
+    temp()
 }

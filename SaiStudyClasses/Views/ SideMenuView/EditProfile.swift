@@ -60,7 +60,7 @@ struct EditProfile : View{
                                         case .failure(_):
                                             Image(systemName: "person.crop.circle.fill")
                                                 .resizable()
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(uiColor.gray)
                                             
                                         case .empty:
                                             ProgressView()
@@ -79,7 +79,7 @@ struct EditProfile : View{
                                     Image(systemName: "person.crop.circle.fill")
                                         .resizable()
                                         .frame(width: 90, height: 90)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(uiColor.gray)
                                 }
                                 
                                 
@@ -99,7 +99,7 @@ struct EditProfile : View{
                                                 .scaleEffect(0.8)
                                         } else {
                                             Image(systemName: "camera.fill")
-                                                .foregroundColor(.white)
+                                                .foregroundColor(uiColor.white)
                                                 .font(.system(size: 14))
                                         }
                                     }

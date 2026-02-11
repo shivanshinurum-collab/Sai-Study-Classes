@@ -18,14 +18,14 @@ struct Bookmark : View {
                     path.removeLast()
                 } label: {
                     Image(systemName: "arrow.left")
-                        .foregroundColor(.black)
+                        .foregroundColor(uiColor.black)
                         .font(.system(size: uiString.backSize))
                 }
 
                 Spacer()
 
                 Text(title)
-                    .foregroundColor(.black)
+                    .foregroundColor(uiColor.black)
                     .font(.system(size: uiString.titleSize).bold())
                     .lineLimit(1)
 

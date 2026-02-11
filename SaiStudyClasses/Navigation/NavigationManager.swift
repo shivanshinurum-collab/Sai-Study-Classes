@@ -69,7 +69,7 @@ struct NavigationManager: View {
                         RegisterLocationView(path: $path)
                         
                     case .temp :
-                        temp(path: $path)
+                        temp()
                         
                         //Document View
                     case .PDFview(let url ,let title):
@@ -103,9 +103,17 @@ struct NavigationManager: View {
                         
                     case .DigitalEbookView:
                         DigitalEbookView(path: $path)
-                    case .IAPView:
-                        IAPView(path: $path)
+                    case .IAPView(let productId):
+                        IAPView(productId: productId,path: $path)
                         
+                        
+                        //Theme 2
+                    case .HomeTabView2:
+                        HomeTabView2(path: $path)
+                    case .SelectGoal2:
+                        SelectGoal2(path: $path)
+                    case .TestListView2:
+                        TestListView2(path : $path)
                     }
                 }
         }

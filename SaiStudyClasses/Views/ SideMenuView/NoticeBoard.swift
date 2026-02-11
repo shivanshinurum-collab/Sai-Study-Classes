@@ -117,7 +117,7 @@ struct NoticeCell: View {
             
             Text(notice.description)
                 .font(.system(size: 13))
-                .foregroundColor(.gray)
+                .foregroundColor(uiColor.gray)
                 .padding(.top, 4)
             
             HStack {

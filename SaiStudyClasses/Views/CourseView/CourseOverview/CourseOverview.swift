@@ -11,7 +11,7 @@ struct CourseOverview: View {
     
     @State var batch: Batch?
     @State var batchResponse: getBatchDetailResponse?
-    @StateObject private var iap = IAPManager()
+    //@StateObject private var iap = IAPManager()
     
     
     @State private var textWidth: CGFloat = 0
@@ -27,12 +27,12 @@ struct CourseOverview: View {
             ScrollView() {
                 if let unwrappedBatch = batch, let unwrappedBatchResponse = batchResponse {
                     CourseAbout(batch: unwrappedBatch, batchResponse: unwrappedBatchResponse)//,course: course)
-                    if(batchResponse?.purchaseCondition != true){
+/*                    if(batchResponse?.purchaseCondition != true){
                         CouponView(batch_id: String(course_id))
                             .padding(.horizontal)
                             .padding(.bottom)
                     }
-                } else {
+ */               } else {
                     //  Show loading state
                     VStack {
                         ProgressView()
@@ -92,7 +92,7 @@ struct CourseOverview: View {
                     .bold()
                     .foregroundColor(uiColor.CreamBlueGreen)
                     
-                    // Discount
+/*                    // Discount
                     HStack {
                         Text("Discount")
                         Spacer()
@@ -107,7 +107,7 @@ struct CourseOverview: View {
                     }
                     .font(.title3)
                     .foregroundColor(.orange.opacity(0.8))
-                    
+  */
                     // Convenience Fee
                     HStack {
                         Text("Convenience Fee")
@@ -147,7 +147,10 @@ struct CourseOverview: View {
                     
                     // Buy Button
                     Button {
-                        showPaymentDialog = true
+                        print("COURSE ID =\(course_id)")
+                        if(batch?.batchOfferPrice != "0") {
+                            showPaymentDialog = true
+                        }
                         
                     } label: {
                         if(batch?.batchOfferPrice == "0") {
@@ -189,7 +192,7 @@ struct CourseOverview: View {
                 ) {
                     Button("Pay using In-App Purchase") {
                         //Task { await iap.buy() }
-                        path.append(Route.IAPView)
+                        path.append(Route.IAPView(productId: course_id))
                     }
                     
                     Button("Pay using Razorpay") {

@@ -87,7 +87,7 @@ struct ActivateBatch : View{
                             Text("\(Response)")
                                 .multilineTextAlignment(.center)
                                 .bold()
-                                .foregroundColor(.green)
+                                .foregroundColor(uiColor.green)
                         }
                         
                         Spacer()

@@ -4,6 +4,9 @@ struct uiColor {
     
     static let white = Color.white
     static let black = Color.black
+    static let green = Color.green
+    static let gray = Color.gray
+    static let empty = Color(.systemBackground)
     static let ButtonBlue = Color(
         red: 45/255,
         green: 169/255,

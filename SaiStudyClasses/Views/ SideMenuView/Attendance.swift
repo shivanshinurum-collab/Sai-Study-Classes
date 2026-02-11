@@ -155,7 +155,7 @@ struct AttendanceView : View {
 
             Text("Select Month And Year To Filter Results")
                 .font(.system(size: 15))
-                .foregroundColor(.gray)
+                .foregroundColor(uiColor.gray)
 
             HStack(spacing: 12) {
 
@@ -185,7 +185,7 @@ struct AttendanceView : View {
                     fetchData()
                 } label: {
                     Text("OK")
-                        .foregroundColor(.white)
+                        .foregroundColor(uiColor.white)
                         .fontWeight(.semibold)
                         .frame(width: 60, height: 40)
                         .background(uiColor.ButtonBlue)

@@ -2,6 +2,8 @@ import SwiftUI
 
 struct DrawerView : View {
     @Binding var path : NavigationPath
+    @State private var showDeleteDialog = false
+
     var size = 25
     var body: some View {
         
@@ -102,15 +104,55 @@ struct DrawerView : View {
                         .multilineTextAlignment(.leading)
                 }.font(.system(size: CGFloat(size)))
                     .foregroundColor(uiColor.black)
+                
+                Button{
+                    showDeleteDialog = true
+                }label:{
+                    Image("deleteUser")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: 35)
+                        
+                    Text("Delete Account")
+                        .multilineTextAlignment(.leading)
+                }.font(.system(size: CGFloat(size)))
+                    .foregroundColor(uiColor.black)
+                
+                
             }.padding(.leading , 20)
             Spacer()
         }
         .navigationBarBackButtonHidden(true)
         .background(.white)
         Spacer()
+            .confirmationDialog(
+                "Are you sure you want to delete your account?",
+                isPresented: $showDeleteDialog,
+                titleVisibility: .visible
+            ) {
+                
+                Button("Yes, Delete", role: .destructive) {
+                    logoutUser()
+                }
+                
+                Button("Cancel", role: .cancel) {
+                    
+                }
+            }
+
             
     }
-    
+    func logoutUser() {
+        UserDefaults.standard.set("", forKey: "goal")
+        UserDefaults.standard.set("", forKey: "icon")
+        UserDefaults.standard.set("", forKey: "user")
+        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        
+        print("User Logged Out")
+        
+        path.removeLast(path.count)
+    }
+
     func UserLogOut(){
         UserDefaults.standard.set("", forKey: "goal")
         UserDefaults.standard.set("", forKey: "icon")

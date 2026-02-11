@@ -76,6 +76,3 @@ struct YoutubePlayerView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}

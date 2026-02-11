@@ -2,6 +2,8 @@ import SwiftUI
 struct uiString {
     static let AppName = "MARINE WISDOM"
     
+    static let productId = "com.app.marine.wisdom.study.course"
+    
     static let backSize : CGFloat = 25
     static let titleSize : CGFloat = 20
     

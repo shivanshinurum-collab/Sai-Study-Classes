@@ -103,8 +103,9 @@ struct CourseCardView : View {
                         .bold()
                         .foregroundColor(.black)
                         .font(.system(size: 22))
+                        .frame(maxWidth: .infinity , minHeight: 55)
                 }
-                    .frame(maxWidth: .infinity , minHeight: 55)
+                    //.frame(maxWidth: .infinity , minHeight: 55)
                     .background(
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(Color.black.opacity(0.3), lineWidth: 1)
@@ -116,8 +117,9 @@ struct CourseCardView : View {
                         .bold()
                         .foregroundColor(.white)
                         .font(.system(size: 22))
+                        .frame(maxWidth: .infinity , minHeight: 55)
                 }
-                    .frame(maxWidth: .infinity , minHeight: 55)
+                    //.frame(maxWidth: .infinity , minHeight: 55)
                     .background(uiColor.ButtonBlue)
                     .cornerRadius(15)
             }
