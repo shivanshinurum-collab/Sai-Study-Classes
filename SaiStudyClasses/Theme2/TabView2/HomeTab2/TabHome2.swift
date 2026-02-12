@@ -9,9 +9,22 @@ struct TabHome2 : View {
     @State private var banners: [HomeBannerData] = []
     @State private var fileBaseURL = ""
     
+    @State var batchResponse: getBatchDetailResponse?
+    @State var batch: Batch?
+    
     let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
     
+    
+    @State private var textWidth: CGFloat = 0
+    @State private var showPaymentDialog = false
+    
+    @State var isLoading = true
+    
+    let course_id = UserDefaults.standard.string(forKey: "course_id") ?? ""
+    
     var body: some View {
+        let batchPrice = Int(batch?.batchPrice ?? "0") ?? 0
+        
         ScrollView{
             VStack(alignment : .leading){
                 Text("PLAY STORE TEAM")
@@ -42,12 +55,198 @@ struct TabHome2 : View {
                     }
                 }
                 
+                // WebView inside box
+                WebView(url: URL(string: apiURL.qustionOfDay)!, isLoading: $isLoading)
+                    .frame(height: 350)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                    )
+                    .padding(.horizontal)
+                    .scrollIndicators(.hidden)
+                
+                
+                if batchResponse?.purchaseCondition != true && batch?.batchOfferPrice != "0" {
+                    
+                    VStack(spacing: 16) {
+                        
+                        // MARK: Price Card
+                        VStack(alignment: .leading, spacing: 12) {
+                            
+                            // Base Price
+                            HStack {
+                                Text("Base Price")
+                                    .foregroundColor(.black.opacity(0.8))
+                                Spacer()
+                                Text("₹\(batch?.batchPrice ?? "--")")
+                                    .foregroundColor(.black)
+                                    .strikethrough()
+                                    .font(.system(size: 18, weight: .medium))
+                            }
+                            
+                            // Offer Price
+                            HStack {
+                                Text("Offer Price")
+                                    .foregroundColor(.green)
+                                Spacer()
+                                Text("₹\(batch?.batchOfferPrice ?? "--")")
+                                    .foregroundColor(.green)
+                                    .bold()
+                            }
+                            
+                            // Discount
+                            if let price = Double(batch?.batchPrice ?? ""),
+                               let offer = Double(batch?.batchOfferPrice ?? "") {
+                                
+                                HStack {
+                                    Text("Discount")
+                                        .foregroundColor(.orange)
+                                    Spacer()
+                                    Text("₹\(String(format: "%.2f", price - offer))")
+                                        .foregroundColor(.orange)
+                                }
+                            }
+                            
+                            // Convenience Fee
+                            if let offer = Double(batch?.batchOfferPrice ?? ""),
+                               let convPercent = Double(batchResponse?.convenienceFee ?? "0") {
+                                
+                                let fee = offer * (convPercent / 100.0)
+                                
+                                HStack {
+                                    Text("Convenience Fee")
+                                    Spacer()
+                                    Text("₹\(String(format: "%.2f", fee))")
+                                }
+                                
+                                // GST
+                                let gst = fee * 0.18
+                                
+                                HStack {
+                                    Text("GST on Convenience (18%)")
+                                    Spacer()
+                                    Text("₹\(String(format: "%.2f", gst))")
+                                }
+                                
+                                Divider()
+                                
+                                // MARK: Pay Button
+                                let total = offer + fee + gst
+                                
+                                Button {
+                                    showPaymentDialog = true
+                                } label: {
+                                    Text("Pay ₹\(String(format: "%.2f", total))")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(
+                                            LinearGradient(
+                                                colors: [Color.blue.opacity(0.8), Color.blue],
+                                                startPoint: .leading,
+                                                endPoint: .trailing
+                                            )
+                                        )
+                                        .cornerRadius(10)
+                                }
+                            }
+                            
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(15)
+                        .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+                        .padding(.horizontal)
+                        
+                    }
+                }
             }
             
-        }.onAppear{
+        }
+        .confirmationDialog(
+            "Choose Payment Method",
+            isPresented: $showPaymentDialog,
+            titleVisibility: .visible
+        ) {
+            Button("Pay using In-App Purchase") {
+                //Task { await iap.buy() }
+                path.append(Route.IAPView(productId: course_id))
+            }
+            
+            Button("Pay using Razorpay") {
+                /*//let batchPrice = batch?.batchPrice,
+                 if let offerPrice = batch?.batchOfferPrice,
+                 // let price = Int(batchPrice),
+                 let offer = Double(offerPrice),
+                 let convFeePercent = Double(batchResponse?.convenienceFee ?? "0") {
+                 let fee = offer * (convFeePercent / 100.0)
+                 let gst = fee * 0.18
+                 let total = Double(offer) + fee + gst*/
+                RazorpayManager.shared.startPayment(
+                    amount: Int(1),
+                    description: "Test Payment"
+                )
+                
+                
+            }
+            
+            Button("Cancel", role: .cancel) { }
+        }
+        
+        .onAppear{
             fetchHomeBanners()
+            fetchBatches()
         }
     }
+    func fetchBatches() {
+        let student_id = UserDefaults.standard.string(forKey: "studentId")
+        var components = URLComponents(
+            string: apiURL.getBatchDetail
+        )
+
+        components?.queryItems = [
+            URLQueryItem(name: "batch_id", value: course_id),  //  Use course.id
+            URLQueryItem(name: "student_id", value: student_id)
+        ]
+
+        guard let url = components?.url else {
+            print(" Invalid URL")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                print(" API Error:", error.localizedDescription)
+                return
+            }
+
+            guard let data else {
+                print(" No data received")
+                return
+            }
+
+            do {
+                let decodedResponse = try JSONDecoder().decode(getBatchDetailResponse.self, from: data)
+                
+                print("Batch ID = ",course_id)
+                DispatchQueue.main.async {
+                    // ✅ Store the response
+                    self.batch = decodedResponse.batch
+                    self.batchResponse = decodedResponse
+                    
+                    CourseOverview.isLiveClass = decodedResponse.isLiveClass
+                    CourseOverview.isTestSeries = decodedResponse.isTestSeriesAvailable
+                    
+                }
+            } catch {
+                print(" Decode Error:", error)
+               
+            }
+        }.resume()
+    }
+    
     
     func fetchHomeBanners() {
         guard let url = URL(string: apiURL.getHomeBanner ) else { return }

@@ -3,73 +3,85 @@ struct SelectGoal2 : View {
     
     @Binding var path : NavigationPath
     
-    let course = ["Course 1","Course 2", "Course 3", "Course 4"]
+    @State var course : [CourseCategory2Model] = []
     @State var selected = ""
-    let head = "INI CET/NEET PG/FMGE"
+    
+    @State private var showChangeAlert = false
+    
+    @State var course_id = "0"
     
     var body : some View {
-            HStack {
-                
-                Spacer()
-
-                Text("Select Course")
-                    .foregroundColor(.white)
-                    .font(.system(size: uiString.titleSize).bold())
-                    .padding(.bottom)
-
-                Spacer()
-
-            }
-            .padding(.horizontal)
-            .background(uiColor.ButtonBlue)
+        HStack {
+            
+            Spacer()
+            
+            Text("Select Course")
+                .foregroundColor(.white)
+                .font(.system(size: uiString.titleSize).bold())
+                .padding(.bottom)
+            
+            Spacer()
+            
+        }
+        .padding(.horizontal)
+        .background(uiColor.ButtonBlue)
         
         VStack(alignment: .leading){
-            
-            Text(head)
-                .font(.system(size: 22))
-                .foregroundColor(.black)
-                .bold()
-            
+           
             ScrollView{
-                ForEach(course , id: \.self){ i in
-                    VStack{
-                        Button{
-                            selected = i
-                        }label: {
-                            HStack{
-                                if(selected == i){
-                                    Image(systemName: "record.circle")
-                                        .font(.system(size: 20))
-                                        .foregroundColor(uiColor.ButtonBlue)
-                                    Text(i)
-                                        .foregroundColor(uiColor.black)
-                                        .font(.system(size: 21))
-                                }else{
-                                    Image(systemName: "circle")
-                                        .font(.system(size: 20))
-                                        .foregroundColor(uiColor.gray)
-                                    Text(i)
-                                        .foregroundColor(uiColor.black)
-                                        .font(.system(size: 21))
+                ForEach(course ){ item in
+                    VStack(alignment: .leading){
+                        
+                        Text(item.categoryName)
+                            .font(.system(size: 22))
+                            .foregroundColor(.black)
+                            .bold()
+                        
+                        ForEach(item.batchData){ i in
+                            Button{
+                                selected = i.batchName
+                                course_id = i.id
+                            }label: {
+                                
+                                HStack{
+                                    if(selected == i.batchName ){
+                                        Image(systemName: "record.circle")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(uiColor.ButtonBlue)
+                                        Text(i.batchName)
+                                            .foregroundColor(uiColor.black)
+                                            .font(.system(size: 18))
+                                    }else{
+                                        Image(systemName: "circle")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(uiColor.gray)
+                                        Text(i.batchName)
+                                            .foregroundColor(uiColor.black)
+                                            .font(.system(size: 18))
+                                    }
+                                    Spacer()
                                 }
-                            Spacer()
+                                
+                                .padding(.vertical,5)
+                                
+                                
                             }
-                            
-                            .padding(.vertical,5)
-                            
-                            
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(uiColor.lightGrayText)
                         }
+                        
                         Rectangle()
                             .frame(height: 1)
                             .foregroundColor(uiColor.lightGrayText)
+                        
                     }
                 }
             }
             
             Button{
                 if(selected != ""){
-                    UserDefaults.standard.set(selected, forKey: "goal")
-                    path.append(Route.HomeTabView2)
+                    showChangeAlert = true
                 }
             }label: {
                 Text("Done")
@@ -79,7 +91,53 @@ struct SelectGoal2 : View {
             }.background(uiColor.ButtonBlue)
                 .cornerRadius(15)
             
-        }.padding(.horizontal)
-            .navigationBarBackButtonHidden(true)
+        }
+        .padding(.horizontal)
+        .navigationBarBackButtonHidden(true)
+        .onAppear{
+            fetchGoal()
+        }
+        .alert("Are you sure you want to change your course?",
+               isPresented: $showChangeAlert) {
+            
+            Button("No, keep current course", role: .cancel) {
+                path.removeLast()
+            }
+            
+            Button("Yes, Change", role: .destructive) {
+                UserDefaults.standard.set(course_id, forKey: "course_id")
+                UserDefaults.standard.set(selected, forKey: "goal")
+                path.append(Route.HomeTabView2)
+            }
+            
+        } message: {
+            Text("You will lose your saved videos and progress on paused lessons.")
+        }
+        
     }
+    
+    func fetchGoal() {
+        guard let url = URL(string: apiURL.SelectGoal2 ) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                print("❌ Error:", error.localizedDescription)
+                return
+            }
+            
+            guard let data = data else { return }
+            
+            do {
+                let response = try JSONDecoder().decode(SelectCourse2Model.self, from: data)
+                print("Select Goal API = \(response)")
+                DispatchQueue.main.async {
+                    self.course = response.courseData ?? []
+                }
+            } catch {
+                print("❌ Decode Error:", error)
+            }
+        }.resume()
+    }
+    
+    
 }

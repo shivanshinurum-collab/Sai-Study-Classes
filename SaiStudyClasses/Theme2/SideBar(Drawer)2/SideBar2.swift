@@ -5,6 +5,7 @@ struct SideBar2 :View {
     var size = 25
     
     let course =  UserDefaults.standard.string(forKey: "goal") ?? ""
+    
     var body: some View {
         VStack(alignment: .leading , spacing: 10){
             HStack{
@@ -38,6 +39,19 @@ struct SideBar2 :View {
                 }
             }
             
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.white)
+                .padding(.bottom)
+                .padding(.top)
+            Button{
+                
+            }label: {
+                Text("Buy Plan")
+                    .foregroundColor(.white)
+                    .font(.title)
+                    .bold()
+            }
             Rectangle()
                 .frame(height: 1)
                 .foregroundColor(.white)
@@ -138,8 +152,10 @@ struct SideBar2 :View {
                         Text(uiString.DrawerLogOut)
                             .multilineTextAlignment(.leading)
                     }.font(.system(size: CGFloat(size)))
+                    Rectangle()
+                        .frame(maxWidth: .infinity, maxHeight: 0)
                 }.foregroundColor(.white)
-            }
+            }.scrollIndicators(.hidden)
             
             HStack{
                 Spacer()

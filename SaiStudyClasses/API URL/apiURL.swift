@@ -2,6 +2,10 @@ struct apiURL {
     static let baseURL = "https://marinewisdom.com/"
     //static let baseURL = "https://app2.lmh-ai.in/"
     
+    
+    static let qustionOfDay = "https://drpawar.in/question-day/1"
+    
+    
     //Login Banners
     static let loginBanners = "\(apiURL.baseURL)ajaxcall/api_login_banners"
     
@@ -102,4 +106,10 @@ struct apiURL {
     
   
     
+    
+    ///Theme 2
+    static let SelectGoal2 = "\(apiURL.baseURL)api/Theme3/getBatchWithCategory"
+    
+    //static let getNotes2 = "\(apiURL.baseURL)api/Theme3/getFolderForVideo/"
+    static let getNotes2 = "https://limbusmed.com/api/Theme3/getFolderForVideo/"
 }

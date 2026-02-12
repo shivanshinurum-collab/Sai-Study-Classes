@@ -4,20 +4,34 @@ struct TestSeriesCard2: View {
     
     let courseName: String
     let exams: String
+    let imageURL : String
+    let img:String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             
             HStack {
                 Spacer()
-                Image("folder")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 35)
-                    .padding()
-                    .background(uiColor.cardLightBlue)
-                    .clipShape(Circle())
-                    .padding(.top, 12)
+                AsyncImage(url: URL(string: imageURL)){ img in
+                    img
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35)
+                        .padding()
+                        .background(uiColor.cardLightBlue)
+                        .clipShape(Circle())
+                        .padding(.top, 12)
+                    
+                }placeholder: {
+                    Image("\(img)")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35)
+                        .padding()
+                        .background(uiColor.cardLightBlue)
+                        .clipShape(Circle())
+                        .padding(.top, 12)
+                }
                 Spacer()
             }
             .background(uiColor.lightGrayText.opacity(0.2))

@@ -1,12 +1,14 @@
+//
+//  TabTestSeries2Model.swift
+//  SaiStudyClasses
+//
+//  Created by Shubham Jain on 12/02/26.
+//
+
+
 import SwiftUI
 
-
-struct TabTestSeries2Model : Codable {
-    let courseName : String
-    let exam : String
-}
-
-struct TabTestSeries2: View {
+struct VideoTab2: View {
     
     @Binding var path: NavigationPath
     
@@ -33,7 +35,7 @@ struct TabTestSeries2: View {
                             courseName: index.name ?? "",
                             exams: String(index.totalModule ?? 0),
                             imageURL: "\(full_url)/\(index.image ?? "")",
-                            img: "exam"
+                            img: "video"
                         )
                     }.buttonStyle(.plain)
                     
@@ -49,9 +51,9 @@ struct TabTestSeries2: View {
     
     
     func fetchNotes() {
-        let course_id = "2" //UserDefaults.standard.string(forKey: "course_id") ?? ""
+        let course_id = "3" //UserDefaults.standard.string(forKey: "course_id") ?? ""
         
-        guard let url = URL(string: "\(apiURL.getNotes2)\(course_id)/1" ) else { return }
+        guard let url = URL(string: "\(apiURL.getNotes2)\(course_id)/2" ) else { return }
 
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {

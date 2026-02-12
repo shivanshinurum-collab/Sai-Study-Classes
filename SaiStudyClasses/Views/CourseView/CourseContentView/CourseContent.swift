@@ -187,7 +187,7 @@ struct CourseContent : View {
     }
     
     
-  /*
+/*
     if(data.getRedirectionUrl().contains(".xlsx")){
         imgDocument.setImageDrawable(mContext.getDrawable(R.drawable.xls));
     }else if(data.getRedirectionUrl().contains(".doc")){
@@ -209,9 +209,7 @@ struct CourseContent : View {
        myurl = "https://view.officeapps.live.com/op/view.aspx?src=" + myurl;
    }
    
-   
-   
-    */
+*/
     
     func fetchBatchContent() {
         

@@ -47,7 +47,7 @@ struct CourseOverview: View {
             .scrollIndicators(.hidden)
             .padding(.bottom, batchResponse?.purchaseCondition ?? false ? 0 : 280)
             
-            if(batchResponse?.purchaseCondition != true){
+            if(batchResponse?.purchaseCondition != true && batch?.batchOfferPrice != "0" ) {
                 //VStack {
                 VStack(spacing: 15) {
                     // Base Price

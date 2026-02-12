@@ -50,7 +50,7 @@ struct HomeTabView2: View {
                     .tabItem{
                         TabItemView2(title: "Home", image: "house.fill")
                     }
-                TestTabView(path: $path)
+                TabNotes2(path: $path)
                     .tabItem{
                         TabItemView2(title: "Notes", image: "list.bullet.clipboard.fill")
                     }
@@ -58,7 +58,7 @@ struct HomeTabView2: View {
                     .tabItem{
                         TabItemView2(title: "Test Series", image: "list.bullet.clipboard.fill")
                     }
-                ShortsTabView()
+                VideoTab2(path:$path)
                     .tabItem{
                         TabItemView2(title: "Videos", image: "play.circle.fill")
                     }

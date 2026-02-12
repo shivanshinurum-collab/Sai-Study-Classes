@@ -22,7 +22,7 @@ struct BatchesTabView : View {
     
     let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
     
-    
+    @State var isLoading = true
     
     
     var body: some View {
@@ -73,6 +73,18 @@ struct BatchesTabView : View {
                 }
                 
                 ScrollView(.horizontal , showsIndicators: false) {
+                    // WebView inside box
+                    WebView(url: URL(string: apiURL.qustionOfDay)!, isLoading: $isLoading)
+                        .frame(height: 350)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                        )
+                        .padding(.horizontal)
+                        .scrollIndicators(.hidden)
+                    
+                    
                     HStack(spacing: 24){
                         
                         Button{

@@ -39,13 +39,13 @@ struct SplashView: View {
         .onChange(of: isActive) { oldValue, newValue in
             if newValue {
                 let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
-                //path.append(Route.HomeTabView2)
+                path.append(Route.HomeTabView2)
     
-                if isLoggedIn {
+              /*  if isLoggedIn {
                     path.append(Route.HomeView)
                 } else {
                     path.append(Route.WelcomeView)
-                }
+                }*/
             }
         }
     }
