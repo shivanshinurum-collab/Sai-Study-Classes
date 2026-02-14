@@ -14,27 +14,35 @@ struct TabNotes2: View {
     
     @State var full_url = ""
     
+    @State var empty = false
+    
     var body: some View {
-        
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 16) {
-                
-                ForEach(test ) { index in
-                    
-                    Button{
-                        path.append(Route.TestListView2)
-                    }label: {
-                        TestSeriesCard2(
-                            courseName: index.name ?? "",
-                            exams: String(index.totalModule ?? 0),
-                            imageURL: "\(full_url)/\(index.image ?? "")",
-                            img: "doc"
-                        )
-                    }.buttonStyle(.plain)
-                    
-                }
+        VStack{
+            if empty {
+                NotFoundView(title: "Not Available Content", about: "")
             }
-            .padding()
+            else{
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        
+                        ForEach(test ) { index in
+                            
+                            Button{
+                                path.append(Route.NotesListView2(folder_id: index.id ?? "", folder_Name: index.name ?? ""))
+                            }label: {
+                                TestSeriesCard2(
+                                    courseName: index.name ?? "",
+                                    exams: String(index.totalModule ?? 0),
+                                    imageURL: "\(full_url)/\(index.image ?? "")",
+                                    img: "folder"
+                                )
+                            }.buttonStyle(.plain)
+                            
+                        }
+                    }
+                    .padding()
+                }.scrollIndicators(.hidden)
+            }
         }
         .background(Color.gray.opacity(0.1))
         .onAppear{
@@ -44,7 +52,7 @@ struct TabNotes2: View {
     
     
     func fetchNotes() {
-        let course_id = "2" //UserDefaults.standard.string(forKey: "course_id") ?? ""
+        let course_id = UserDefaults.standard.string(forKey: "batch_id") ?? ""
         
         guard let url = URL(string: "\(apiURL.getNotes2)\(course_id)/3" ) else { return }
 
@@ -62,9 +70,14 @@ struct TabNotes2: View {
                 DispatchQueue.main.async {
                     self.test = response.allData ?? []
                     self.full_url = response.full_url ?? ""
+                    
+                    if test.isEmpty {
+                        self.empty = true
+                    }
                 }
             } catch {
                 print("❌ Decode Error:", error)
+                self.empty = true
             }
         }.resume()
     }

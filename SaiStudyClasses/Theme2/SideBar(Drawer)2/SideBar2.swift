@@ -5,16 +5,28 @@ struct SideBar2 :View {
     var size = 25
     
     let course =  UserDefaults.standard.string(forKey: "goal") ?? ""
+    @State private var showDeleteDialog = false
+    let userName = UserDefaults.standard.string(forKey: "fullName") ?? "PLAY STORE TEAM"
+    let imageUrl = UserDefaults.standard.string(forKey: "image") ?? ""
     
     var body: some View {
         VStack(alignment: .leading , spacing: 10){
             HStack{
-                Image("logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 80)
-                    .clipShape(.circle)
-                Text("PLAY STORE TEAM")
+                AsyncImage(url: URL(string: imageUrl)){ img in
+                        img
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80)
+                        .clipShape(.circle)
+                } placeholder: {
+                    Image("logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80)
+                        .clipShape(.circle)
+                }
+                
+                Text(userName)
                     .font(.title2)
                     .bold()
                     .foregroundColor(.white)
@@ -31,6 +43,7 @@ struct SideBar2 :View {
                     Text("\(course)")
                         .foregroundColor(.white)
                         .font(.system(size: 22))
+                        .multilineTextAlignment(.leading)
                     Spacer()
                     Image(systemName: "greaterthan")
                         .foregroundColor(.white)
@@ -69,7 +82,7 @@ struct SideBar2 :View {
                     }.font(.system(size: CGFloat(size)))
                     
                     Button{
-                        path.append(Route.BookmarkView(url: apiURL.BookmarkPage , title: "Bookmark"))
+                        path.append(Route.BookmarkView(url: apiURL.bookmarkPage , title: "Bookmark"))
                     }label:{
                         Image(systemName: "bookmark")
                             .frame(maxWidth: 40)
@@ -152,6 +165,22 @@ struct SideBar2 :View {
                         Text(uiString.DrawerLogOut)
                             .multilineTextAlignment(.leading)
                     }.font(.system(size: CGFloat(size)))
+                    
+                    Button{
+                        showDeleteDialog = true
+                    }label:{
+                        Image(systemName: "person.slash")
+                            .frame(maxWidth: 40)
+                        /*Image("deleteUser")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 35)*/
+                            
+                        Text("Delete Account")
+                            .multilineTextAlignment(.leading)
+                    }.font(.system(size: CGFloat(size)))
+                    
+                    
                     Rectangle()
                         .frame(maxWidth: .infinity, maxHeight: 0)
                 }.foregroundColor(.white)
@@ -173,7 +202,34 @@ struct SideBar2 :View {
         }
         .padding(.horizontal)
         .background(uiColor.ButtonBlue)
+        .confirmationDialog(
+            "Are you sure you want to delete your account?",
+            isPresented: $showDeleteDialog,
+            titleVisibility: .visible
+        ) {
+            
+            Button("Yes, Delete", role: .destructive) {
+                DeleteUser()
+            }
+            
+            Button("Cancel", role: .cancel) {
+                
+            }
+        }
+        
     }
+    
+    func DeleteUser() {
+        UserDefaults.standard.set("", forKey: "goal")
+        UserDefaults.standard.set("", forKey: "icon")
+        UserDefaults.standard.set("", forKey: "user")
+        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        
+        print("User Logged Out")
+        
+        path.removeLast(path.count)
+    }
+    
     func UserLogOut(){
         UserDefaults.standard.set("", forKey: "goal")
         UserDefaults.standard.set("", forKey: "icon")

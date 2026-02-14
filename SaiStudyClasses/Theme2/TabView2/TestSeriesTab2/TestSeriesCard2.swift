@@ -41,7 +41,7 @@ struct TestSeriesCard2: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(uiColor.black)
-                    .lineLimit(2)
+                    //.lineLimit(2)
                 
                 Text("\(exams) Exams")
                     .font(.caption)
@@ -49,7 +49,9 @@ struct TestSeriesCard2: View {
             }
             .padding(.horizontal)
             .padding(.bottom, 12)
-        }
+            
+            Spacer()
+        }.frame(height: 150)
         .background(Color.white)
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)

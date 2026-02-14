@@ -4,11 +4,12 @@ struct SelectGoal2 : View {
     @Binding var path : NavigationPath
     
     @State var course : [CourseCategory2Model] = []
-    @State var selected = ""
+    @State var selected = UserDefaults.standard.string(forKey: "goal") ?? ""
     
     @State private var showChangeAlert = false
     
-    @State var course_id = "0"
+    @State var course_id = UserDefaults.standard.string(forKey: "batch_id") ?? ""
+    
     
     var body : some View {
         HStack {
@@ -80,9 +81,16 @@ struct SelectGoal2 : View {
             }
             
             Button{
-                if(selected != ""){
+                let name = UserDefaults.standard.string(forKey: "goal") ?? ""
+                let id = UserDefaults.standard.string(forKey: "batch_id") ?? ""
+                
+                if selected == name && course_id == id {
+                    path.append(Route.HomeTabView2)
+                }
+                else{
                     showChangeAlert = true
                 }
+
             }label: {
                 Text("Done")
                     .font(.system(size: 20))
@@ -105,7 +113,7 @@ struct SelectGoal2 : View {
             }
             
             Button("Yes, Change", role: .destructive) {
-                UserDefaults.standard.set(course_id, forKey: "course_id")
+                UserDefaults.standard.set(course_id, forKey: "batch_id")
                 UserDefaults.standard.set(selected, forKey: "goal")
                 path.append(Route.HomeTabView2)
             }
@@ -117,7 +125,7 @@ struct SelectGoal2 : View {
     }
     
     func fetchGoal() {
-        guard let url = URL(string: apiURL.SelectGoal2 ) else { return }
+        guard let url = URL(string: apiURL.selectGoal2 ) else { return }
         
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {

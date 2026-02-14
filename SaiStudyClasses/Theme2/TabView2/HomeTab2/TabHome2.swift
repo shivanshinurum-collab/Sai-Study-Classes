@@ -21,13 +21,12 @@ struct TabHome2 : View {
     @State var isLoading = true
     
     let course_id = UserDefaults.standard.string(forKey: "course_id") ?? ""
-    
+    let userName = UserDefaults.standard.string(forKey: "fullName") ?? "PLAY STORE TEAM"
     var body: some View {
-        let batchPrice = Int(batch?.batchPrice ?? "0") ?? 0
         
         ScrollView{
             VStack(alignment : .leading){
-                Text("PLAY STORE TEAM")
+                Text(userName)
                     .font(.title2)
                     .bold()
                     .foregroundColor(uiColor.black)
@@ -56,7 +55,7 @@ struct TabHome2 : View {
                 }
                 
                 // WebView inside box
-                WebView(url: URL(string: apiURL.qustionOfDay)!, isLoading: $isLoading)
+                WebView(url: URL(string: apiURL.questionOfDay)!, isLoading: $isLoading)
                     .frame(height: 350)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .overlay(
@@ -164,7 +163,7 @@ struct TabHome2 : View {
                 }
             }
             
-        }
+        }.scrollIndicators(.hidden)
         .confirmationDialog(
             "Choose Payment Method",
             isPresented: $showPaymentDialog,

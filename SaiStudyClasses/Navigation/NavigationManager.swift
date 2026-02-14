@@ -112,8 +112,14 @@ struct NavigationManager: View {
                         HomeTabView2(path: $path)
                     case .SelectGoal2:
                         SelectGoal2(path: $path)
-                    case .TestListView2:
-                        TestListView2(path : $path)
+                    case .TestListView2(let folder_id, let folder_Name):
+                        TestListView2(path : $path, folder_id: folder_id , folder_Name: folder_Name)
+                        
+                    case .NotesListView2(let folder_id , let folder_Name):
+                        NotesListView2(path: $path,folder_id: folder_id, folder_Name: folder_Name)
+                        
+                    case .VideoListView2(let folder_id, let folder_Name):
+                        VideoListView2(path: $path,folder_id: folder_id, folder_Name: folder_Name)
                     }
                 }
         }

@@ -1,22 +1,15 @@
 import SwiftUI
-struct TestModel2 : Codable , Hashable {
-    let name :String
-    let question : String
-    let date : String
-}
+
 struct TestListView2 : View {
     @Binding var path : NavigationPath
     
-    let name : String = "UPSC Test Series"
-    let test : [TestModel2] = [
-        TestModel2(name: "UPSC TESET 1", question: "120" , date: "2026-06-01 12:15:20"),
-        TestModel2(name: "UPSC TESET 2", question: "150" , date: "2026-03-02 10:45:20"),
-        TestModel2(name: "UPSC TESET 3", question: "160" , date: "2026-05-04 14:15:20"),
-        TestModel2(name: "UPSC TESET 4", question: "110" , date: "2026-07-07 15:45:20"),
-        TestModel2(name: "UPSC TESET 5", question: "122" , date: "2026-05-08 13:05:20"),
-        TestModel2(name: "UPSC TESET 6", question: "121" , date: "2026-04-09 12:25:20"),
-        TestModel2(name: "UPSC TESET 7", question: "110" , date: "2026-02-07 11:35:20"),
-    ]
+    let folder_id: String
+    let folder_Name : String
+    
+    @State private var documents: [NotesContent2] = []
+    @State private var baseURL: String = ""
+    
+    @State var empty = false
     var body : some View {
         VStack{
             HStack{
@@ -28,7 +21,7 @@ struct TestListView2 : View {
                 
                 Spacer()
                 
-                Text(name)
+                Text(folder_Name)
                 
                 Spacer()
                 
@@ -38,15 +31,85 @@ struct TestListView2 : View {
             .foregroundColor(uiColor.white)
             .background(uiColor.ButtonBlue)
             
-            ScrollView{
-                ForEach(test , id: \.self){item in
-                    TestListItem2(name: item.name, date: item.date, question: item.question)
-                    
+            if empty {
+                NotFoundView(title: "Not Available Content", about: "")
+            }
+            else{
+                ScrollView{
+                    ForEach(documents){item in
+                        let student_id = UserDefaults.standard.string(forKey: "studentId")
+                        let exam_id = item.id
+                        
+                        let encryptedStudent = encryptToUrlSafe(student_id!)
+                        let encryptedExam = encryptToUrlSafe(exam_id)
+                        
+                        let examURL = "\(apiURL.docExamPanel)\(encryptedStudent)/\(encryptedExam)"
+                        
+                        Button{
+                            path.append(Route.ExamInfo(title: item.insTitle ?? "", dis: item.insDesc ?? "", url: examURL))
+                        }label: {
+                            TestListItem2(name: item.name, date: item.createdDate , question: String(item.mcqCount ?? 0))
+                        }.buttonStyle(.plain)
+                        
+                    }
                 }
             }
         }.navigationBarBackButtonHidden(true)
+            .onAppear{
+                fetchBatchContent()
+            }
     }
+    
+    func fetchBatchContent() {
+        let batch_id = UserDefaults.standard.string(forKey: "batch_id") ?? ""
+    
+        
+        let components = URLComponents(
+            string:"\(apiURL.getTestItem2)\(batch_id)/\(folder_id)"
+            //"https://limbusmed.com/api/Theme3/getListByType/Exam/3/9"
+        )
+        
+        guard let finalURL = components?.url else {
+            print("❌ Invalid URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: finalURL) { data, _, error in
+            
+            if let error {
+                print("❌ API Error:", error.localizedDescription)
+                return
+            }
+            
+            guard let data else {
+                print("❌ No data received")
+                return
+            }
+            
+            do {
+                let response = try JSONDecoder().decode(NotesContentResponse2.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.documents = response.allData ?? []
+                    self.baseURL = response.fullURL
+                    
+                    if documents.isEmpty {
+                        self.empty = true
+                    }
+                    
+                }
+                
+            } catch {
+                self.empty = true
+                print("❌ Decode Error:", error)
+            }
+            
+        }.resume()
+    }
+    
+    
 }
+
 struct TestListItem2 : View {
     let name :String
     let date : String

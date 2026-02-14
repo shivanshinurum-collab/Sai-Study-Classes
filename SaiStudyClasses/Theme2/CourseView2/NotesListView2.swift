@@ -1,23 +1,18 @@
 import SwiftUI
-struct NotesModel2 : Codable , Hashable {
-    let name :String
-    let question : String
-    let date : String
-}
-struct NotesListView2 : View {
-    @Binding var path : NavigationPath
+
+struct NotesListView2: View {
     
-    let name : String = "UPSC Test Series"
-    let test : [NotesModel2] = [
-        NotesModel2(name: "UPSC TESET 1", question: "120" , date: "2026-06-01 12:15:20"),
-        NotesModel2(name: "UPSC TESET 2", question: "150" , date: "2026-03-02 10:45:20"),
-        NotesModel2(name: "UPSC TESET 3", question: "160" , date: "2026-05-04 14:15:20"),
-        NotesModel2(name: "UPSC TESET 4", question: "110" , date: "2026-07-07 15:45:20"),
-        NotesModel2(name: "UPSC TESET 5", question: "122" , date: "2026-05-08 13:05:20"),
-        NotesModel2(name: "UPSC TESET 6", question: "121" , date: "2026-04-09 12:25:20"),
-        NotesModel2(name: "UPSC TESET 7", question: "110" , date: "2026-02-07 11:35:20"),
-    ]
-    var body : some View {
+    @Binding var path: NavigationPath
+    
+    let folder_id: String
+    let folder_Name : String
+    
+    @State private var documents: [NotesContent2] = []
+    @State private var baseURL: String = ""
+    
+    @State var empty = false
+    
+    var body: some View {
         VStack{
             HStack{
                 Button{
@@ -28,7 +23,7 @@ struct NotesListView2 : View {
                 
                 Spacer()
                 
-                Text(name)
+                Text(folder_Name)
                 
                 Spacer()
                 
@@ -38,60 +33,119 @@ struct NotesListView2 : View {
             .foregroundColor(uiColor.white)
             .background(uiColor.ButtonBlue)
             
-            ScrollView{
-                ForEach(test , id: \.self){item in
-                    TestListItem2(name: item.name, date: item.date, question: item.question)
-                    
+            
+            if empty {
+                NotFoundView(title: "Not Available Content", about: "")
+            }
+            else{
+                
+                ScrollView {
+                    VStack(spacing: 15) {
+                        
+                        ForEach(documents) { item in
+                            
+                            let imageURL = "\(baseURL)batch_image/\(item.image ?? "")"
+                            let documentURL = "\(baseURL)book/\(item.redirectionURL ?? "")"
+                            
+                            Button {
+                                print(documentURL)
+                                path.append(
+                                    Route.AllDocView(
+                                        title: item.name,
+                                        url: documentURL
+                                    )
+                                )
+                            } label: {
+                                
+                                FileView(
+                                    image: documentIcon(for: documentURL),
+                                    name: item.name,
+                                    imageURL: imageURL,
+                                    isPurchased: true
+                                )
+                            }
+                        }
+                    }
+                    .padding()
                 }
             }
         }.navigationBarBackButtonHidden(true)
-    }
-}
-struct NotesListItem2 : View {
-    let name :String
-    let date : String
-    let question : String
-    
-    var body: some View {
-        
-        HStack {
-            
-            VStack(alignment: .leading, spacing: 6) {
-                
-                Text("\(name)")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.black)
-                
-                Text("\(question) Questions • \(date)")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-            
-            Spacer()
-            
-            HStack(spacing: 16) {
-                
-                Image(systemName: "newspaper")
-                    .font(.system(size: 18))
-                
-                Image(systemName: "trophy")
-                    .font(.system(size: 18))
-            }
-            .foregroundColor(.black)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
-            .background(Color.white)
-            .cornerRadius(10)
+        .onAppear {
+            fetchBatchContent()
         }
-        .padding()
-        .background(.white)
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.28), radius: 4, x: 0, y: 2)
-        .padding(.horizontal,6)
     }
 }
 
+// MARK: - File Extension Helper
+extension NotesListView2 {
+    
+    private func documentIcon(for url: String) -> String {
+        
+        let ext = (url as NSString).pathExtension.lowercased()
+        
+        switch ext {
+        case "xls", "xlsx":
+            return "xls"
+        case "doc", "docx":
+            return "doc"
+        case "pdf":
+            return "pdf"
+        case "txt":
+            return "txt"
+        case "ppt", "pptx":
+            return "pptx"
+        default:
+            return "otherDoc"
+        }
+    }
+}
 
-
-
+// MARK: - API
+extension NotesListView2 {
+    
+    func fetchBatchContent() {
+        let batch_id = UserDefaults.standard.string(forKey: "batch_id") ?? ""
+    
+        
+        let components = URLComponents(
+            string: "\(apiURL.getDocItem2)\(batch_id)/\(folder_id)"
+        )
+        
+        guard let finalURL = components?.url else {
+            print("❌ Invalid URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: finalURL) { data, _, error in
+            
+            if let error {
+                print("❌ API Error:", error.localizedDescription)
+                return
+            }
+            
+            guard let data else {
+                print("❌ No data received")
+                return
+            }
+            print("URL = "+"\(apiURL.getDocItem2)\(batch_id)/\(folder_id)" )
+            do {
+                let response = try JSONDecoder().decode(NotesContentResponse2.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.documents = response.allData ?? []
+                    self.baseURL = response.fullURL
+                    
+                    if documents.isEmpty {
+                        self.empty = true
+                    }
+                    
+                }
+                
+            } catch {
+                self.empty = true
+                print("❌ Decode Error:", error)
+            }
+            
+        }.resume()
+    }
+}

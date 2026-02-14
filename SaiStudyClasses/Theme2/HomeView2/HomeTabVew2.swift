@@ -39,7 +39,7 @@ struct HomeTabView2: View {
                 
             }
             .padding(.horizontal)
-            .font(.title2)
+            .font(.title)
             .foregroundColor(uiColor.white)
             .background(uiColor.ButtonBlue)
         }

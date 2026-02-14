@@ -102,6 +102,9 @@ struct RegisterView: View {
         }
         .padding(.horizontal, 22)
         .navigationBarBackButtonHidden(true)
+        .onTapGesture {
+            dismissKeyboard()
+        }
     }
     
     // MARK: - Validation

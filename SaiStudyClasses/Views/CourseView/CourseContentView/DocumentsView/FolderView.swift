@@ -38,7 +38,7 @@ struct FoldersView: View {
                     let purchaseCodition = purchaseCondition
                     //\(uiString.baseURL)
                     //let imageURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/batch_image/\(item.image ?? "")"
-                    let imageURL = "\(apiURL.DocbatchImage)\(item.image ?? "")"
+                    let imageURL = "\(apiURL.docBatchImage)\(item.image ?? "")"
                     //EXam
                     if(item.contentType == "Exam"){
                         
@@ -48,7 +48,7 @@ struct FoldersView: View {
                         let encryptedStudent = encryptToUrlSafe(student_id!)
                         let encryptedExam = encryptToUrlSafe(exam_id)
                         
-                        let examURL = "\(apiURL.DocexamPanel)\(encryptedStudent)/\(encryptedExam)"
+                        let examURL = "\(apiURL.docExamPanel)\(encryptedStudent)/\(encryptedExam)"
                         Button{
                             if purchaseCodition {
                                 path.append(Route.ExamView(ExamUrl: examURL))
@@ -116,14 +116,14 @@ struct FoldersView: View {
                     //Video
                     else if(item.contentType == "Video"){
                         //let videoimg = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/video/\(item.image ?? "")"
-                        let videoimg = "\(apiURL.DocVideoImg)\(item.image ?? "")"
+                        let videoimg = "\(apiURL.docVideoImg)\(item.image ?? "")"
                         Button{
                             if purchaseCodition {
                                 if(item.type == "youtube"){
                                     path.append(Route.YouTubeView(videoId: item.redirectionUrl ?? "" , title: item.name))
                                 }else{
                                     //let videoURL = "https://nbg1.your-objectstorage.com/cdnsecure/app2.lmh-ai.in/uploads/\(item.redirectionUrl ?? "")"
-                                    let videoURL = "\(apiURL.DocVideo)\(item.redirectionUrl ?? "")"
+                                    let videoURL = "\(apiURL.docVideo)\(item.redirectionUrl ?? "")"
                                     //custom url
                                     path.append(Route.VideoView(url: videoURL, title: item.name))
                                 }

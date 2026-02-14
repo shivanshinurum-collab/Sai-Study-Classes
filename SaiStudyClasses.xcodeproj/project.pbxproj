@@ -10,11 +10,7 @@
 		AE1A616C2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = AE1A616B2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta */; };
 		AE1A616E2F14BF0B008BA887 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = AE1A616D2F14BF0B008BA887 /* FirebaseMessaging */; };
 		AEAE11762F1F7D91003288AE /* RazorpayCheckout in Frameworks */ = {isa = PBXBuildFile; productRef = AEAE11752F1F7D91003288AE /* RazorpayCheckout */; };
-		AEC645A52F1B6F3200067B6D /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = AEC645A42F1B6F3200067B6D /* YouTubeiOSPlayerHelper */; };
-		AEC645A82F1B885200067B6D /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = AEC645A72F1B885200067B6D /* YouTubePlayerKit */; };
-		AEC645AB2F1B8AA700067B6D /* YouTubeKit in Frameworks */ = {isa = PBXBuildFile; productRef = AEC645AA2F1B8AA700067B6D /* YouTubeKit */; };
 		AEDA4AAC2F28DA3D008CA37A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDA4AAB2F28DA3D008CA37A /* StoreKit.framework */; };
-		AEDA4AAF2F28E8B6008CA37A /* ScreenProtectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = AEDA4AAE2F28E8B6008CA37A /* ScreenProtectorKit */; };
 		AEE9468D2F12372C008E842B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = AEE9468C2F12372C008E842B /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -82,11 +78,7 @@
 				AEE9468D2F12372C008E842B /* Lottie in Frameworks */,
 				AEAE11762F1F7D91003288AE /* RazorpayCheckout in Frameworks */,
 				AEDA4AAC2F28DA3D008CA37A /* StoreKit.framework in Frameworks */,
-				AEC645A82F1B885200067B6D /* YouTubePlayerKit in Frameworks */,
 				AE1A616C2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta in Frameworks */,
-				AEC645A52F1B6F3200067B6D /* YouTubeiOSPlayerHelper in Frameworks */,
-				AEC645AB2F1B8AA700067B6D /* YouTubeKit in Frameworks */,
-				AEDA4AAF2F28E8B6008CA37A /* ScreenProtectorKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,11 +143,7 @@
 				AEE9468C2F12372C008E842B /* Lottie */,
 				AE1A616B2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta */,
 				AE1A616D2F14BF0B008BA887 /* FirebaseMessaging */,
-				AEC645A42F1B6F3200067B6D /* YouTubeiOSPlayerHelper */,
-				AEC645A72F1B885200067B6D /* YouTubePlayerKit */,
-				AEC645AA2F1B8AA700067B6D /* YouTubeKit */,
 				AEAE11752F1F7D91003288AE /* RazorpayCheckout */,
-				AEDA4AAE2F28E8B6008CA37A /* ScreenProtectorKit */,
 			);
 			productName = SaiStudyClasses;
 			productReference = AE1874C42F1F661400751280 /* SaiStudyClasses.app */;
@@ -238,11 +226,7 @@
 			packageReferences = (
 				AEE9468B2F12372C008E842B /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				AE1A616A2F14BF0B008BA887 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				AEC645A32F1B6F3200067B6D /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
-				AEC645A62F1B885200067B6D /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
-				AEC645A92F1B8AA700067B6D /* XCRemoteSwiftPackageReference "YouTubeKit" */,
 				AEAE11742F1F7D91003288AE /* XCRemoteSwiftPackageReference "razorpay-pod" */,
-				AEDA4AAD2F28E8B6008CA37A /* XCRemoteSwiftPackageReference "ScreenProtectorKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AE562E3F2F08E17B00D6C662;
@@ -664,38 +648,6 @@
 				minimumVersion = 1.5.2;
 			};
 		};
-		AEC645A32F1B6F3200067B6D /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/youtube/youtube-ios-player-helper.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.4;
-			};
-		};
-		AEC645A62F1B885200067B6D /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SvenTiigi/YouTubePlayerKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.5;
-			};
-		};
-		AEC645A92F1B8AA700067B6D /* XCRemoteSwiftPackageReference "YouTubeKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/b5i/YouTubeKit";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		AEDA4AAD2F28E8B6008CA37A /* XCRemoteSwiftPackageReference "ScreenProtectorKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/prongbang/ScreenProtectorKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.1;
-			};
-		};
 		AEE9468B2F12372C008E842B /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -721,26 +673,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AEAE11742F1F7D91003288AE /* XCRemoteSwiftPackageReference "razorpay-pod" */;
 			productName = RazorpayCheckout;
-		};
-		AEC645A42F1B6F3200067B6D /* YouTubeiOSPlayerHelper */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEC645A32F1B6F3200067B6D /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
-			productName = YouTubeiOSPlayerHelper;
-		};
-		AEC645A72F1B885200067B6D /* YouTubePlayerKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEC645A62F1B885200067B6D /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */;
-			productName = YouTubePlayerKit;
-		};
-		AEC645AA2F1B8AA700067B6D /* YouTubeKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEC645A92F1B8AA700067B6D /* XCRemoteSwiftPackageReference "YouTubeKit" */;
-			productName = YouTubeKit;
-		};
-		AEDA4AAE2F28E8B6008CA37A /* ScreenProtectorKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEDA4AAD2F28E8B6008CA37A /* XCRemoteSwiftPackageReference "ScreenProtectorKit" */;
-			productName = ScreenProtectorKit;
 		};
 		AEE9468C2F12372C008E842B /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

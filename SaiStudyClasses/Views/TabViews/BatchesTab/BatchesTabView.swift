@@ -72,17 +72,19 @@ struct BatchesTabView : View {
                     }
                 }
                 
+                WebView(url: URL(string: apiURL.questionOfDay)!, isLoading: $isLoading)
+                    .frame(height: 350)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                    )
+                    .padding(.horizontal)
+                    .scrollIndicators(.hidden)
+                
                 ScrollView(.horizontal , showsIndicators: false) {
                     // WebView inside box
-                    WebView(url: URL(string: apiURL.qustionOfDay)!, isLoading: $isLoading)
-                        .frame(height: 350)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-                        )
-                        .padding(.horizontal)
-                        .scrollIndicators(.hidden)
+                   
                     
                     
                     HStack(spacing: 24){

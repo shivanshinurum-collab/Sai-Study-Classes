@@ -33,7 +33,7 @@ struct DrawerView : View {
                     .foregroundColor(uiColor.black)
                 
                 Button{
-                    path.append(Route.BookmarkView(url: apiURL.BookmarkPage , title: "Bookmark"))
+                    path.append(Route.BookmarkView(url: apiURL.bookmarkPage , title: "Bookmark"))
                 }label:{
                     Image(systemName: "bookmark")
                         .frame(maxWidth: 40)
@@ -132,7 +132,7 @@ struct DrawerView : View {
             ) {
                 
                 Button("Yes, Delete", role: .destructive) {
-                    logoutUser()
+                    DeleteUser()
                 }
                 
                 Button("Cancel", role: .cancel) {
@@ -142,7 +142,7 @@ struct DrawerView : View {
 
             
     }
-    func logoutUser() {
+    func DeleteUser() {
         UserDefaults.standard.set("", forKey: "goal")
         UserDefaults.standard.set("", forKey: "icon")
         UserDefaults.standard.set("", forKey: "user")

@@ -26,7 +26,7 @@ struct CourseContent : View {
                         let encryptedStudent = encryptToUrlSafe(student_id!)
                         let encryptedExam = encryptToUrlSafe(exam_id)
                         
-                        let examURL = "\(apiURL.DocexamPanel)\(encryptedStudent)/\(encryptedExam)"
+                        let examURL = "\(apiURL.docExamPanel)\(encryptedStudent)/\(encryptedExam)"
                         Button{
                             if purchaseCodition {
                                 path.append(Route.ExamInfo(title: item.insTitle ?? "", dis: item.insDesc ?? "", url: examURL))

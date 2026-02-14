@@ -99,6 +99,9 @@ struct RegisterLocationView: View {
             .padding()
         }
         .onAppear(perform: fetchFields)
+        .onTapGesture {
+            dismissKeyboard()
+        }
         .navigationBarBackButtonHidden(true)
     }
 

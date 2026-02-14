@@ -65,5 +65,9 @@ enum Route : Hashable {
     ///Theme 2
     case HomeTabView2
     case SelectGoal2
-    case TestListView2
+    case TestListView2(folder_id : String , folder_Name : String)
+    
+    case NotesListView2(folder_id : String, folder_Name : String)
+    
+    case VideoListView2(folder_id : String, folder_Name : String)
 }
