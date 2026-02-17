@@ -91,7 +91,8 @@ struct CourseOverview: View {
                     .font(.title3)
                     .bold()
                     .foregroundColor(uiColor.CreamBlueGreen)
-                    
+       
+                    // IN FUTURE BUILD
 /*                    // Discount
                     HStack {
                         Text("Discount")
@@ -149,7 +150,8 @@ struct CourseOverview: View {
                     Button {
                         print("COURSE ID =\(course_id)")
                         if(batch?.batchOfferPrice != "0") {
-                            showPaymentDialog = true
+                            //showPaymentDialog = true
+                            path.append(Route.IAPView(productId: course_id))
                         }
                         
                     } label: {
@@ -195,7 +197,7 @@ struct CourseOverview: View {
                         path.append(Route.IAPView(productId: course_id))
                     }
                     
-                    Button("Pay using Razorpay") {
+                 /*   Button("Pay using Razorpay") {
                         /*//let batchPrice = batch?.batchPrice,
                          if let offerPrice = batch?.batchOfferPrice,
                          // let price = Int(batchPrice),
@@ -211,10 +213,10 @@ struct CourseOverview: View {
                         
                         
                     }
-                    
+ */
                     Button("Cancel", role: .cancel) { }
                 }
-                
+
             }
             
             

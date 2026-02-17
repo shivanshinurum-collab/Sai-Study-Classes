@@ -1,5 +1,5 @@
 {
-  "originHash" : "ef8b41baf4b065f687bc079585c66c256b4eeae556087bfb6bbdfd63dccea205",
+  "originHash" : "45bdfd70dfbbeb6f4b44db99cd0fc693c0c7941a5481b8f34e69fac0d0c931ce",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -125,15 +125,6 @@
       "state" : {
         "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
         "version" : "2.4.0"
-      }
-    },
-    {
-      "identity" : "razorpay-pod",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/razorpay/razorpay-pod",
-      "state" : {
-        "revision" : "7b6d23f487eb5d3116bdb04e26f3dcb949b412c7",
-        "version" : "1.5.2"
       }
     },
     {

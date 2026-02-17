@@ -1,10 +1,10 @@
 struct apiURL {
     
     //static let mainURL = "https://marinewisdom.com/"
+    //static let baseURL = mainURL + "api/v2/"
+    
     
     static let mainURL = "https://app2.lmh-ai.in/"
-    
-    //static let baseURL = mainURL + "api/v2/"
     static let baseURL = mainURL + "api/"
     
     /// Question of Day
@@ -12,7 +12,7 @@ struct apiURL {
     static let questionOfDay = mainURL + "question-day/1"
     
     // MARK: - Login
-    static let loginBanners = baseURL + "ajaxcall/api_login_banners"
+    static let loginBanners = mainURL + "ajaxcall/api_login_banners"
     static let generateOTP = baseURL + "MobileApi/generateOTP"
     static let checkOTP = baseURL + "MobileApi/checkOTP"
     
@@ -63,13 +63,15 @@ struct apiURL {
     
     
     
-    static let limbusmed = "https://limbusmed.com/"
+    static let limbusmed = "https://limbusmed.com/api/"
     // MARK: - Theme 2
-    static let selectGoal2 = limbusmed + "api/Theme3/getBatchWithCategory"
-    static let getNotes2 =  limbusmed + "api/Theme3/getFolderForVideo/"
-    static let getTestItem2 = limbusmed +  "api/Theme3/getListByType/Exam/"
-    static let getVideoItem2 = limbusmed +  "api/Theme3/getListByType/Video/"
-    static let getDocItem2 =  limbusmed + "api/Theme3/getListByType/Document/"
+    static let selectGoal2 = baseURL + "Theme3/getBatchWithCategory"
+    
+    static let getNotes2 =  baseURL + "Theme3/getFolderForVideo/"
+    static let getTestItem2 = baseURL +  "Theme3/getListByType/Exam/"
+    static let getVideoItem2 = baseURL +  "Theme3/getListByType/Video/"
+    static let getDocItem2 =  baseURL + "Theme3/getListByType/Document/"
+    
 }
 
 //https://limbusmed.com/api/Theme3/getListByType/Document/{batchId}/{folder_id}

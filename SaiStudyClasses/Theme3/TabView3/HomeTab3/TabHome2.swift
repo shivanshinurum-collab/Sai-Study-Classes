@@ -20,8 +20,9 @@ struct TabHome2 : View {
     
     @State var isLoading = true
     
-    let course_id = UserDefaults.standard.string(forKey: "course_id") ?? ""
+    let batch_id = UserDefaults.standard.string(forKey: "batch_id") ?? "0"
     let userName = UserDefaults.standard.string(forKey: "fullName") ?? "PLAY STORE TEAM"
+    
     var body: some View {
         
         ScrollView{
@@ -134,7 +135,8 @@ struct TabHome2 : View {
                                 let total = offer + fee + gst
                                 
                                 Button {
-                                    showPaymentDialog = true
+                                    //showPaymentDialog = true
+                                    path.append(Route.IAPView(productId: batch_id))
                                 } label: {
                                     Text("Pay ₹\(String(format: "%.2f", total))")
                                         .font(.system(size: 18, weight: .semibold))
@@ -171,24 +173,7 @@ struct TabHome2 : View {
         ) {
             Button("Pay using In-App Purchase") {
                 //Task { await iap.buy() }
-                path.append(Route.IAPView(productId: course_id))
-            }
-            
-            Button("Pay using Razorpay") {
-                /*//let batchPrice = batch?.batchPrice,
-                 if let offerPrice = batch?.batchOfferPrice,
-                 // let price = Int(batchPrice),
-                 let offer = Double(offerPrice),
-                 let convFeePercent = Double(batchResponse?.convenienceFee ?? "0") {
-                 let fee = offer * (convFeePercent / 100.0)
-                 let gst = fee * 0.18
-                 let total = Double(offer) + fee + gst*/
-                RazorpayManager.shared.startPayment(
-                    amount: Int(1),
-                    description: "Test Payment"
-                )
-                
-                
+                path.append(Route.IAPView(productId: batch_id))
             }
             
             Button("Cancel", role: .cancel) { }
@@ -199,6 +184,8 @@ struct TabHome2 : View {
             fetchBatches()
         }
     }
+    
+    
     func fetchBatches() {
         let student_id = UserDefaults.standard.string(forKey: "studentId")
         var components = URLComponents(
@@ -206,7 +193,7 @@ struct TabHome2 : View {
         )
 
         components?.queryItems = [
-            URLQueryItem(name: "batch_id", value: course_id),  //  Use course.id
+            URLQueryItem(name: "batch_id", value: batch_id),  //  Use course.id
             URLQueryItem(name: "student_id", value: student_id)
         ]
 
@@ -229,7 +216,7 @@ struct TabHome2 : View {
             do {
                 let decodedResponse = try JSONDecoder().decode(getBatchDetailResponse.self, from: data)
                 
-                print("Batch ID = ",course_id)
+                print("Batch ID = ",batch_id)
                 DispatchQueue.main.async {
                     // ✅ Store the response
                     self.batch = decodedResponse.batch

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AE1A616C2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = AE1A616B2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta */; };
 		AE1A616E2F14BF0B008BA887 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = AE1A616D2F14BF0B008BA887 /* FirebaseMessaging */; };
-		AEAE11762F1F7D91003288AE /* RazorpayCheckout in Frameworks */ = {isa = PBXBuildFile; productRef = AEAE11752F1F7D91003288AE /* RazorpayCheckout */; };
 		AEDA4AAC2F28DA3D008CA37A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEDA4AAB2F28DA3D008CA37A /* StoreKit.framework */; };
 		AEE9468D2F12372C008E842B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = AEE9468C2F12372C008E842B /* Lottie */; };
 /* End PBXBuildFile section */
@@ -76,7 +75,6 @@
 			files = (
 				AE1A616E2F14BF0B008BA887 /* FirebaseMessaging in Frameworks */,
 				AEE9468D2F12372C008E842B /* Lottie in Frameworks */,
-				AEAE11762F1F7D91003288AE /* RazorpayCheckout in Frameworks */,
 				AEDA4AAC2F28DA3D008CA37A /* StoreKit.framework in Frameworks */,
 				AE1A616C2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta in Frameworks */,
 			);
@@ -143,7 +141,6 @@
 				AEE9468C2F12372C008E842B /* Lottie */,
 				AE1A616B2F14BF0B008BA887 /* FirebaseInAppMessaging-Beta */,
 				AE1A616D2F14BF0B008BA887 /* FirebaseMessaging */,
-				AEAE11752F1F7D91003288AE /* RazorpayCheckout */,
 			);
 			productName = SaiStudyClasses;
 			productReference = AE1874C42F1F661400751280 /* SaiStudyClasses.app */;
@@ -226,7 +223,6 @@
 			packageReferences = (
 				AEE9468B2F12372C008E842B /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				AE1A616A2F14BF0B008BA887 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				AEAE11742F1F7D91003288AE /* XCRemoteSwiftPackageReference "razorpay-pod" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AE562E3F2F08E17B00D6C662;
@@ -640,14 +636,6 @@
 				minimumVersion = 12.7.0;
 			};
 		};
-		AEAE11742F1F7D91003288AE /* XCRemoteSwiftPackageReference "razorpay-pod" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/razorpay/razorpay-pod";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.2;
-			};
-		};
 		AEE9468B2F12372C008E842B /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -668,11 +656,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AE1A616A2F14BF0B008BA887 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
-		};
-		AEAE11752F1F7D91003288AE /* RazorpayCheckout */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AEAE11742F1F7D91003288AE /* XCRemoteSwiftPackageReference "razorpay-pod" */;
-			productName = RazorpayCheckout;
 		};
 		AEE9468C2F12372C008E842B /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -186,11 +186,11 @@ struct AddressFormView: View {
         print("Pincode:", pincode)
         
         //if(batch?.batchOfferPrice != "0"){
-        RazorpayManager.shared.startPayment(
+/*        RazorpayManager.shared.startPayment(
             amount: 1,
             description: "Test Payment"
         )
-        //}
+ */       //}
         
     }
 

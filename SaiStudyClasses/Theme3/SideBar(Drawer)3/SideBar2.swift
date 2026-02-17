@@ -62,7 +62,7 @@ struct SideBar2 :View {
             }label: {
                 Text("Buy Plan")
                     .foregroundColor(.white)
-                    .font(.title)
+                    .font(.system(size: 25))
                     .bold()
             }
             Rectangle()
@@ -220,6 +220,7 @@ struct SideBar2 :View {
     }
     
     func DeleteUser() {
+        UserDefaults.standard.set("", forKey: "batch_id")
         UserDefaults.standard.set("", forKey: "goal")
         UserDefaults.standard.set("", forKey: "icon")
         UserDefaults.standard.set("", forKey: "user")
@@ -231,6 +232,7 @@ struct SideBar2 :View {
     }
     
     func UserLogOut(){
+        UserDefaults.standard.set("", forKey: "batch_id")
         UserDefaults.standard.set("", forKey: "goal")
         UserDefaults.standard.set("", forKey: "icon")
         UserDefaults.standard.set("", forKey: "user")

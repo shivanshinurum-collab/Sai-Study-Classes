@@ -120,6 +120,15 @@ struct NavigationManager: View {
                         
                     case .VideoListView2(let folder_id, let folder_Name):
                         VideoListView2(path: $path,folder_id: folder_id, folder_Name: folder_Name)
+                        
+                    
+                        //Theme 4
+                    case .WelcomeView4:
+                        WelcomeView4(path: $path)
+                    case .TabView4:
+                        TabView4(path: $path)
+                    case .Notification4:
+                        Notification4(path: $path)
                     }
                 }
         }

@@ -8,7 +8,7 @@ struct SelectGoal2 : View {
     
     @State private var showChangeAlert = false
     
-    @State var course_id = UserDefaults.standard.string(forKey: "batch_id") ?? ""
+    @State var batch_id = UserDefaults.standard.string(forKey: "batch_id") ?? ""
     
     
     var body : some View {
@@ -41,7 +41,7 @@ struct SelectGoal2 : View {
                         ForEach(item.batchData){ i in
                             Button{
                                 selected = i.batchName
-                                course_id = i.id
+                                batch_id = i.id
                             }label: {
                                 
                                 HStack{
@@ -84,8 +84,14 @@ struct SelectGoal2 : View {
                 let name = UserDefaults.standard.string(forKey: "goal") ?? ""
                 let id = UserDefaults.standard.string(forKey: "batch_id") ?? ""
                 
-                if selected == name && course_id == id {
+                if selected == name && batch_id == id && selected != ""{
                     path.append(Route.HomeTabView2)
+                } else if name == "" && id == "" && selected != ""{
+                    UserDefaults.standard.set(batch_id, forKey: "batch_id")
+                    UserDefaults.standard.set(selected, forKey: "goal")
+                    path.append(Route.HomeTabView2)
+                } else if selected == ""{
+                    
                 }
                 else{
                     showChangeAlert = true
@@ -113,7 +119,7 @@ struct SelectGoal2 : View {
             }
             
             Button("Yes, Change", role: .destructive) {
-                UserDefaults.standard.set(course_id, forKey: "batch_id")
+                UserDefaults.standard.set(batch_id, forKey: "batch_id")
                 UserDefaults.standard.set(selected, forKey: "goal")
                 path.append(Route.HomeTabView2)
             }

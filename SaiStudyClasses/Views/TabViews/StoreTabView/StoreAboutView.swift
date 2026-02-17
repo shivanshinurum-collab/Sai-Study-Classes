@@ -9,9 +9,7 @@ struct StoreAboutView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-
             
-
             // 🔹 Content
             if let detail = about {
                 // 🔹 Header
@@ -94,7 +92,7 @@ struct StoreAboutView: View {
                         .foregroundColor(uiColor.Error)
 
                         Button {
-                            path.append(Route.AddressFormView)
+                            //path.append(Route.AddressFormView)
                         } label: {
                             Text("Add Shipping Address")
                                 .foregroundColor(.white)
