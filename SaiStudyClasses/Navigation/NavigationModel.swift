@@ -77,4 +77,11 @@ enum Route : Hashable {
     case WelcomeView4
     case TabView4
     case Notification4
+    case CourseBuy4
+    case courseCat4
+    case CourseList4
+    case FreeStudyMaterial4(selectedTab:Int)
+    case filterView4
+    case FreeVideosList4
+    
 }

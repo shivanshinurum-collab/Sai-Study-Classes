@@ -29,4 +29,6 @@ struct uiColor {
     
     static let verylightBlue = Color(.blue.opacity(0.1))
     static let lightBlue = Color(.blue.opacity(0.2))
+    
+    static let darkBlue = Color(red: 10/255, green: 31/255, blue: 68/255)
 }

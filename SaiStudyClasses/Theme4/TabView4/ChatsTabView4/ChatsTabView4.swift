@@ -1,7 +1,8 @@
-
 import SwiftUI
 
 struct ChatsTabView4:View{
+    @Binding var path : NavigationPath
+    
     @State var search : String = ""
     var body: some View{
         ScrollView{
@@ -26,7 +27,11 @@ struct ChatsTabView4:View{
                 Text("Messages")
                     .font(.headline)
                 
-                ChatTabCard4()
+                Button{
+                    
+                }label: {
+                    ChatTabCard4()
+                }.buttonStyle(.plain)
                 
             }
             
@@ -35,6 +40,4 @@ struct ChatsTabView4:View{
         }
     }
 }
-#Preview{
-    ChatsTabView4()
-}
+

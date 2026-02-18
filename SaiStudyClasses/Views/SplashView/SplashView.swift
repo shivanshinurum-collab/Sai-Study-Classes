@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct SplashView: View {
@@ -38,17 +37,18 @@ struct SplashView: View {
         .navigationBarBackButtonHidden(true)
         .onChange(of: isActive) { oldValue, newValue in
             if newValue {
-                let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
                 path.append(Route.TabView4)
-
+                
+/*                let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+           
                 //UserDefaults.standard.set("2", forKey: "studentId")
-/*                if isLoggedIn {
+                if isLoggedIn {
                     //path.append(Route.HomeView)
-                    path.append(Route.HomeTabView2)
+                    path.append(Route.WelcomeView4)
                 } else {
                     path.append(Route.WelcomeView)
                 }
-  */         }
+*/           }
         }
     }
 }

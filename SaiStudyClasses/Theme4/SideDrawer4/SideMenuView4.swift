@@ -152,7 +152,7 @@ struct SideMenuView4: View {
                 print("Share on Facebook")
             } label: {
                 HStack {
-                    Image("facebook")
+                    Image("f")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 25 , height: 25)

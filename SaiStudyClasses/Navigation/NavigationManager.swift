@@ -129,6 +129,19 @@ struct NavigationManager: View {
                         TabView4(path: $path)
                     case .Notification4:
                         Notification4(path: $path)
+                    case .CourseBuy4:
+                        CourseBuy4(path: $path)
+                    case .courseCat4:
+                        courseCat4(path: $path)
+                    case .CourseList4:
+                        CourseList4(path: $path)
+                    case .FreeStudyMaterial4(let selectedTab):
+                        FreeStudyMaterial4(path: $path,selectedTab: selectedTab)
+                    case .filterView4:
+                        filterView4(path: $path)
+                    case .FreeVideosList4:
+                        FreeVideosList4(path: $path)
+                        
                     }
                 }
         }

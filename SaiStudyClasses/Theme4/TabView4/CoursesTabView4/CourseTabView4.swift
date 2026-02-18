@@ -2,6 +2,8 @@
 import SwiftUI
 
 struct CourseTabView4:View{
+    @Binding var path: NavigationPath
+    
     @State var search : String = ""
     @State var showCat : Bool = false
     
@@ -68,7 +70,11 @@ struct CourseTabView4:View{
                 
                 ScrollView{
                     ForEach(1..<10){_ in
-                        CourseCardCourse4(image: "banner", name: "Courses", price: "1799", oprice: "3999")
+                        Button{
+                            path.append(Route.CourseBuy4)
+                        }label: {
+                            CourseCardCourse4(image: "banner", name: "Courses", price: "1799", oprice: "3999")
+                        }.buttonStyle(.plain)
                         
                         Rectangle()
                             .frame(maxWidth: .infinity , maxHeight: 1.5)
@@ -79,7 +85,7 @@ struct CourseTabView4:View{
             }.padding()
             
             Button{
-                
+                path.append(Route.CourseList4)
             }label: {
                 Text("View All Courses")
                     .font(.headline)
@@ -100,6 +106,3 @@ struct CourseTabView4:View{
     }
 }
 
-#Preview{
-    CourseTabView4()
-}

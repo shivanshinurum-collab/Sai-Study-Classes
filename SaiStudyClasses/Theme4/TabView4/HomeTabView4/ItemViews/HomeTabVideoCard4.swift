@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct HomeTabVideoCard4 : View {
+    @Binding var path : NavigationPath
+    
     let image : String
     let time : String
     let courseName : String
@@ -30,7 +32,7 @@ struct HomeTabVideoCard4 : View {
             Text(courseName)
             
             Button{
-                
+                path.append(Route.CourseBuy4)
             }label: {
                 Text("View Course >")
             }

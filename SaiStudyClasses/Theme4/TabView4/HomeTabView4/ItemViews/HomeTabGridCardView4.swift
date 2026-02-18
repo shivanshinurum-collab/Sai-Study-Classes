@@ -10,7 +10,11 @@ struct GridItemModel: Identifiable {
 
 struct HomeTabGridCardView4: View {
     
-    let item: GridItemModel
+    //let item: GridItemModel
+    let title: String
+    let color: Color
+    let isFree: Bool
+    let image: String
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -24,32 +28,33 @@ struct HomeTabGridCardView4: View {
                         .frame(width: 80, height: 80)
                         .shadow(radius: 4)
                     
-                    Image(systemName: item.image)
+                    Image(systemName: image)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 35, height: 35)
-                        .foregroundColor(item.color)
+                        .foregroundColor(color)
                 }
                 .padding(.top, 20)
                 
                 // Title
-                Text(item.title)
-                    .font(.system(size: 14, weight: .bold))
+                Text(title)
+                    .font(.subheadline)
+                    .bold()
                     .multilineTextAlignment(.center)
                     .foregroundColor(.white)
                     .padding(.horizontal, 5)
                 
                 Spacer()
             }
-            .frame(height: 130)
+            //.frame(height: 150)
             .frame(maxWidth: .infinity)
-            .background(item.color)
+            .background(color)
             .cornerRadius(18)
             .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 4)
             
             
             // FREE Ribbon
-            if item.isFree {
+            if isFree {
                 Text("FREE")
                     .font(.system(size: 11, weight: .bold))
                     .foregroundColor(.white)

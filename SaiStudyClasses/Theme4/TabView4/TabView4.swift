@@ -42,7 +42,7 @@ struct TabView4: View {
         ZStack(alignment:.leading){
             
             TabView{
-                HomeTabView4()
+                HomeTabView4(path: $path)
                     .tabItem{
                         TabItemView2(title: "Home", image: "house.fill")
                     }
@@ -50,15 +50,15 @@ struct TabView4: View {
                     .tabItem{
                         TabItemView2(title: "Batches", image: "person.2")
                     }
-                CourseTabView4()
+                CourseTabView4(path: $path)
                     .tabItem{
                         TabItemView2(title: "Courses", image: "books.vertical")
                     }
-                ChatsTabView4()
+                ChatsTabView4(path: $path)
                     .tabItem{
                         TabItemView2(title: "Chats", image: "message.fill")
                     }
-                BooksTabView4()
+                BooksTabView4(path: $path)
                     .tabItem{
                         TabItemView2(title: "Books", image: "book.fill")
                     }
