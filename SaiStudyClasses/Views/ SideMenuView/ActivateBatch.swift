@@ -9,7 +9,12 @@ struct ActivateBatch : View{
     
     @State var showLoading : Bool = false
     
-    var body: some View {
+    var body: some View{
+        underProcess(title: "Under Construction", about: "")
+    }
+    //Under Construction
+    //Future Build
+/*    var body: some View {
         
         ZStack(alignment: .top){
             HStack{
@@ -146,7 +151,7 @@ struct ActivateBatch : View{
         }.resume()
     }
     
-    
+ */
 }
 
 

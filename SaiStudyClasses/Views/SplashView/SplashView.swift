@@ -43,12 +43,11 @@ struct SplashView: View {
            
                 //UserDefaults.standard.set("2", forKey: "studentId")
                 if isLoggedIn {
-                    //path.append(Route.HomeView)
-                    path.append(Route.WelcomeView4)
+                    path.append(Route.HomeView)
                 } else {
                     path.append(Route.WelcomeView)
                 }
-*/           }
+ */          }
         }
     }
 }

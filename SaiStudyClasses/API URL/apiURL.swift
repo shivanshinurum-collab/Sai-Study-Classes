@@ -1,11 +1,11 @@
 struct apiURL {
     
-    //static let mainURL = "https://marinewisdom.com/"
-    //static let baseURL = mainURL + "api/v2/"
+    static let mainURL = "https://marinewisdom.com/"
+    static let baseURL = mainURL + "api/v2/"
     
     
-    static let mainURL = "https://app2.lmh-ai.in/"
-    static let baseURL = mainURL + "api/"
+    //static let mainURL = "https://app2.lmh-ai.in/"
+    //static let baseURL = mainURL + "api/"
     
     /// Question of Day
     //static let questionOfDay = "https://drpawar.in/question-day/1"

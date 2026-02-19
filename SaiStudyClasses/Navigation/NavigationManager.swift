@@ -141,6 +141,14 @@ struct NavigationManager: View {
                         filterView4(path: $path)
                     case .FreeVideosList4:
                         FreeVideosList4(path: $path)
+                    case .PaymentView4:
+                        PaymentView4(path: $path)
+                    case .SettingView4:
+                        SettingView4(path: $path)
+                    case .EditProfileView4:
+                        EditProfileView4(path: $path)
+                    case .FreeMaterialSide4:
+                        FreeMaterialSide4(path: $path)
                         
                     }
                 }

@@ -51,7 +51,7 @@ struct SideMenuView4: View {
                         }.buttonStyle(.plain)
                         
                         Button{
-                            
+                            path.append(Route.FreeMaterialSide4)
                         }label: {
                             MenuRow(icon: "folder", title: "Free Material")
                         }.buttonStyle(.plain)
@@ -63,13 +63,13 @@ struct SideMenuView4: View {
                         }.buttonStyle(.plain)
                         
                         Button{
-                            
+                            path.append(Route.EditProfileView4)
                         }label: {
                             MenuRow(icon: "person", title: "Edit Profile")
                         }.buttonStyle(.plain)
                         
                         Button{
-                            
+                            path.append(Route.SettingView4)
                         }label: {
                             MenuRow(icon: "gearshape", title: "Settings")
                         }.buttonStyle(.plain)
@@ -87,7 +87,7 @@ struct SideMenuView4: View {
                         }.buttonStyle(.plain)
                         
                         Button{
-                            
+                            path.append(Route.PaymentView4)
                         }label: {
                             MenuRow(icon: "creditcard", title: "Payments")
                         }.buttonStyle(.plain)
@@ -112,13 +112,13 @@ struct SideMenuView4: View {
                         }label: {
                             MenuRow(icon: "f.circle", title: "Facebook")
                         }.buttonStyle(.plain)
-                       
+                        
                         Button{
                             
                         }label: {
                             MenuRow(icon: "bird", title: "Twitter")
                         }.buttonStyle(.plain)
-                       
+                        
                         Button{
                             
                         }label: {

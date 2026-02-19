@@ -83,5 +83,10 @@ enum Route : Hashable {
     case FreeStudyMaterial4(selectedTab:Int)
     case filterView4
     case FreeVideosList4
+    case PaymentView4
+    case SettingView4
+    case EditProfileView4
+    case FreeMaterialSide4
+    
     
 }

@@ -60,6 +60,8 @@ struct DrawerView : View {
                 }.font(.system(size: CGFloat(size)))
                     .foregroundColor(uiColor.black)
                 
+                
+/*
                 Button{
                     path.append(Route.BatchActivateView)
                 }label:{
@@ -70,6 +72,8 @@ struct DrawerView : View {
                 }.font(.system(size: CGFloat(size)))
                     .foregroundColor(uiColor.black)
                 
+                
+ */
                 Button{
                     path.append(Route.AttendanceView)
                 }label:{
