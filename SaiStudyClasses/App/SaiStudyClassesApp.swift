@@ -4,7 +4,6 @@ import FirebaseCore
 import FirebaseMessaging
 import UserNotifications
 
-
 // MARK: - AppDelegate
 class AppDelegate: NSObject, UIApplicationDelegate {
 
@@ -177,6 +176,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler()
     }
 }
+
 
 // MARK: - SwiftUI App Entry
 @main

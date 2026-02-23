@@ -122,34 +122,50 @@ struct NavigationManager: View {
                         VideoListView2(path: $path,folder_id: folder_id, folder_Name: folder_Name)
                         
                     
-                        //Theme 4
-                    case .WelcomeView4:
-                        WelcomeView4(path: $path)
+                        //Theme 5
+                    case .WelcomeView5:
+                        WelcomeView5(path: $path)
+                    case .TabView5:
+                        TabView5(path: $path)
+                    case .Notification5:
+                        Notification5(path: $path)
+                    case .CourseBuy5:
+                        CourseBuy5(path: $path)
+                    case .courseCat5:
+                        courseCat5(path: $path)
+                    case .CourseList5:
+                        CourseList5(path: $path)
+                    case .FreeStudyMaterial5(let selectedTab):
+                        FreeStudyMaterial5(path: $path,selectedTab: selectedTab)
+                    case .filterView5:
+                        filterView5(path: $path)
+                    case .FreeVideosList5:
+                        FreeVideosList5(path: $path)
+                    case .PaymentView5:
+                        PaymentView5(path: $path)
+                    case .SettingView5:
+                        SettingView5(path: $path)
+                    case .EditProfileView5:
+                        EditProfileView5(path: $path)
+                    case .FreeMaterialSide5:
+                        FreeMaterialSide5(path: $path)
+                        
+                    case .editEducationInfo5:
+                        editEducationInfo5(path: $path)
+                    case .editBasicInfo5:
+                        editBasicInfo5(path: $path)
+                    case .editAddressInfo5:
+                        editAddressInfo5(path: $path)
+                    case .loginMobile4:
+                        loginMobile4(path: $path)
+                    case .loginOTP4(let user , let isMobile):
+                        loginOTP4(path: $path , user: user , isMobile: isMobile)
                     case .TabView4:
                         TabView4(path: $path)
-                    case .Notification4:
-                        Notification4(path: $path)
-                    case .CourseBuy4:
-                        CourseBuy4(path: $path)
-                    case .courseCat4:
-                        courseCat4(path: $path)
-                    case .CourseList4:
-                        CourseList4(path: $path)
-                    case .FreeStudyMaterial4(let selectedTab):
-                        FreeStudyMaterial4(path: $path,selectedTab: selectedTab)
-                    case .filterView4:
-                        filterView4(path: $path)
-                    case .FreeVideosList4:
-                        FreeVideosList4(path: $path)
-                    case .PaymentView4:
-                        PaymentView4(path: $path)
-                    case .SettingView4:
-                        SettingView4(path: $path)
-                    case .EditProfileView4:
-                        EditProfileView4(path: $path)
-                    case .FreeMaterialSide4:
-                        FreeMaterialSide4(path: $path)
-                        
+                    case .courseContent4(let buy):
+                        courseContent4(path: $path , buy: buy)
+                    case .courseBuy4:
+                        courseBuy4(path: $path)
                     }
                 }
         }

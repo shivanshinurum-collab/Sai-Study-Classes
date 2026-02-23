@@ -6,7 +6,7 @@ struct SplashView: View {
     @State private var isActive = false
     @State private var scale: CGFloat = 0.6
     @State private var opacity: Double = 0.0
-
+    
     var body: some View {
         VStack {
             Image("logo")
@@ -29,7 +29,7 @@ struct SplashView: View {
                 scale = 1.0
                 opacity = 1.0
             }
-
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 isActive = true
             }
@@ -37,17 +37,20 @@ struct SplashView: View {
         .navigationBarBackButtonHidden(true)
         .onChange(of: isActive) { oldValue, newValue in
             if newValue {
-                path.append(Route.TabView4)
                 
-/*                let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
-           
+                
+                let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+                
                 //UserDefaults.standard.set("2", forKey: "studentId")
-                if isLoggedIn {
+                path.append(Route.TabView4)
+/*                if isLoggedIn {
                     path.append(Route.HomeView)
+                    //path.append(Route.TabView4)
                 } else {
                     path.append(Route.WelcomeView)
+                    //path.append(Route.loginMobile4)
                 }
- */          }
+*/            }
         }
     }
 }

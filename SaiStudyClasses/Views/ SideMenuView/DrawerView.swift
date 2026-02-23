@@ -147,21 +147,76 @@ struct DrawerView : View {
             
     }
     func DeleteUser() {
-        UserDefaults.standard.set("", forKey: "goal")
-        UserDefaults.standard.set("", forKey: "icon")
-        UserDefaults.standard.set("", forKey: "user")
-        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        let defaults = UserDefaults.standard
+
+            defaults.removeObject(forKey: "studentId")
+            defaults.removeObject(forKey: "userEmail")
+            defaults.removeObject(forKey: "fullName")
+            defaults.removeObject(forKey: "enrollmentId")
+            defaults.removeObject(forKey: "image")
+            defaults.removeObject(forKey: "country_code")
+            defaults.removeObject(forKey: "mobile")
+            defaults.removeObject(forKey: "versionCode")
+            defaults.removeObject(forKey: "batchId")
+            defaults.removeObject(forKey: "batchName")
+            defaults.removeObject(forKey: "referred_by")
+            defaults.removeObject(forKey: "affiliate_id")
+            defaults.removeObject(forKey: "wallet")
+            defaults.removeObject(forKey: "adminId")
+            defaults.removeObject(forKey: "paymentType")
+            defaults.removeObject(forKey: "admissionDate")
+            defaults.removeObject(forKey: "languageName")
+            defaults.removeObject(forKey: "transactionId")
+            defaults.removeObject(forKey: "amount")
+            defaults.removeObject(forKey: "isMobile")
+            defaults.removeObject(forKey: "goal")
+            defaults.removeObject(forKey: "icon")
+            defaults.removeObject(forKey: "user")
+            defaults.removeObject(forKey: "isLoggedIn")
         
         print("User Logged Out")
+        
+        NotificationCenter.default.post(
+            name: NSNotification.Name("LoginStatusChanged"),
+            object: nil
+        )
         
         path.removeLast(path.count)
     }
 
     func UserLogOut(){
-        UserDefaults.standard.set("", forKey: "goal")
-        UserDefaults.standard.set("", forKey: "icon")
-        UserDefaults.standard.set("", forKey: "user")
-        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        let defaults = UserDefaults.standard
+
+            defaults.removeObject(forKey: "studentId")
+            defaults.removeObject(forKey: "userEmail")
+            defaults.removeObject(forKey: "fullName")
+            defaults.removeObject(forKey: "enrollmentId")
+            defaults.removeObject(forKey: "image")
+            defaults.removeObject(forKey: "country_code")
+            defaults.removeObject(forKey: "mobile")
+            defaults.removeObject(forKey: "versionCode")
+            defaults.removeObject(forKey: "batchId")
+            defaults.removeObject(forKey: "batchName")
+            defaults.removeObject(forKey: "referred_by")
+            defaults.removeObject(forKey: "affiliate_id")
+            defaults.removeObject(forKey: "wallet")
+            defaults.removeObject(forKey: "adminId")
+            defaults.removeObject(forKey: "paymentType")
+            defaults.removeObject(forKey: "admissionDate")
+            defaults.removeObject(forKey: "languageName")
+            defaults.removeObject(forKey: "transactionId")
+            defaults.removeObject(forKey: "amount")
+            defaults.removeObject(forKey: "isMobile")
+            defaults.removeObject(forKey: "goal")
+            defaults.removeObject(forKey: "icon")
+            defaults.removeObject(forKey: "user")
+            defaults.removeObject(forKey: "isLoggedIn")
+        
+        NotificationCenter.default.post(
+            name: NSNotification.Name("LoginStatusChanged"),
+            object: nil
+        )
+        
     }
 }
 

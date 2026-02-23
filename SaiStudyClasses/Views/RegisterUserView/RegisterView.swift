@@ -102,6 +102,12 @@ struct RegisterView: View {
         }
         .padding(.horizontal, 22)
         .navigationBarBackButtonHidden(true)
+        .onAppear{
+            NotificationCenter.default.post(
+                name: NSNotification.Name("LoginStatusChanged"),
+                object: nil
+            )
+        }
         .onTapGesture {
             dismissKeyboard()
         }

@@ -155,7 +155,7 @@ struct SideBar2 :View {
                     
                     Button{
                         UserLogOut()
-                        path.removeLast(path.count)
+                        
                         
                         
                     }label:{
@@ -237,6 +237,8 @@ struct SideBar2 :View {
         UserDefaults.standard.set("", forKey: "icon")
         UserDefaults.standard.set("", forKey: "user")
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        
+        path.removeLast(path.count)
     }
     
 }

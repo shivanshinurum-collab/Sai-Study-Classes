@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct OTPView: View {
+    
+    
+    
     @Binding var path: NavigationPath
     
     @State private var otp: [String] = Array(repeating: "", count: 4)
@@ -221,13 +224,19 @@ struct OTPView: View {
         print("userEmail =",studentData.userEmail)
         print("mobile =",studentData.mobile)
         
+        print("Student Data Saving = ",studentData)
         // Navigate based on user data completeness
         if studentData.fullName.isEmpty && studentData.enrollmentId.isEmpty && studentData.userEmail.isEmpty {
             path.append(Route.RegistrationView)
-        } else if !studentData.fullName.isEmpty && !studentData.enrollmentId.isEmpty && !studentData.userEmail.isEmpty {
+        }
+        else if studentData.fullName.isEmpty && studentData.enrollmentId.isEmpty && studentData.mobile.isEmpty {
+            path.append(Route.RegistrationView)
+        }
+        else if !studentData.fullName.isEmpty && !studentData.enrollmentId.isEmpty && !studentData.userEmail.isEmpty {
             path.append(Route.SelectGoalView)
         }
     }
+    
     
     // MARK: - Timer Functions
     private func startTimer() {
@@ -327,7 +336,7 @@ struct OTPView: View {
             do {
                 let response = try JSONDecoder().decode(CheckOTP.self, from: data)
                 
-                print("✅ Decoded Response:")
+                print("✅ Decoded Response: ", response)
                 print("   Status:", response.status)
                 print("   Message:", response.msg)
                 

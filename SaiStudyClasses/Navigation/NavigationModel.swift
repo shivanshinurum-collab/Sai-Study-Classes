@@ -72,21 +72,35 @@ enum Route : Hashable {
     case VideoListView2(folder_id : String, folder_Name : String)
     
     
-    
-    //Theme4
-    case WelcomeView4
+    //Theme 4
+    case loginMobile4
+    case loginOTP4(user : String , isMobile : Bool)
     case TabView4
-    case Notification4
-    case CourseBuy4
-    case courseCat4
-    case CourseList4
-    case FreeStudyMaterial4(selectedTab:Int)
-    case filterView4
-    case FreeVideosList4
-    case PaymentView4
-    case SettingView4
-    case EditProfileView4
-    case FreeMaterialSide4
+    case courseContent4(buy : Bool)
+    case courseBuy4
+    
+    
+    
+    
+    //Theme5
+    case WelcomeView5
+    case TabView5
+    case Notification5
+    case CourseBuy5
+    case courseCat5
+    case CourseList5
+    case FreeStudyMaterial5(selectedTab:Int)
+    case filterView5
+    case FreeVideosList5
+    case PaymentView5
+    case SettingView5
+    case EditProfileView5
+    case FreeMaterialSide5
+    
+    case editEducationInfo5
+    case editBasicInfo5
+    case editAddressInfo5
+    
     
     
 }
