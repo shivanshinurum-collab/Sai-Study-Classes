@@ -2,6 +2,8 @@ import SwiftUI
 
 struct FullscreenPlayerView: View {
 
+    @State private var protector: CustomScreenProtectorKit?
+    
     let controller: YouTubePlayerViewController?
     @Binding var isPresented: Bool
 
@@ -30,6 +32,17 @@ struct FullscreenPlayerView: View {
         }
         .onAppear {
             setLandscape()
+            
+/*            if let window = UIApplication.shared.connectedScenes
+                    .compactMap({ $0 as? UIWindowScene })
+                    .first?
+                    .windows.first {
+
+                    let kit = CustomScreenProtectorKit(window: window)
+                    kit.enable()
+                    protector = kit
+                }
+*/
         }
         .onDisappear {
             setPortrait()

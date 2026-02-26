@@ -10,7 +10,7 @@ enum Route : Hashable {
     case HomeView
     
     //Registration
-    case RegistrationView
+    case RegistrationView(isMobile : Bool)
     case RegistrationLocationView
     
     //Side Bar
@@ -76,7 +76,7 @@ enum Route : Hashable {
     case loginMobile4
     case loginOTP4(user : String , isMobile : Bool)
     case TabView4
-    case courseContent4(buy : Bool)
+    case courseContent4(batchName : String , description: String , id : String , image : String)
     case courseBuy4
     
     

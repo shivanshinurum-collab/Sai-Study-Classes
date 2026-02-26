@@ -1,36 +1,33 @@
 import SwiftUI
 struct paymentCard4 : View {
-    let head :String = "Advance Diploma in Clinical Research"
-    let id : String = "1234565sfsfsdf"
-    let date : String = "21 Feb 2026"
-    let amount : String = "35000"
-    let status : Bool = true
+    
+    let payment : PaymentHistoryItem
     
     var body : some View {
         VStack(alignment: .leading , spacing: 8){
             HStack{
-                Text(head)
+                Text(payment.batchName)
                     .font(.headline)
                     .multilineTextAlignment(.leading)
                  
                 Spacer()
-                Text("₹\(amount)")
+                Text("\(payment.currencyDecimalCode)\(payment.amount)")
                     .font(.headline)
                     .foregroundColor(uiColor.green)
             }
             
-            Text("Txn ID:\(id)")
+            Text("Txn ID:\(payment.transactionId)")
                 .font(.subheadline)
                 .foregroundColor(uiColor.DarkGrayText)
             
             HStack{
-                Text(date)
+                Text(payment.createAt)
                     .font(.subheadline)
                     .foregroundColor(uiColor.DarkGrayText)
                 Spacer()
-                Text(status ? "SUCCESS" : "FAILED")
+                Text(payment.status == "1" ? "SUCCESS" : "FAILED")
                     .font(.headline)
-                    .foregroundColor(status ? uiColor.green : uiColor.Error)
+                    .foregroundColor(payment.status == "1" ? uiColor.green : uiColor.Error)
             }
         }.padding()
             .background(.white)

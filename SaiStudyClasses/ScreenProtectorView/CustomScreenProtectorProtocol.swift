@@ -3,6 +3,7 @@ import UIKit
 
 public final class CustomScreenProtectorKit {
 
+    
     private weak var window: UIWindow?
     private weak var originalRootView: UIView?
     private var secureTextField: UITextField?

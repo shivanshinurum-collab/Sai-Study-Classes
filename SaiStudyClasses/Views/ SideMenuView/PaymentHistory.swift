@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PaymentHistory : View{
+    
     @Binding var path : NavigationPath
     @State var status : String = ""
     @State var message : String = ""

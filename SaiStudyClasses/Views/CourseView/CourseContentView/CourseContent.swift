@@ -5,6 +5,7 @@ struct CourseContent : View {
     
     let batch_id : String
     
+    
     @State var Documents : [ContentItem] = []
     @State var url : String = ""
     @State var purchaseCondition : Bool = false
@@ -245,6 +246,7 @@ struct CourseContent : View {
                
                 DispatchQueue.main.async {
                     self.purchaseCondition = response.purchaseCondition
+                    
                     self.Documents = response.allData
                     self.url = response.fullUrl
                 }

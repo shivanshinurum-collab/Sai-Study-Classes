@@ -126,7 +126,7 @@ final class YouTubePlayerViewController: UIViewController, WKScriptMessageHandle
 
     private func loadVideo(_ id: String) {
 
-        let html = """
+       let html = """
         <!DOCTYPE html>
         <html>
         <head>
@@ -204,7 +204,40 @@ final class YouTubePlayerViewController: UIViewController, WKScriptMessageHandle
     }
     
     deinit {
-        stopProgressTracking()
+        //stopProgressTracking()
+        stopAllProcesses()
+        print("YouTubePlayerViewController deallocated")
     }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopAllProcesses()
+    }
+    
+    
+    func stopAllProcesses() {
+        
+        print("Stopping all YouTube processes")
+        
+        // 1️⃣ Stop timer
+        stopProgressTracking()
+        
+        // 2️⃣ Pause video
+        pause()
+        
+        // 3️⃣ Stop loading if any
+        webView?.stopLoading()
+        
+        // 4️⃣ Remove script handlers
+        webView?.configuration.userContentController.removeScriptMessageHandler(forName: "ready")
+        webView?.configuration.userContentController.removeScriptMessageHandler(forName: "playerTime")
+        
+        // 5️⃣ Clear delegates (optional but safe)
+        webView?.navigationDelegate = nil
+        webView?.uiDelegate = nil
+    }
+    
+    
     
 }

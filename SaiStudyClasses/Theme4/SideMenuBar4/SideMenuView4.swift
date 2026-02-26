@@ -4,6 +4,11 @@ struct SideMenuView4: View {
     @Binding var path : NavigationPath
     @Binding var selectedTab: Int
     @Binding var showMenu: Bool
+    @State private var showLogOut = false
+    
+    let userName = UserDefaults.standard.string(forKey: "fullName") ?? "PLAY STORE"
+    let imageUrl = UserDefaults.standard.string(forKey: "image") ?? ""
+    
     
     var body: some View {
         
@@ -15,16 +20,27 @@ struct SideMenuView4: View {
                 
                 
                 VStack(spacing: 10) {
-                    Image(systemName: "person.circle.fill")
-                        .resizable()
-                        .frame(width: 60, height: 60)
-                        .foregroundColor(.red)
+                    AsyncImage(url: URL(string: imageUrl)){ img in
+                            img
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 65 , height: 65)
+                            .clipShape(.circle)
+                        
+                    } placeholder: {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                            .foregroundColor(.red)
+                    }
+                    
+                    
                     
                     Text("Student Portal")
                         .font(.headline)
                         .foregroundColor(.red)
                     
-                    Text("Play Store")
+                    Text(userName)
                         .font(.caption)
                         .foregroundColor(.red)
                 }
@@ -96,13 +112,22 @@ struct SideMenuView4: View {
                         }.buttonStyle(.plain)
                         
                         Button{
-                            
+                            path.append(Route.EditProfileView)
                         }label: {
-                            MenuRow4(icon: "person",
-                                     title: "Profile",
-                                     index: 6,
-                                     selectedTab: $selectedTab,
-                                     showMenu: $showMenu)
+                            HStack(spacing: 15) {
+                                Image(systemName: "person")
+                                    .frame(width: 22)
+                                
+                                Text("Profile")
+                                    .font(.subheadline)
+                            }
+                            .foregroundColor(.gray)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                Color.clear
+                            )
+                            .cornerRadius(10)
                         }.buttonStyle(.plain)
                         
                         Button{
@@ -117,23 +142,82 @@ struct SideMenuView4: View {
                         
                         
                         Button {
-                            
+                            showLogOut.toggle()
                         } label: {
-                            MenuRow4(icon: "rectangle.portrait.and.arrow.right",
-                                     title: "Logout",
-                                     index: 8,
-                                     selectedTab: $selectedTab,
-                                     showMenu: $showMenu)
+                            HStack(spacing: 15) {
+                                Image(systemName: "rectangle.portrait.and.arrow.right")
+                                    .frame(width: 22)
+                                
+                                Text("Logout")
+                                    .font(.subheadline)
+                            }
+                            .foregroundColor(.gray)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                Color.clear
+                            )
+                            .cornerRadius(10)
                         }
                         
                     }
                     .padding(.horizontal)
-                
+                    
                 }
             }
         }
         .frame(width: 280)
+        .confirmationDialog(
+            "Are you sure you want to LogOut?",
+            isPresented: $showLogOut,
+            titleVisibility: .visible
+        ) {
+            Button("Yes, LogOut", role: .destructive) {
+                UserLogOut()
+                path.removeLast(path.count)
+            }
+            
+            Button("Cancel", role: .cancel) {
+                
+            }
+        }
     }
+    
+    func UserLogOut(){
+        let defaults = UserDefaults.standard
+        
+        defaults.removeObject(forKey: "studentId")
+        defaults.removeObject(forKey: "userEmail")
+        defaults.removeObject(forKey: "fullName")
+        defaults.removeObject(forKey: "enrollmentId")
+        defaults.removeObject(forKey: "image")
+        defaults.removeObject(forKey: "country_code")
+        defaults.removeObject(forKey: "mobile")
+        defaults.removeObject(forKey: "versionCode")
+        defaults.removeObject(forKey: "batchId")
+        defaults.removeObject(forKey: "batchName")
+        defaults.removeObject(forKey: "referred_by")
+        defaults.removeObject(forKey: "affiliate_id")
+        defaults.removeObject(forKey: "wallet")
+        defaults.removeObject(forKey: "adminId")
+        defaults.removeObject(forKey: "paymentType")
+        defaults.removeObject(forKey: "admissionDate")
+        defaults.removeObject(forKey: "languageName")
+        defaults.removeObject(forKey: "transactionId")
+        defaults.removeObject(forKey: "amount")
+        defaults.removeObject(forKey: "isMobile")
+        defaults.removeObject(forKey: "goal")
+        defaults.removeObject(forKey: "icon")
+        defaults.removeObject(forKey: "user")
+        defaults.removeObject(forKey: "isLoggedIn")
+        
+        NotificationCenter.default.post(
+            name: NSNotification.Name("LoginStatusChanged"),
+            object: nil
+        )
+        
+    }
+    
 }
 
 

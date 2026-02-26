@@ -3,6 +3,8 @@ struct courseCard4 : View {
     
     @Binding var path : NavigationPath
     
+    let course : MyBatch
+    
     let image : String = "banner"
     let head : String = "Clinical Research"
     let subHead : String = "Testing"
@@ -10,16 +12,25 @@ struct courseCard4 : View {
     var body : some View {
         VStack(spacing:15){
             HStack{
-                Image(image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100)
+                
+                AsyncImage(url: URL(string: course.batchImage)){img in
+                    img
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100)
+                }placeholder: {
+                    ProgressView()
+                        .scaleEffect(1.5)
+                        .frame(width: 100)
+                }
+                
                 VStack(alignment: .leading){
-                    Text(head)
+                    Text(course.batchName)
                         .font(.headline)
                         .foregroundColor(.black)
-                    Text(subHead)
-                        .font(.subheadline)
+                    Text(html.htmlToAttributedString(course.description))
+                        .font(.body)
+                        .lineLimit(2)
                         .foregroundColor(uiColor.DarkGrayText)
                 }
                 Spacer()
@@ -31,13 +42,13 @@ struct courseCard4 : View {
                 Spacer()
                 
                 Image(systemName: "person.2.fill")
-                Text("245 students")
+                Text("\(course.noOfStudent) students")
             }.padding(.horizontal)
                 .foregroundColor(uiColor.DarkGrayText)
             
             HStack{
                 Button{
-                    path.append(Route.courseContent4(buy: false))
+                    path.append(Route.courseContent4(batchName: course.batchName, description: course.description, id: course.id , image: course.batchImage))
                 }label: {
                     HStack{
                         Image(systemName: "play.fill")
@@ -51,7 +62,7 @@ struct courseCard4 : View {
                     .cornerRadius(15)
                 
                 Button{
-                    path.append(Route.courseContent4(buy: false))
+                    path.append(Route.courseContent4(batchName: course.batchName, description: course.description, id: course.id , image: course.batchImage))
                 }label: {
                     HStack{
                         Image(systemName: "heart.fill")

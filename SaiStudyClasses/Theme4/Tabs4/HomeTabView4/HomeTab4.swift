@@ -64,7 +64,7 @@ struct HomeTab4 : View {
                         HStack(spacing: 15){
                             ForEach(1..<6){_ in
                                 Button{
-                                    path.append(Route.courseContent4(buy: true))
+                                    //path.append(Route.courseContent4(buy: true))
                                 }label: {
                                     VStack{
                                         Image("course")

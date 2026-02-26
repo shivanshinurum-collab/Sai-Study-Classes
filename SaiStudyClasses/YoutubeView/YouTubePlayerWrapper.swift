@@ -9,6 +9,7 @@ struct YouTubePlayerWrapper: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> YouTubePlayerViewController {
         let vc = YouTubePlayerViewController()
         vc.load(videoID: videoID)
+            
 
         DispatchQueue.main.async {
             controller = vc

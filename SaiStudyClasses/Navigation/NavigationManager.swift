@@ -63,8 +63,8 @@ struct NavigationManager: View {
                      //   AboutCourses(path: $path, course :course_id)
                         
                         
-                    case .RegistrationView:
-                        RegisterView(path: $path)
+                    case .RegistrationView(let isMobile):
+                        RegisterView(path: $path, isMobile: isMobile)
                     case .RegistrationLocationView:
                         RegisterLocationView(path: $path)
                         
@@ -162,8 +162,8 @@ struct NavigationManager: View {
                         loginOTP4(path: $path , user: user , isMobile: isMobile)
                     case .TabView4:
                         TabView4(path: $path)
-                    case .courseContent4(let buy):
-                        courseContent4(path: $path , buy: buy)
+                    case .courseContent4(let batchName , let discription , let id ,let image ):
+                        courseContent4(path: $path , batchName: batchName , description: discription , id: id , image: image)
                     case .courseBuy4:
                         courseBuy4(path: $path)
                     }

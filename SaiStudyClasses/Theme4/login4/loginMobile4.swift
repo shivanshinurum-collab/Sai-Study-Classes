@@ -10,6 +10,7 @@ struct loginMobile4 : View {
     @State var email : String = ""
     @State var showMobile : Bool = true
     
+    @State var process : Bool = false
     
     var body: some View {
         ZStack{
@@ -109,7 +110,7 @@ struct loginMobile4 : View {
                             }label: {
                                 Text("Login with email")
                                     .font(.subheadline)
-                            }
+                            }.disabled(process)
                         }
                     }
                 }else{
@@ -153,7 +154,7 @@ struct loginMobile4 : View {
                         }label: {
                             Text("Login with mobile")
                                 .font(.subheadline)
-                        }
+                        }.disabled(process)
                     }
                     
                 }
@@ -165,12 +166,19 @@ struct loginMobile4 : View {
                         validateEmail()
                     }
                 }label: {
-                    Text("Continue")
-                        .foregroundColor(.white)
-                        .bold()
-                        .frame(maxWidth: .infinity , maxHeight: 50)
+                    if !process{
+                        Text("Continue")
+                            .foregroundColor(.white)
+                            .bold()
+                            .frame(maxWidth: .infinity , maxHeight: 50)
+                    }else{
+                        ProgressView()
+                            .tint(.white)
+                            .frame(maxWidth: .infinity , maxHeight: 50)
+                    }
                 }.background(uiColor.ButtonBlue)
                     .cornerRadius(25)
+                    .disabled(process)
                 
             }.padding(20)
                 .frame(maxWidth: .infinity)
@@ -201,6 +209,7 @@ struct loginMobile4 : View {
         showError = false
         let num = String(trimmedNumber)
         print(num)
+        process = true
         sendMobile(mobile: num)
     }
     
@@ -271,6 +280,7 @@ struct loginMobile4 : View {
         }
         
         showError = false
+        process = true
         sendEmail(email: trimmedEmail)
         //path.append(Route.OTPView(user: trimmedEmail))
     }

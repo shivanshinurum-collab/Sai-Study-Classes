@@ -227,10 +227,10 @@ struct OTPView: View {
         print("Student Data Saving = ",studentData)
         // Navigate based on user data completeness
         if studentData.fullName.isEmpty && studentData.enrollmentId.isEmpty && studentData.userEmail.isEmpty {
-            path.append(Route.RegistrationView)
+            path.append(Route.RegistrationView(isMobile: isMobile))
         }
         else if studentData.fullName.isEmpty && studentData.enrollmentId.isEmpty && studentData.mobile.isEmpty {
-            path.append(Route.RegistrationView)
+            path.append(Route.RegistrationView(isMobile: isMobile))
         }
         else if !studentData.fullName.isEmpty && !studentData.enrollmentId.isEmpty && !studentData.userEmail.isEmpty {
             path.append(Route.SelectGoalView)

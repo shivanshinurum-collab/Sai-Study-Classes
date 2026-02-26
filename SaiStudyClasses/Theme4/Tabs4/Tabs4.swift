@@ -7,6 +7,8 @@ struct TabView4: View {
     @State var showMenu: Bool = false
     private let menuWidth: CGFloat = 280
     
+    @State private var showLogOut = false
+    
     var body: some View {
         
         ZStack(alignment: .leading) {
@@ -33,6 +35,7 @@ struct TabView4: View {
                         Spacer()
                         
                         Button {
+                            showLogOut.toggle()
                         } label: {
                             Image(systemName: "rectangle.portrait.and.arrow.right")
                                 .bold()
@@ -92,7 +95,58 @@ struct TabView4: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .navigationBarBackButtonHidden(true)
+        .confirmationDialog(
+            "Are you sure you want to LogOut?",
+            isPresented: $showLogOut,
+            titleVisibility: .visible
+        ) {
+            Button("Yes, LogOut", role: .destructive) {
+                UserLogOut()
+                path.removeLast(path.count)
+            }
+            
+            Button("Cancel", role: .cancel) {
+                
+            }
+        }
+        
     }
+    
+    func UserLogOut(){
+        let defaults = UserDefaults.standard
+        
+        defaults.removeObject(forKey: "studentId")
+        defaults.removeObject(forKey: "userEmail")
+        defaults.removeObject(forKey: "fullName")
+        defaults.removeObject(forKey: "enrollmentId")
+        defaults.removeObject(forKey: "image")
+        defaults.removeObject(forKey: "country_code")
+        defaults.removeObject(forKey: "mobile")
+        defaults.removeObject(forKey: "versionCode")
+        defaults.removeObject(forKey: "batchId")
+        defaults.removeObject(forKey: "batchName")
+        defaults.removeObject(forKey: "referred_by")
+        defaults.removeObject(forKey: "affiliate_id")
+        defaults.removeObject(forKey: "wallet")
+        defaults.removeObject(forKey: "adminId")
+        defaults.removeObject(forKey: "paymentType")
+        defaults.removeObject(forKey: "admissionDate")
+        defaults.removeObject(forKey: "languageName")
+        defaults.removeObject(forKey: "transactionId")
+        defaults.removeObject(forKey: "amount")
+        defaults.removeObject(forKey: "isMobile")
+        defaults.removeObject(forKey: "goal")
+        defaults.removeObject(forKey: "icon")
+        defaults.removeObject(forKey: "user")
+        defaults.removeObject(forKey: "isLoggedIn")
+        
+        NotificationCenter.default.post(
+            name: NSNotification.Name("LoginStatusChanged"),
+            object: nil
+        )
+        
+    }
+    
 }
 
 struct TabBarItem4: View {
@@ -117,6 +171,9 @@ struct TabBarItem4: View {
             .frame(maxWidth: .infinity)
         }
     }
+    
+    
+    
 }
 
 

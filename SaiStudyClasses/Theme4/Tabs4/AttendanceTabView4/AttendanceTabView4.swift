@@ -12,122 +12,123 @@ struct AttendanceTabView4: View {
     @State private var holidayDays: [String: Set<Int>] = [:]
     
     var body: some View {
-        
-        VStack(spacing: 20) {
-            
-            // MARK: - Header
-            HStack {
-                Button {
-                    changeMonth(by: -1)
-                } label: {
-                    Image(systemName: "chevron.left")
-                }
+        ScrollView{
+            VStack(spacing: 20) {
                 
-                Spacer()
-                
-                Text(monthYearString())
-                    .font(.title2)
-                    .bold()
-                
-                Spacer()
-                
-                Button {
-                    changeMonth(by: 1)
-                } label: {
-                    Image(systemName: "chevron.right")
-                }
-            }
-            .padding(.horizontal)
-            
-            
-            // MARK: - Weekday Titles
-            let weekDays = calendar.shortWeekdaySymbols
-            HStack {
-                ForEach(weekDays, id: \.self) { day in
-                    Text(day)
-                        .frame(maxWidth: .infinity)
-                        .font(.caption)
-                }
-            }
-            
-            
-            // MARK: - Calendar Grid
-            let days = daysInMonth()
-            let columns = Array(repeating: GridItem(.flexible()), count: 7)
-            
-            LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(days, id: \.self) { day in
-                    if day == 0 {
-                        Text("")
-                            .frame(height: 40)
-                    } else {
-                        dayCell(day: day)
+                // MARK: - Header
+                HStack {
+                    Button {
+                        changeMonth(by: -1)
+                    } label: {
+                        Image(systemName: "chevron.left")
+                    }
+                    
+                    Spacer()
+                    
+                    Text(monthYearString())
+                        .font(.title2)
+                        .bold()
+                    
+                    Spacer()
+                    
+                    Button {
+                        changeMonth(by: 1)
+                    } label: {
+                        Image(systemName: "chevron.right")
                     }
                 }
-            }
-            .padding(.horizontal)
-            
-            
-            // MARK: - Monthly Summary
-            VStack(spacing: 15) {
+                .padding(.horizontal)
                 
-                Text("Monthly Summary")
-                    .font(.headline)
                 
-                HStack(spacing: 15) {
-                    
-                    summaryBox(
-                        title: "Present",
-                        count: currentPresent().count,
-                        color: .green
-                    )
-                    
-                    summaryBox(
-                        title: "Absent",
-                        count: currentAbsent().count,
-                        color: .red
-                    )
-                    
-                    summaryBox(
-                        title: "Holidays",
-                        count: currentHoliday().count,
-                        color: .orange
-                    )
-                }
-                
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .frame(height: 50)
-                // MARK: - Attendance Progress
-                ZStack {
-                    
-                    SemiCircle()
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 15)
-                    
-                    SemiCircle()
-                        .trim(from: 0, to: attendancePercentage())
-                        .stroke(Color.blue,
-                                style: StrokeStyle(lineWidth: 15,
-                                                   lineCap: .round))
-                    
-                    VStack {
-                        Text("\(Int(attendancePercentage() * 100))%")
-                            .font(.title)
-                            .bold()
-                        
-                        Text("Attendance")
+                // MARK: - Weekday Titles
+                let weekDays = calendar.shortWeekdaySymbols
+                HStack {
+                    ForEach(weekDays, id: \.self) { day in
+                        Text(day)
+                            .frame(maxWidth: .infinity)
                             .font(.caption)
                     }
                 }
-                .frame(height: 150)
+                
+                
+                // MARK: - Calendar Grid
+                let days = daysInMonth()
+                let columns = Array(repeating: GridItem(.flexible()), count: 7)
+                
+                LazyVGrid(columns: columns, spacing: 10) {
+                    ForEach(days, id: \.self) { day in
+                        if day == 0 {
+                            Text("")
+                                .frame(height: 40)
+                        } else {
+                            dayCell(day: day)
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                
+                
+                // MARK: - Monthly Summary
+                VStack(spacing: 15) {
+                    
+                    Text("Monthly Summary")
+                        .font(.headline)
+                    
+                    HStack(spacing: 15) {
+                        
+                        summaryBox(
+                            title: "Present",
+                            count: currentPresent().count,
+                            color: .green
+                        )
+                        
+                        summaryBox(
+                            title: "Absent",
+                            count: currentAbsent().count,
+                            color: .red
+                        )
+                        
+                        summaryBox(
+                            title: "Holidays",
+                            count: currentHoliday().count,
+                            color: .orange
+                        )
+                    }
+                    
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(height: 50)
+                    // MARK: - Attendance Progress
+                    ZStack {
+                        
+                        SemiCircle()
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 15)
+                        
+                        SemiCircle()
+                            .trim(from: 0, to: attendancePercentage())
+                            .stroke(Color.blue,
+                                    style: StrokeStyle(lineWidth: 15,
+                                                       lineCap: .round))
+                        
+                        VStack {
+                            Text("\(Int(attendancePercentage() * 100))%")
+                                .font(.title)
+                                .bold()
+                            
+                            Text("Attendance")
+                                .font(.caption)
+                        }
+                    }
+                    .frame(height: 150)
+                }
+                .padding()
+                .background(Color.red.opacity(0.2))
+                .cornerRadius(20)
+                
+                Spacer()
             }
-            .padding()
-            .background(Color.red.opacity(0.2))
-            .cornerRadius(20)
-            
-            Spacer()
-        }
-        .padding(.top)
+            .padding(.top)
+        }.scrollIndicators(.hidden)
         .onAppear {
             setupDefaultHoliday()
         }
