@@ -229,7 +229,6 @@ struct FoldersView: View {
             do {
                 let response = try JSONDecoder().decode(FolderContentResponse.self, from: data)
                
-                
                 DispatchQueue.main.async {
                     
                     self.purchaseCondition =  response.purchaseCondition

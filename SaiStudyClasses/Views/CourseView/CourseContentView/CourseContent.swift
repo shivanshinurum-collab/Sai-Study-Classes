@@ -245,7 +245,7 @@ struct CourseContent : View {
                 let response = try JSONDecoder().decode(BatchContentResponse.self, from: data)
                
                 DispatchQueue.main.async {
-                    self.purchaseCondition = response.purchaseCondition
+                    self.purchaseCondition =  response.purchaseCondition
                     
                     self.Documents = response.allData
                     self.url = response.fullUrl
